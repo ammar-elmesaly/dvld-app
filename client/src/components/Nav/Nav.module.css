@@ -1,0 +1,23 @@
+.nav {
+    background: #212222;
+    border-bottom: 1px solid #ddd;
+}
+
+.list {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.list a {
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff8ff;
+    padding: 16px;
+}
+
+.list a:hover {
+    background: rgba(116, 119, 119, 0.4);
+}

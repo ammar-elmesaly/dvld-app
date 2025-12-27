@@ -11,7 +11,7 @@ form {
 }
 
 /* Row: label + input */
-.form-row {
+.formRow {
     display: grid;
     grid-template-columns: 90px 1fr;
     align-items: center;
@@ -19,7 +19,7 @@ form {
 }
 
 /* Input with icon */
-.input-group {
+.inputGroup {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -28,13 +28,13 @@ form {
     padding: 6px 8px;
 }
 
-.input-group i {
+.inputGroup i {
     font-size: 14px;
     color: #666;
 }
 
 /* General input styles */
-.input-group input {
+.inputGroup input {
     flex: 1;
     border: none;
     outline: none;
@@ -43,19 +43,14 @@ form {
 }
 
 /* Focus state */
-.input-group:focus-within {
+.inputGroup:focus-within {
     border-color: var(--primary-bg);
 }
 
 /* Checkbox row */
-.checkbox-row {
+.checkboxRow {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-left: 90px;
-}
-
-form button {
-    align-self: center;
-    margin-top: 12px;
 }

@@ -1,27 +1,27 @@
-import '../styles/forms/global.css';
-import Button from './ui/Button';
+import styles from './LoginForm.module.css';
+import Button from '../Button/Button';
 
 function LoginForm() {
     return (
-        <form action="/api/login">
+        <form action="/api/login" className={styles.form}>
 
-            <div className="form-row">
+            <div className={styles.formRow}>
                 <label>Username:</label>
-                <div className="input-group">
+                <div className={styles.inputGroup}>
                     <i className="bi bi-person" />
                     <input name="username" type="text" required />
                 </div>
             </div>
 
-            <div className="form-row">
+            <div className={styles.formRow}>
                 <label>Password:</label>
-                <div className="input-group">
+                <div className={styles.inputGroup}>
                     <i className="bi bi-key" />
                     <input name="password" type="password" required />
                 </div>
             </div>
 
-            <div className="checkbox-row">
+            <div className={styles.checkboxRow}>
                 <input type="checkbox" id="remember" />
                 <label htmlFor="remember">Remember me</label>
             </div>
