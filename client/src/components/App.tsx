@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
+import People from './People/People';
 import LoginForm from './LoginForm/LoginForm';
 import Button from './Button/Button';
 import Nav from './Nav/Nav';
@@ -14,10 +15,6 @@ const [ count, setCount ] = useState(0);
         <Button onClick={() => setCount(count + 1)} color='success'>{count}</Button>
     </>
   );
-}
-
-function People() {
-  return <h1>People Page</h1>;
 }
 
 function Users() {

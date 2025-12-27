@@ -2,8 +2,7 @@ import styles from './Nav.module.css';
 import { NavLink, type NavLinkProps } from 'react-router-dom';
 
 const navLinkStyles: NavLinkProps['style'] = ({ isActive }) => ({
-    backgroundColor: isActive ? '#ddd' : undefined,
-    color: isActive ? '#212222' : undefined,
+    backgroundColor: isActive ? 'var(--primary-bg)' : undefined,
 });
 
 function Nav() {

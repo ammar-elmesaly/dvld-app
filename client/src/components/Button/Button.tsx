@@ -5,7 +5,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     iconLeft?: string;
     iconRight?: string;
     color?: string;
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 
@@ -18,10 +18,10 @@ export function Button({
     ...rest
 }: ButtonProps) {
     return (
-        <button className={`${color} ${className} ${styles}`} {...rest}>
-            {iconLeft && <i className={`bi bi-${iconLeft}`} />}
+        <button className={`${color} ${className} ${styles.button}`} {...rest}>
+            {iconLeft && <i className={`bi bi-${iconLeft} ${styles.iconLeft}`} />}
             {children}
-            {iconRight && <i className={`bi bi-${iconRight}`} />}
+            {iconRight && <i className={`bi bi-${iconRight} ${styles.iconRight}`} />}
         </button>
     );
 }

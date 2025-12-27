@@ -1,4 +1,4 @@
-button {
+.button {
     border-radius: 8px;
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
@@ -9,6 +9,14 @@ button {
     transition: border-color 0.25s;
 }
 
-button:active {
+.iconLeft {
+    margin-right: 10px !important;
+}
+
+.iconRight {
+    margin-left: 10px !important;
+}
+
+.button:active {
     transform: scale(0.96);
 }
