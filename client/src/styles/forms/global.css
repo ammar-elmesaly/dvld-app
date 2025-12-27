@@ -1,0 +1,61 @@
+/* Form layout */
+form {
+    max-width: 420px;
+    margin: 40px auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    font-size: 14px;
+}
+
+/* Row: label + input */
+.form-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+    column-gap: 12px;
+}
+
+/* Input with icon */
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+}
+
+.input-group i {
+    font-size: 14px;
+    color: #666;
+}
+
+/* General input styles */
+.input-group input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 4px;
+}
+
+/* Focus state */
+.input-group:focus-within {
+    border-color: var(--primary-bg);
+}
+
+/* Checkbox row */
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 90px;
+}
+
+form button {
+    align-self: center;
+    margin-top: 12px;
+}
