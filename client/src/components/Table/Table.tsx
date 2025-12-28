@@ -1,16 +1,19 @@
-import { ButtonHTMLAttributes } from "react";
+import { TableHTMLAttributes } from "react";
 import styles from './Table.module.css';
 
-interface TableProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
     data: Record<string, unknown>[];
+    filterBy: string;
+    filterValue: string;
 }
 
-export default function Table({ data }: TableProps) {
+export default function Table({ data, filterBy = '', filterValue = ''}: TableProps) {
+    const filteredData = filterData(data, filterBy, filterValue);
 
-    if (!data || data.length === 0) {
-        return <p>No data available</p>;
+    if (filteredData.length === 0) {
+        return <p>No data to show.</p>
     }
-
+    
     const headers = Object.keys(data[0]);
 
     return (
@@ -25,7 +28,7 @@ export default function Table({ data }: TableProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((row, index) => (
+                    {filteredData.map((row, index) => (
                         <tr key={`${row.id || index}`}>
                             {headers.map((header) => (
                                 <td key={header}>{`${row[header]}`}</td>
@@ -35,7 +38,23 @@ export default function Table({ data }: TableProps) {
                 </tbody>
             </table>
         </div>
-        <div># Records: {data.length}</div>
+        <div># Records: {filteredData.length}</div>
         </>
     );
+}
+
+function filterData(data: Record<string, unknown>[], filterBy: string, filterValue: string) {
+    if (!data) return [];
+    
+    try {
+        const regex = new RegExp(filterValue, 'i');
+        const filteredData = filterBy === '' ? data : data.filter(record => {
+            return regex.test(`${record[filterBy]}`);
+        });
+        return filteredData;
+
+    } catch (e) {
+        return [];
+    }
+
 }

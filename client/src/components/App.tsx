@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import People from './People/People';
+import People from './ManagePeople/ManagePeople';
 import LoginForm from './LoginForm/LoginForm';
 import Button from './Button/Button';
 import Nav from './Nav/Nav';
