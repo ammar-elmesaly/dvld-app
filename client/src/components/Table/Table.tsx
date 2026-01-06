@@ -52,7 +52,11 @@ export default function Table<RowType, RowActionType>({ data, filterBy = '', fil
                     (
                     <td className={styles.actionCell}>
                       {openMenuRow === rowKey && (
-                        <ContextMenu row={filteredData[index]} rowActions={rowActions} />
+                        <ContextMenu
+                          row={filteredData[index]}
+                          rowActions={rowActions}
+                          onClose={() => setOpenMenuRow(null)}
+                        />
                         )}
                     </td> 
                     )

@@ -6,7 +6,6 @@ interface ViewPersonProps {
 
 export function ViewPerson({ person }: ViewPersonProps) {
 
-  console.log(person)
   return <>
     <h1>Viewing Person</h1>
     <p>ID: {person.id}</p>

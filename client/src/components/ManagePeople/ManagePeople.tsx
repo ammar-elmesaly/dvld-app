@@ -104,24 +104,20 @@ export default function People() {
     }
   ];
 
-  let overlay: React.ReactNode = null;
+  let selectedAction: React.ReactNode = null;
 
   switch (activeRowAction?.type) {
     case PeopleActionType.View:
-      overlay = (
-        <Overlay open={activeRowAction !== null} onClose={() => setActiveRowAction(null)}>
-          <ViewPerson
-            person={ activeRowAction.row }
-          />
-        </Overlay>
+      selectedAction = (
+        <ViewPerson
+          person={ activeRowAction.row }
+        />
       );
       break;
 
     case PeopleActionType.Edit:
-      overlay = (
-        <Overlay open={activeRowAction !== null} onClose={() => setActiveRowAction(null)}>
-          <AddPersonForm />
-        </Overlay>
+      selectedAction = (
+        <AddPersonForm />
       );
       break;
   }
@@ -145,7 +141,9 @@ export default function People() {
         </Overlay>
 
         { activeRowAction &&
-          overlay
+        <Overlay open={activeRowAction !== null} onClose={() => setActiveRowAction(null)}>
+          { selectedAction }
+        </Overlay>
         }
       </div>
       <ManagePeopleTable
