@@ -5,7 +5,7 @@ import LoginForm from './LoginForm/LoginForm';
 import Button from './Button/Button';
 import Nav from './Nav/Nav';
 
-const loggedIn = true;  // temporary logged-in bool
+const loggedIn = false;  // temporary logged-in bool
 
 function Applications() {
 const [ count, setCount ] = useState(0);
