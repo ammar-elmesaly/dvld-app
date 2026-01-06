@@ -7,21 +7,17 @@
 
 .headerRow {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap; /* wrap on small screens */
-    gap: 10px;
+    justify-content: center;
 }
 
 .h1 i {
     font-size: 32px;
 }
 
-
-
 .controls {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     flex-wrap: wrap;
 }

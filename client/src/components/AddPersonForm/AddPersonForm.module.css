@@ -1,0 +1,139 @@
+.form {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Added gap for spacing */
+}
+
+.headerRow {
+    display: flex;
+    justify-content: center;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+    column-gap: 12px;
+}
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+}
+
+.inputGroup i {
+    font-size: 14px;
+    color: #666;
+}
+
+.inputGroup input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+
+
+.inputGroup:focus-within {
+    border-color: var(--primary-bg);
+}
+
+/* --- Extensions for Layout --- */
+
+.personIdRow {
+    display: flex;
+    gap: 10px;
+    font-weight: bold;
+}
+
+.mainLayout {
+    display: flex;
+    gap: 20px;
+    /* flex-wrap: wrap; */
+}
+
+.fieldsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* flex-wrap: wrap; */
+}
+
+/* Name Row Grid */
+.nameGrid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+/* Container for side-by-side formRows */
+.splitRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.radioGroup {
+    display: flex;
+    gap: 15px;
+}
+
+.imageColumn {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imageBox {
+    width: 130px;
+    height: 140px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+}
+
+.imageLinkContainer {
+    color: red;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.imageLink {
+    display: flex;
+    gap: 4px;                /* Space between button and text */
+    cursor: pointer;
+    justify-content: center;
+    text-wrap: wrap;
+    width: 100px;
+    margin-top: 10px;
+}
+
+.imageLink::file-selector-button {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.addressTextarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    resize: vertical;
+}
+
+.controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}

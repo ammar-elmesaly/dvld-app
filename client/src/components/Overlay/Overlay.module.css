@@ -1,0 +1,19 @@
+.overlayBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.overlayWindow {
+    background: #211f3c;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 96vw;
+    max-height: 90vh;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}

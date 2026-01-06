@@ -3,8 +3,7 @@ import Button from '../Button/Button';
 
 function LoginForm() {
     return (
-        <form action="/api/login" className={styles.form}>
-
+        <form action="/api/login" method='POST' className={styles.form}>
             <div className={styles.formRow}>
                 <label>Username:</label>
                 <div className={styles.inputGroup}>

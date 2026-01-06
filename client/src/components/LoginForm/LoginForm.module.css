@@ -1,5 +1,5 @@
 /* Form layout */
-form {
+.form {
     max-width: 420px;
     margin: 40px auto;
 
@@ -36,10 +36,9 @@ form {
 /* General input styles */
 .inputGroup input {
     flex: 1;
+    background: none;
     border: none;
     outline: none;
-    font-size: 14px;
-    padding: 4px;
 }
 
 /* Focus state */

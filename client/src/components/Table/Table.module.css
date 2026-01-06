@@ -45,3 +45,8 @@ td:first-child {
 td:last-child {
     border-right: none;
 }
+
+.actionCell {
+    position: relative;
+    width: 1px;
+}
