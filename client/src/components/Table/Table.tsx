@@ -55,7 +55,7 @@ export default function Table<RowType, RowActionType>({ data, filterBy = '', fil
                         <ContextMenu
                           row={filteredData[index]}
                           rowActions={rowActions}
-                          onClose={() => setOpenMenuRow(null)}
+                          onClose={() => { if (!setOpenMenuRow) return; setOpenMenuRow(null)}}
                         />
                         )}
                     </td> 

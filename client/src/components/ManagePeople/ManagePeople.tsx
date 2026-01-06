@@ -87,7 +87,7 @@ export default function People() {
   const [filterValue, setFilterValue] = useState("");
   const [addPersonOpen, setAddPersonOpen] = useState(false);
 
-  const [ openMenuRow, setOpenMenuRow ] = useState(null);
+  const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
   // This sets which row action is active, which could be
   // View, Delete, Call, etc..
   const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<Person, PeopleActionType>>(null);
@@ -99,10 +99,32 @@ export default function People() {
     },
 
     {
+      type: PeopleActionType.NewPerson,
+      handler: (row) => setActiveRowAction({ row, type: PeopleActionType.NewPerson })
+    },
+
+    {
       type: PeopleActionType.Edit,
       handler: (row) => setActiveRowAction({ row, type: PeopleActionType.Edit })
-    }
+    },
+
+
+    {
+      type: PeopleActionType.Delete,
+      handler: (row) => setActiveRowAction({ row, type: PeopleActionType.Delete })
+    },
+
+    {
+      type: PeopleActionType.Email,
+      handler: (row) => setActiveRowAction({ row, type: PeopleActionType.Email })
+    },
+
+    {
+      type: PeopleActionType.Call,
+      handler: (row) => setActiveRowAction({ row, type: PeopleActionType.Call })
+    },
   ];
+
 
   let selectedAction: React.ReactNode = null;
 
@@ -114,10 +136,34 @@ export default function People() {
         />
       );
       break;
+    
+    case PeopleActionType.NewPerson:
+      selectedAction = (
+        <AddPersonForm />
+      );
+      break;
 
     case PeopleActionType.Edit:
       selectedAction = (
-        <AddPersonForm />
+        <h1 className='stub'>STUB!</h1>
+      );
+      break;
+    
+    case PeopleActionType.Delete:
+      selectedAction = (
+        <h1 className='stub'>STUB!</h1>
+      );
+      break;
+    
+    case PeopleActionType.Email:
+      selectedAction = (
+        <h1 className='stub'>STUB!</h1>
+      );
+      break;
+
+    case PeopleActionType.Call:
+      selectedAction = (
+        <h1 className='stub'>STUB!</h1>
       );
       break;
   }

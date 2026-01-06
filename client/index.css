@@ -43,3 +43,8 @@ ul, ol {
 .bi {
     font-size: 20px;
 }
+
+.stub {
+    color: yellow;
+    font-size: 32px;
+}

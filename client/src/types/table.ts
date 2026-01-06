@@ -1,6 +1,10 @@
 export enum PeopleActionType {
-    View = 'view',
-    Edit = 'edit',
+    View = 'View',
+    NewPerson = 'Add a new Person',
+    Edit = 'Edit',
+    Delete = 'Delete',
+    Email = 'Send Email',
+    Call = 'Phone Call'
 }
 
 export type RowActionDef<RowType, RowActionType> = {
