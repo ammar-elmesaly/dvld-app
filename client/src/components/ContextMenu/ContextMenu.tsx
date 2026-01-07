@@ -1,34 +1,43 @@
+import { RowActionDef } from '../../types/table';
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Button from '../Button/Button';
 import styles from './ContextMenu.module.css';
-import { RowActionDef } from '../../types/table';
-import { useEffect, useRef } from 'react';
 
 interface ContextMenuProps<RowType, RowActionType> {
   row: RowType;
   rowActions: RowActionDef<RowType, RowActionType>[];
   onClose: () => void;
+  position: { x: number; y: number };
 }
 
-export default function ContextMenu<RowType, RowActionType>({ row, rowActions, onClose }: ContextMenuProps<RowType, RowActionType>) {
-  const menuRef = useRef<HTMLDivElement>(null);
+export default function ContextMenu<RowType, RowActionType>({
+  row,
+  rowActions,
+  onClose,
+  position
+}: ContextMenuProps<RowType, RowActionType>) {
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node)
-      ) {
+      const menu = document.getElementById('context-menu-portal');
+      if (menu && !menu.contains(event.target as Node)) {
         onClose();
       }
     }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [onClose]);
 
-    document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [onClose]);
-
-  
-  return (
-    <div ref={menuRef} className={styles.menu}>
+  return createPortal(
+    <div
+      id="context-menu-portal"
+      className={styles.menu}
+      style={{
+        top: position.y,
+        left: position.x,
+      }}
+    >
       {rowActions.map(action => (
         <Button
           key={`${action.type}`}
@@ -40,6 +49,7 @@ export default function ContextMenu<RowType, RowActionType>({ row, rowActions, o
           {`${action.type}`}
         </Button>
       ))}
-    </div>
+    </div>,
+    document.body
   );
 }

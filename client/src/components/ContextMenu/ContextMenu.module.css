@@ -1,12 +1,11 @@
 .menu {
-    position: absolute;
-    top: 50%;
-    left: 0;
+    position: fixed;
     background: #212425;
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
     z-index: 1000;
     min-width: 165px;
+    max-width: 250px;
     overflow: hidden;
 }
 
