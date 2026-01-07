@@ -5,7 +5,7 @@ import LoginForm from './LoginForm/LoginForm';
 import Button from './Button/Button';
 import Nav from './Nav/Nav';
 
-const loggedIn = false;  // temporary logged-in bool
+const loggedIn = true;  // temporary logged-in bool
 
 function Applications() {
 const [ count, setCount ] = useState(0);
@@ -42,7 +42,7 @@ function App() {
             <Nav />
             <Routes>
                 <Route path='/applications' element={<Applications />} />
-                <Route path='/people' element={<People/>} />
+                <Route path='/people' element={<People />} />
                 <Route path='/drivers' element={<Drivers/>} />
                 <Route path='/users' element={<Users/>} />
                 <Route path='/account-settings' element={<AccountSettings/>} />

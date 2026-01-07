@@ -1,5 +1,11 @@
 import { DataSource } from "typeorm";
 
+import { Person } from "./entities/Person";
+import { User } from "./entities/User";
+import { Country } from "./entities/Country";
+import { Application } from "./entities/Application";
+import { ApplicationType } from "./entities/ApplicationType";
+
 export const AppDataSource = new DataSource({
     type: "postgres",
     host: process.env.DB_HOST,
@@ -8,5 +14,11 @@ export const AppDataSource = new DataSource({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     synchronize: true,
-    // entities: [Client, Banker, Transaction]
+    entities: [
+        Person,
+        User,
+        Country,
+        Application,
+        ApplicationType
+    ]
 });

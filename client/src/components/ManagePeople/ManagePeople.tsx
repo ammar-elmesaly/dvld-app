@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './ManagePeople.module.css';
 import Button from '../Button/Button';
 import Filter from '../Filter/Filter';
@@ -9,78 +9,7 @@ import { Person } from '../../types/person';
 
 import { RowActionDef, ActiveRowAction, PeopleActionType } from '../../types/table';
 import { ViewPerson } from '../ViewPerson/ViewPerson';
-
-const data: Person[] = [
-  {
-    name: 'عمار علي عبدالحميد المصلي',
-    age: 21,
-    gender: 'male',
-    salary: 4200,
-    isActive: true,
-    id: 2
-  },
-  {
-    name: 'علي عبدالجليل أحمد حبيش',
-    age: 21,
-    gender: 'male',
-    salary: 4200,
-    isActive: true,
-    id: 5
-  },
-  {
-    name: 'Ammar',
-    age: 21,
-    gender: 'male',
-    salary: 4200,
-    isActive: true,
-    id: 7
-  },
-
-  {
-    name: 'Ahmed',
-    age: 23,
-    gender: 'male',
-    salary: 2000,
-    isActive: false,
-    id: 8
-  },
-
-  {
-    name: 'Salma',
-    age: 40,
-    gender: 'female',
-    salary: 2300,
-    isActive: true,
-    id: 9
-  },
-
-  {
-    name: 'Salma',
-    age: 40,
-    gender: 'female',
-    salary: 2300,
-    isActive: true,
-    id: 10
-  },
-
-  {
-    name: 'Salma',
-    age: 40,
-    gender: 'female',
-    salary: 2300,
-    isActive: true,
-    id: 11
-  },
-
-  {
-    name: 'Salma',
-    age: 40,
-    gender: 'female',
-    salary: 2300,
-    isActive: true,
-    id: 12
-  }
-]
+import { getAllPersons } from '../../api/person';
 
 export default function People() {
   const [filterBy, setFilterBy] = useState("");
@@ -168,6 +97,12 @@ export default function People() {
       break;
   }
 
+  const [persons, setPeople] = useState<Person[]>([]);
+
+  useEffect(() => {
+      getAllPersons().then(setPeople);
+  }, []);
+
   return (
     <section className={styles.section}>
       <div className={styles.headerRow}>
@@ -175,7 +110,7 @@ export default function People() {
       </div>
       <div className={styles.controls}>
         <Filter
-          options={Object.keys(data[0] ?? {})}
+          options={Object.keys(persons[0] ?? {})}
           filterBy={filterBy}
           filterValue={filterValue}
           setFilterBy={setFilterBy}
@@ -193,7 +128,7 @@ export default function People() {
         }
       </div>
       <ManagePeopleTable
-        data={data}
+        data={persons}
         filterBy={filterBy}
         filterValue={filterValue}
         openMenuRow={openMenuRow}

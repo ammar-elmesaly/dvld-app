@@ -2,21 +2,36 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
-// import allRouters from './routes';
+import allRouters from './routes';
 import { AppDataSource } from './dataSource';
-
+import cors from 'cors';
 
 const app = express();
-const PORT = process.env.DB_PORT || '8080';
+const PORT = process.env.PORT || '3000';
+
+// Allow CORS for frontend
+app.use(cors({
+    origin: 'http://localhost:5173', // frontend
+    credentials: true,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}));
 
 app.use(express.json());
-// app.use(allRouters);
+app.use(allRouters);
 
-app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`);
-});
+const main = async () => {
+    try {
+        await AppDataSource.initialize();
+        console.log('Init DB');
 
-AppDataSource.initialize()
-    .catch((err) => {
-        console.error('Error during Data Source initialization', err);
-    });
+        app.listen(PORT, () => {
+            console.log(`App listening on port ${PORT}`);
+        });
+    
+    } catch (err) {
+        console.error(err);
+        process.exit(-1);
+    }
+}
+
+main();

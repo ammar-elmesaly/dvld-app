@@ -30,8 +30,4 @@ function LoginForm() {
   );
 }
 
-// TODO:
-/*
-  - Must have an **active** user in the user table (database)
-*/
 export default LoginForm;
