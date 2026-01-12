@@ -1,9 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
+
 import People from './ManagePeople/ManagePeople';
+import ManageUsers from './ManageUsers/ManageUsers';
 import LoginForm from './LoginForm/LoginForm';
 import Button from './Button/Button';
 import Nav from './Nav/Nav';
+import AccountSettings from './AccountSettings/AccountSettings';
 
 const loggedIn = true;  // temporary logged-in bool
 
@@ -17,16 +20,8 @@ const [ count, setCount ] = useState(0);
   );
 }
 
-function Users() {
-  return <h1>Users Page</h1>;
-}
-
 function Drivers() {
   return <h1>Drivers Page</h1>;
-}
-
-function AccountSettings() {
-  return <h1>Settings Page</h1>;
 }
 
 function App() {
@@ -44,7 +39,7 @@ function App() {
                 <Route path='/applications' element={<Applications />} />
                 <Route path='/people' element={<People />} />
                 <Route path='/drivers' element={<Drivers/>} />
-                <Route path='/users' element={<Users/>} />
+                <Route path='/users' element={<ManageUsers />} />
                 <Route path='/account-settings' element={<AccountSettings/>} />
             </Routes>
         </BrowserRouter>

@@ -101,7 +101,6 @@
 }
 
 .imageLinkContainer {
-    color: red;
     width: fit-content;
     display: flex;
     justify-content: center;

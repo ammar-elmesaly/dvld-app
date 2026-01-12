@@ -1,0 +1,33 @@
+.container {
+    max-width: 600px;
+    margin: 1rem auto;
+}
+
+.title {
+    margin-bottom: 1.5rem;
+}
+
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.sectionTitle {
+    margin-bottom: 0.75rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form input {
+    padding: 0.5rem;
+}
+
+.form button {
+    margin-top: 0.5rem;
+}

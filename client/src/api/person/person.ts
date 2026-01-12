@@ -1,0 +1,19 @@
+import { baseUrl } from "../baseUrl";
+
+export async function getAllPersons() {
+    const res = await fetch(`${baseUrl}/person/all`);
+    
+    if (!res.ok)
+        throw new Error("Error: Get all persons");
+
+    return res.json();
+}
+
+export async function getPersonById(id: number) {
+    const res = await fetch(`${baseUrl}/person/id/${id}`);
+
+    if (!res.ok)
+        throw new Error("Error: Get person by id");
+
+    return res.json();
+}

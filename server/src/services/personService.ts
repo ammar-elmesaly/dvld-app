@@ -7,6 +7,10 @@ export const getAllPersons = () => {
     return PersonRepo.find();
 }
 
+export const getPersonById = (personId: number) => {
+    return PersonRepo.findOneBy({ id: personId })
+}
+
 export const addNewPerson = async (
     firstName: string,
     secondName: string,

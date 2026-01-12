@@ -7,6 +7,15 @@ export enum PeopleActionType {
     Call = 'Phone Call'
 }
 
+export enum UserActionType {
+    View = 'View',
+    NewUser = 'Add a new User',
+    Edit = 'Edit',
+    Delete = 'Delete',
+    Email = 'Send Email',
+    Call = 'Phone Call'
+}
+
 export type RowActionDef<RowType, RowActionType> = {
     type: RowActionType;
     handler: (row: RowType) => void;

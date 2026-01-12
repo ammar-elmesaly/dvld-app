@@ -8,8 +8,8 @@ import ManagePeopleTable from '../Tables/ManagePeopleTable';
 import { Person } from '../../types/person';
 
 import { RowActionDef, ActiveRowAction, PeopleActionType } from '../../types/table';
-import { ViewPerson } from '../ViewPerson/ViewPerson';
-import { getAllPersons } from '../../api/person';
+import PersonInformation from '../PersonInformation/PersonInformation';
+import { getAllPersons } from '../../api/person/person';
 
 export default function People() {
   const [filterBy, setFilterBy] = useState("");
@@ -60,7 +60,7 @@ export default function People() {
   switch (activeRowAction?.type) {
     case PeopleActionType.View:
       selectedAction = (
-        <ViewPerson
+        <PersonInformation
           person={ activeRowAction.row }
         />
       );
@@ -128,7 +128,7 @@ export default function People() {
         }
       </div>
       <ManagePeopleTable
-        data={persons}
+        people={persons}
         filterBy={filterBy}
         filterValue={filterValue}
         openMenuRow={openMenuRow}

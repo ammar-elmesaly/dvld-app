@@ -6,6 +6,12 @@ export const getAllPersonsHandler: RequestHandler = async (_req, res) => {
     res.json(persons);
 }
 
+export const getPersonById: RequestHandler = async (req, res) => {
+    const { personId } = req.params;
+    const person = await personService.getPersonById(personId);
+    res.json(person);
+}
+
 export const createPersonHandler: RequestHandler = async (req, res) => {
     const {
         firstName,

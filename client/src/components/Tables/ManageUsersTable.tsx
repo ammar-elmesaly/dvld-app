@@ -3,7 +3,7 @@ import Table from "../Table/Table";
 import { RowActionDef } from "../../types/table";
 
 interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTableElement> {
-  people: Record<string, unknown>[];
+  users: Record<string, unknown>[];
   filterBy?: string;
   filterValue?: string;
   openMenuRow: string | null;
@@ -11,8 +11,8 @@ interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTab
   rowActions: RowActionDef<RowType, RowActionType>[];
 }
 
-export default function ManagePeopleTable<RowType, RowActionType>({
-  people,
+export default function ManageUsersTable<RowType, RowActionType>({
+  users,
   filterBy = '',
   filterValue = '',
   openMenuRow,
@@ -21,15 +21,9 @@ export default function ManagePeopleTable<RowType, RowActionType>({
   ...rest
 }: TableProps<RowType, RowActionType>
 ) {
-  
-  const peopleMapped = people.map(person => ({
-    ...person,
-    date_of_birth: new Date(person.date_of_birth as string).toLocaleDateString()
-  }));
-
   return (
     <Table
-    data={peopleMapped}
+    data={users}
     filterBy={filterBy}
     filterValue={filterValue}
     rowActions={rowActions}
