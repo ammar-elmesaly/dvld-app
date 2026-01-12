@@ -5,6 +5,7 @@ import express from 'express';
 import allRouters from './routes';
 import { AppDataSource } from './dataSource';
 import cors from 'cors';
+import { errorHandler } from './middleware/globalErrorHandler';
 
 const app = express();
 const PORT = process.env.PORT || '3000';
@@ -18,6 +19,8 @@ app.use(cors({
 
 app.use(express.json());
 app.use(allRouters);
+
+app.use(errorHandler);
 
 const main = async () => {
     try {

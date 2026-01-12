@@ -13,7 +13,7 @@ export async function getPersonById(id: number) {
     const res = await fetch(`${baseUrl}/person/id/${id}`);
 
     if (!res.ok)
-        throw new Error("Error: Get person by id");
+        throw new Error("Person not found.");
 
     return res.json();
 }

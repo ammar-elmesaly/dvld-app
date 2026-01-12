@@ -60,9 +60,12 @@ export default function People() {
   switch (activeRowAction?.type) {
     case PeopleActionType.View:
       selectedAction = (
-        <PersonInformation
-          person={ activeRowAction.row }
-        />
+        <>
+          <h1>View Person</h1>
+          <PersonInformation
+            person={ activeRowAction.row }
+          />
+        </>
       );
       break;
     

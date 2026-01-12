@@ -1,5 +1,7 @@
 import { RequestHandler } from "express";
+
 import * as personService from "../services/personService";
+import { AppError } from "../types/errors";
 
 export const getAllPersonsHandler: RequestHandler = async (_req, res) => {
     const persons = await personService.getAllPersons();
@@ -8,7 +10,11 @@ export const getAllPersonsHandler: RequestHandler = async (_req, res) => {
 
 export const getPersonById: RequestHandler = async (req, res) => {
     const { personId } = req.params;
-    const person = await personService.getPersonById(personId);
+    const person = await personService.getPersonById(personId as unknown as number);
+    
+    if (!person)
+        throw new AppError("Person not found", 404);
+
     res.json(person);
 }
 

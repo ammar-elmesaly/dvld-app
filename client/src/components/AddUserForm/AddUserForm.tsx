@@ -28,30 +28,7 @@ export default function AddUserForm() {
             setFilterValue={setFilterValue}
             />
             <Button color='primary' icon='search' type='button'
-            onClick={async () => {
-              switch (filterBy) {
-                case "id": {
-                  const personId = Number(filterValue);
-
-                  if (!Number.isInteger(personId))
-                    break;
-                  
-                  const person = await getPersonById(personId);
-                  setPerson(person);
-                  break;
-                }
-
-                case "username":
-                  break;
-
-                case "none":
-                  break;
-
-                default:
-                  alert('Invalid filter by option.');
-                  break;
-              }
-            }}
+            onClick={() => searchPerson(filterBy, filterValue, setPerson)}
             />
             <Button color='success' icon='link' type='button' />
           </div>
@@ -65,4 +42,33 @@ export default function AddUserForm() {
       </div>
     </form>
   );
+}
+
+async function searchPerson(
+  filterBy: string,
+  filterValue: string,
+  setPerson: React.Dispatch<React.SetStateAction<undefined>>
+) {
+  switch (filterBy) {
+    case "id": {
+      const personId = Number(filterValue);
+
+      if (!Number.isInteger(personId))
+        break;
+
+      try {
+        const person = await getPersonById(personId);
+        setPerson(person);
+
+      } catch (err) {
+        alert(err);
+      }
+
+      break;
+    }
+
+    default:
+      alert('Invalid filter by option.');
+      break;
+  }
 }
