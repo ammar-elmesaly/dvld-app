@@ -1,10 +1,10 @@
-import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../urls";
 
 export async function getAllPersons() {
     const res = await fetch(`${baseUrl}/person/all`);
     
     if (!res.ok)
-        throw new Error("Error: Get all persons");
+        throw new Error("Get all persons");
 
     return res.json();
 }

@@ -6,6 +6,7 @@ import allRouters from './routes';
 import { AppDataSource } from './dataSource';
 import cors from 'cors';
 import { errorHandler } from './middleware/globalErrorHandler';
+import path from 'path';
 
 const app = express();
 const PORT = process.env.PORT || '3000';
@@ -18,6 +19,13 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+app.use(
+    '/uploads',
+    express.static(path.join(__dirname, '..', 'uploads'))
+);
+
+
 app.use(allRouters);
 
 app.use(errorHandler);

@@ -100,6 +100,11 @@
     font-size: 40px;
 }
 
+.imageBox img {
+    width: 125px;
+    height: 135px;
+}
+
 .imageLinkContainer {
     width: fit-content;
     display: flex;

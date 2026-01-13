@@ -1,3 +1,4 @@
+import { uploadUrl } from "../../api/urls";
 import { Person } from "../../types/person"
 
 interface PersonInfoProps {
@@ -18,10 +19,11 @@ export default function PersonInformation({ person }: PersonInfoProps) {
     gender: 'M',
     phone_number: '??',
     email: '??',
-    country_id: '??',
+    national_country: '??',
     address: '??',
-    personal_photo_path: '??'
+    personal_photo: '??'
   }
+
   return (
     <section className={styles.form}>
       <div className={styles.personIdRow}>
@@ -54,7 +56,7 @@ export default function PersonInformation({ person }: PersonInfoProps) {
 
           <div className={styles.splitRow}>
             <InfoRow label="Email:" icon="bi-envelope" value={personToRender.email} />
-            <InfoRow label="Country:" icon="bi-globe" value={personToRender.country_id} />
+            <InfoRow label="Country:" icon="bi-globe" value={personToRender.national_country} />
           </div>
 
           <div className={styles.formRow}>
@@ -68,7 +70,7 @@ export default function PersonInformation({ person }: PersonInfoProps) {
 
         <div className={styles.imageColumn}>
           <div className={styles.imageBox}>
-            <img src={personToRender.personal_photo_path} alt='person photo' />
+            <img src={`${uploadUrl}/${personToRender.personal_photo}`} alt='person photo' />
           </div>
         </div>
       </div>

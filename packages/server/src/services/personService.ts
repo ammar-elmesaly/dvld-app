@@ -1,14 +1,32 @@
 import { PersonRepo } from "../repositories/PersonRepo";
-import { Gender } from "../types/person";
+import { Gender } from "@dvld/shared";
 import { CountryRepo } from "../repositories/CountryRepo";
 import { AppError } from "../types/errors";
 
-export const getAllPersons = () => {
-    return PersonRepo.find();
+export const getAllPersons = async () => {
+    const persons = await PersonRepo.find({ relations: { national_country: true } });
+    return persons.map(person => ({
+        ...person,
+        national_country: person.national_country.country_name
+    }));
 }
 
-export const getPersonById = (personId: number) => {
-    return PersonRepo.findOneBy({ id: personId })
+export const getPersonById = async (personId: number) => {
+    const person = await PersonRepo.findOne({
+        where: { id: personId },
+        relations: {
+            national_country: true
+        }
+    });
+
+    if (!person)
+        throw new AppError("Person not found", 404);
+    
+    return {
+        ...person,
+        national_country: person.national_country.country_name
+    };
+
 }
 
 export const addNewPerson = async (
@@ -23,7 +41,7 @@ export const addNewPerson = async (
     phoneNumber: string,
     email: string,
     nationalCountryId: number,
-    personalPhotoPath?: string,
+    personalPhoto?: string,
 ) => {
 
     const country = await CountryRepo.findOneBy({ id: nationalCountryId });
@@ -43,7 +61,7 @@ export const addNewPerson = async (
         phone_number: phoneNumber,
         email,
         national_country: country,
-        personal_photo_path: personalPhotoPath
+        personal_photo: personalPhoto
     });
 
     return newPerson.save();

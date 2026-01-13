@@ -11,7 +11,7 @@ import {
 import { User } from './User';
 import { Country } from './Country';
 import { Application } from './Application';
-import { Gender } from '../types/person';
+import { Gender } from '@dvld/shared/src/types/person';
 
 @Entity()
 export class Person extends BaseEntity {
@@ -65,7 +65,7 @@ export class Person extends BaseEntity {
     national_country: Country;
 
     @Column({ nullable: true })
-    personal_photo_path: string;
+    personal_photo: string;
 
     @OneToMany(
         () => Application,

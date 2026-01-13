@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "@dvld/server",
   "version": "1.0.0",
   "description": "Server for DVLD (Drivers and Vehicles License Department)",
   "main": "index.js",
@@ -28,6 +28,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@dvld/shared": "file:../shared",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
