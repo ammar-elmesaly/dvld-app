@@ -9,14 +9,14 @@ export interface PersonDTO {
     last_name: string;
 
     national_id: string;
-    date_of_birth: string; // ISO string
+    date_of_birth: string;
     gender: Gender;
 
     address: string;
     phone_number: string;
     email: string;
 
-    national_country: string; // country_name
+    national_country: string;
 
     personal_photo: string | null;
 }

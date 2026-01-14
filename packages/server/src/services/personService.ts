@@ -5,10 +5,7 @@ import { AppError } from "../types/errors";
 
 export const getAllPersons = async () => {
     const persons = await PersonRepo.find({ relations: { national_country: true } });
-    return persons.map(person => ({
-        ...person,
-        national_country: person.national_country.country_name
-    }));
+    return persons;
 }
 
 export const getPersonById = async (personId: number) => {
@@ -22,10 +19,7 @@ export const getPersonById = async (personId: number) => {
     if (!person)
         throw new AppError("Person not found", 404);
     
-    return {
-        ...person,
-        national_country: person.national_country.country_name
-    };
+    return person;
 
 }
 

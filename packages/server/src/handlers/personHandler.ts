@@ -1,16 +1,18 @@
 import { RequestHandler } from "express";
 import * as personService from "../services/personService";
+import { toPersonDTO } from "../mappers/personMapper";
 
 export const getAllPersonsHandler: RequestHandler = async (_req, res) => {
     const persons = await personService.getAllPersons();
-    res.json(persons);
+    const personsMapped = persons.map(person => toPersonDTO(person));
+    res.json(personsMapped);
 }
 
 export const getPersonById: RequestHandler = async (req, res) => {
     const { personId } = req.params;
     const person = await personService.getPersonById(personId as unknown as number);
 
-    res.json(person);
+    res.json(toPersonDTO(person));
 }
 
 export const createPersonHandler: RequestHandler = async (req, res) => {

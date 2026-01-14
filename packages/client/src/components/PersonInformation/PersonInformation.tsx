@@ -1,22 +1,22 @@
 import { uploadUrl } from "../../api/urls";
-import { Person } from "../../types/person"
-
+import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
+import { Gender } from "@dvld/shared/src/types/person";
 interface PersonInfoProps {
-  person?: Person;
+  person?: PersonDTO;
 }
 
 import styles from '../AddPersonForm/AddPersonForm.module.css'
 
 export default function PersonInformation({ person }: PersonInfoProps) {
-  const personToRender: Person = person ? person : {
-    id: '??',
+  const personToRender: PersonDTO = person ? person : {
+    id: 0,
     first_name: '??',
     second_name: '??',
     third_name: '??',
     last_name: '??',
     national_id: '??',
     date_of_birth: '??',
-    gender: 'M',
+    gender: Gender.Male,
     phone_number: '??',
     email: '??',
     national_country: '??',
@@ -46,7 +46,7 @@ export default function PersonInformation({ person }: PersonInfoProps) {
 
           <div className={styles.splitRow}>
             <InfoRow label="National No:" icon="bi-person-vcard-fill" value={personToRender.national_id} />
-            <InfoRow label="Date Of Birth:" icon="bi-calendar3" value={new Date(personToRender.date_of_birth as string).toLocaleDateString()} />
+            <InfoRow label="Date Of Birth:" icon="bi-calendar3" value={personToRender.date_of_birth} />
           </div>
 
           <div className={styles.splitRow}>

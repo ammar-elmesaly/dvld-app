@@ -10,6 +10,7 @@ interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTab
   rowActions?: RowActionDef<RowType, RowActionType>[];
   openMenuRow: string | null;
   setOpenMenuRow?: Dispatch<SetStateAction<string | null>>;
+  ignoreColumns?: string[];
 }
 
 export default function Table<RowType, RowActionType>({
@@ -19,6 +20,7 @@ export default function Table<RowType, RowActionType>({
   rowActions,
   openMenuRow,
   setOpenMenuRow,
+  ignoreColumns,
   ...rest
 }: TableProps<RowType, RowActionType>) {
 
@@ -28,8 +30,8 @@ export default function Table<RowType, RowActionType>({
 
   if (!filteredData.length) return <p>No data to show.</p>;
 
-  const headers = Object.keys(data[0]);
-
+  const headers = Object.keys(data[0]).filter(header => !ignoreColumns?.includes(header));
+  
   return (
     <>
       <div className={styles.tableWrapper}>
@@ -37,7 +39,7 @@ export default function Table<RowType, RowActionType>({
           <thead>
             <tr>
               {rowActions && <th />}
-              {headers.map(header => <th key={header}>{header}</th>)}
+              {headers.map(header =><th key={header}>{header}</th>)}
             </tr>
           </thead>
 

@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction, TableHTMLAttributes } from "react";
 import Table from "../Table/Table";
 import { RowActionDef } from "../../types/table";
+import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
 
 interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTableElement> {
-  people: Record<string, unknown>[];
+  people: PersonDTO[];
   filterBy?: string;
   filterValue?: string;
   openMenuRow: string | null;
@@ -21,20 +22,15 @@ export default function ManagePeopleTable<RowType, RowActionType>({
   ...rest
 }: TableProps<RowType, RowActionType>
 ) {
-  
-  const peopleMapped = people.map(person => ({
-    ...person,
-    date_of_birth: new Date(person.date_of_birth as string).toLocaleDateString()
-  }));
-
   return (
     <Table
-    data={peopleMapped}
+    data={people as unknown as Record<string, unknown>[]}
     filterBy={filterBy}
     filterValue={filterValue}
     rowActions={rowActions}
     openMenuRow={openMenuRow}
     setOpenMenuRow={setOpenMenuRow}
+    ignoreColumns={["personal_photo"]}
     {...rest}
     />
   );

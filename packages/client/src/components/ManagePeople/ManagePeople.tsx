@@ -5,7 +5,7 @@ import Filter from '../Filter/Filter';
 import Overlay from '../Overlay/Overlay';
 import AddPersonForm from '../AddPersonForm/AddPersonForm';
 import ManagePeopleTable from '../Tables/ManagePeopleTable';
-import { Person } from '../../types/person';
+import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
 
 import { RowActionDef, ActiveRowAction, PeopleActionType } from '../../types/table';
 import PersonInformation from '../PersonInformation/PersonInformation';
@@ -19,9 +19,9 @@ export default function People() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
   // This sets which row action is active, which could be
   // View, Delete, Call, etc..
-  const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<Person, PeopleActionType>>(null);
+  const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<PersonDTO, PeopleActionType>>(null);
 
-  const rowActions: RowActionDef<Person, PeopleActionType>[] = [
+  const rowActions: RowActionDef<PersonDTO, PeopleActionType>[] = [
     {
       type: PeopleActionType.View,
       handler: (row) => setActiveRowAction({ row, type: PeopleActionType.View })
@@ -100,7 +100,7 @@ export default function People() {
       break;
   }
 
-  const [persons, setPeople] = useState<Person[]>([]);
+  const [persons, setPeople] = useState<PersonDTO[]>([]);
 
   useEffect(() => {
       getAllPersons().then(setPeople);
