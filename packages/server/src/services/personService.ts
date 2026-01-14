@@ -1,5 +1,5 @@
 import { PersonRepo } from "../repositories/PersonRepo";
-import { Gender } from "@dvld/shared";
+import { Gender } from '@dvld/shared/src/types/person';
 import { CountryRepo } from "../repositories/CountryRepo";
 import { AppError } from "../types/errors";
 
