@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import * as personService from "../services/personService";
 import { toPersonDTO } from "../mappers/personMapper";
+import { AppError } from "../types/errors";
 
 export const getAllPersonsHandler: RequestHandler = async (_req, res) => {
     const persons = await personService.getAllPersons();
@@ -16,6 +17,13 @@ export const getPersonById: RequestHandler = async (req, res) => {
 }
 
 export const createPersonHandler: RequestHandler = async (req, res) => {
+
+    console.log(req.body)
+    const file = req.file;
+
+    if (file && !file.mimetype.startsWith('image/'))
+        throw new AppError('Invalid image type', 400);
+
     const {
         firstName,
         secondName,
@@ -28,7 +36,6 @@ export const createPersonHandler: RequestHandler = async (req, res) => {
         phoneNumber,
         email,
         nationalCountryId,
-        personalPhoto
     } = req.body;
 
     const person = await personService.addNewPerson(
@@ -43,8 +50,10 @@ export const createPersonHandler: RequestHandler = async (req, res) => {
         phoneNumber,
         email,
         nationalCountryId,
-        personalPhoto
+        file ? file.filename : undefined
     );
+
+    console.log(file?.filename);
 
     res.status(201).json(person);
 };

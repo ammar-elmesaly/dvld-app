@@ -11,7 +11,7 @@ export default function AddPersonForm() {
     // Person has to be from 18 to 100 years old.
 
     return (
-        <form action='/person/new' method='POST' className={styles.form}>
+        <form onSubmit={onSubmit} method='POST' encType='multipart/form-data' className={styles.form}>
             <div className={styles.headerRow}>
                 <h1>Add New Person</h1>
             </div>
@@ -49,14 +49,14 @@ export default function AddPersonForm() {
                             <label htmlFor='national number'>National No:</label>
                             <div className={styles.inputGroup}>
                                 <i className="bi bi-person-vcard-fill"></i>
-                                <input name="nationalNo" type="text" required />
+                                <input name="nationalId" type="text" required />
                             </div>
                         </div>
                         <div className={styles.formRow}>
                             <label htmlFor='date of birth'>Date Of Birth:</label>
                             <div className={styles.inputGroup}>
                                 <i className="bi bi-calendar3"></i>
-                                <input name="dob" type="date" min={minDateString} max={maxDateString} required />
+                                <input name="dateOfBirth" type="date" min={minDateString} max={maxDateString} required />
                             </div>
                         </div>
                     </div>
@@ -66,15 +66,15 @@ export default function AddPersonForm() {
                         <div className={styles.formRow}>
                             <label htmlFor='gender'>Gender:</label>
                             <div className={styles.radioGroup}>
-                                <label htmlFor='male'><input type="radio" name="gender" value="male" required/> Male</label>
-                                <label htmlFor='female'><input type="radio" name="gender" value="female" required/> Female</label>
+                                <label htmlFor='male'><input type="radio" name="gender" value="M" required/> Male</label>
+                                <label htmlFor='female'><input type="radio" name="gender" value="F" required/> Female</label>
                             </div>
                         </div>
                         <div className={styles.formRow}>
                             <label htmlFor='phone number'>Phone:</label>
                             <div className={styles.inputGroup}>
                                 <i className="bi bi-telephone"></i>
-                                <input name="phone" type="text" required />
+                                <input name="phoneNumber" type="text" required />
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@ export default function AddPersonForm() {
                                 <i className="bi bi-globe"></i>
                                 <select name="country">
                                     {/* TODO fetch from database */}
-                                    <option>Jordan</option>
+                                    <option value='1'>Jordan</option>
                                 </select>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ export default function AddPersonForm() {
                         <img src='../../assets/palestine.jpeg' alt='person photo'></img>
                     </div>
                     <div className={styles.imageLinkContainer}>
-                        <input type="file" className={styles.imageLink} accept='.jpg,.png'></input>
+                        <input name="personalImage" type="file" className={styles.imageLink} accept='.jpg,.png'></input>
                     </div>
                 </div>
             </div>
@@ -141,4 +141,24 @@ function toInputDate(date: Date) {
     const m = String(date.getMonth() + 1).padStart(2, '0');
     const d = String(date.getDate()).padStart(2, '0');
     return `${y}-${m}-${d}`;
+}
+
+const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+
+  const res = await fetch('http://localhost:3000/person/new', {
+    method: 'POST',
+    body: formData,
+    credentials: 'include'
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    alert(`Error: ${error.msg}`);
+    return;
+  }
+
+  alert('Registered successfully.')
 }
