@@ -7,6 +7,13 @@ export const validatePersonId = [
         .isNumeric().withMessage('Please enter a valid numeric personId')
 ];
 
+// Validate nationalId in params
+export const validatePersonNationalId = [
+    param('nationalId')
+            .isNumeric().withMessage('National ID must contain only numbers')
+            .isLength({ min: 4, max: 4 }).withMessage('National ID must be exactly 4 digits'),
+];
+
 // Validate new person payload
 export const validateNewPerson = [
     body('firstName')

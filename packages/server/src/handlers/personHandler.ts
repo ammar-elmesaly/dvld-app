@@ -11,7 +11,16 @@ export const getAllPersonsHandler: RequestHandler = async (_req, res) => {
 
 export const getPersonById: RequestHandler = async (req, res) => {
     const { personId } = req.params;
+
     const person = await personService.getPersonById(personId as unknown as number);
+
+    res.json(toPersonDTO(person));
+}
+
+export const getPersonByNationalId: RequestHandler = async (req, res) => {
+    const { nationalId } = req.params;
+
+    const person = await personService.getPersonByNationalId(nationalId as string);
 
     res.json(toPersonDTO(person));
 }

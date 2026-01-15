@@ -10,7 +10,6 @@ export const getAllUsersHandler: RequestHandler = async (_req, res) => {
 }
 
 export const createNewUserHandler: RequestHandler = async (req, res) => {
-    
     const { personId, username, password, isActive } = req.body;
 
     const user = await userService.createNewUser(personId, username, password, isActive);

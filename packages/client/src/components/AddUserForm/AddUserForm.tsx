@@ -1,5 +1,5 @@
 import { PersonDTO } from '@dvld/shared/src/dtos/person.dto';
-import { getPersonById } from '../../api/person/person';
+import { getPersonById, getPersonByNationalId } from '../../api/person/person';
 import AddPersonForm from '../AddPersonForm/AddPersonForm';
 import Button from '../Button/Button';
 import Filter from '../Filter/Filter';
@@ -28,7 +28,7 @@ export default function AddUserForm() {
           <div className={styles.fieldsContainer}>
             <div className={styles.filterRow}>
               <Filter
-                options={['id', 'username']}
+                options={['id', 'nationalId']}
                 filterBy={filterBy}
                 filterValue={filterValue}
                 setFilterBy={setFilterBy}
@@ -123,8 +123,10 @@ async function searchPerson(
     case "id": {
       const personId = Number(filterValue);
 
-      if (!Number.isInteger(personId))
+      if (!Number.isInteger(personId)) {
+        alert('Error: Id must be a number');
         break;
+      }
 
       try {
         const person = await getPersonById(personId);
@@ -137,6 +139,24 @@ async function searchPerson(
       break;
     }
 
+    case "nationalId": {
+      const nationalId = Number(filterValue);
+      
+      if (!Number.isInteger(nationalId)) {
+        alert('National Id has to be a number.');
+        break;
+      }
+
+      try { 
+        const person = await getPersonByNationalId(nationalId);
+        setPerson(person);
+
+      } catch (err) {
+        alert(err);
+      }
+
+      break;
+    }
     default:
       alert('Error: Invalid filter by option.');
       break;

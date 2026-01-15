@@ -22,6 +22,21 @@ export const getPersonById = async (personId: number) => {
 
 }
 
+export const getPersonByNationalId = async (nationalId: string) => {
+    const person = await PersonRepo.findOne({
+        where: { national_id: nationalId },
+        relations: {
+            national_country: true
+        }
+    });
+
+    if (!person)
+        throw new AppError("Person not found", 404);
+    
+    return person;
+
+}
+
 export const addNewPerson = async (
     firstName: string,
     secondName: string,

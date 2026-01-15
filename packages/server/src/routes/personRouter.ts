@@ -1,7 +1,7 @@
 import express from 'express';
-import { getAllPersonsHandler, createPersonHandler, getPersonById } from '../handlers/personHandler';
+import { getAllPersonsHandler, createPersonHandler, getPersonById, getPersonByNationalId } from '../handlers/personHandler';
 import validate from "../middleware/validators/validate";
-import { validatePersonId, validateNewPerson } from '../middleware/validators/person';
+import { validatePersonId, validateNewPerson, validatePersonNationalId } from '../middleware/validators/person';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -20,6 +20,9 @@ router.get('/all', getAllPersonsHandler);
 
 // GET /person/id/:personId
 router.get('/id/:personId', validatePersonId, validate, getPersonById);
+
+// GET /person/nid/:nationalId
+router.get('/nid/:nationalId', validatePersonNationalId, validate, getPersonByNationalId);
 
 // POST /person/new
 router.post('/new', upload.single("personalImage"), validateNewPerson, validate, createPersonHandler);
