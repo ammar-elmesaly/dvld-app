@@ -1,7 +1,10 @@
+import { getAllCountries } from '../../api/country/country';
 import { baseUrl } from '../../api/urls';
 import Button from '../Button/Button';
 import styles from './AddPersonForm.module.css';
-// import { useState } from 'react';
+import { CountryDTO } from "@dvld/shared/src/dtos/country.dto";
+
+import { useState, useEffect } from 'react';
 
 export default function AddPersonForm() {    
     const minBirthdate = yearsAgo(100);
@@ -10,6 +13,12 @@ export default function AddPersonForm() {
     const minDateString = toInputDate(minBirthdate);
     const maxDateString = toInputDate(maxBirthdate);
     // Person has to be from 18 to 100 years old.
+
+      const [countries, setCountries] = useState<CountryDTO[]>([]);
+    
+      useEffect(() => {
+          getAllCountries().then(setCountries);
+      }, []);
 
     return (
         <form onSubmit={onSubmit} method='POST' encType='multipart/form-data' className={styles.form}>
@@ -93,9 +102,12 @@ export default function AddPersonForm() {
                             <label htmlFor='country'>Country:</label>
                             <div className={styles.inputGroup}>
                                 <i className="bi bi-globe"></i>
-                                <select name="country">
-                                    {/* TODO fetch from database */}
-                                    <option value='1'>Jordan</option>
+                                <select name="nationalCountryId">
+                                  {
+                                    countries.map((country, index) => (
+                                      <option value={country.id ?? index + 1}>{country.country_name}</option>
+                                    ))
+                                  }
                                 </select>
                             </div>
                         </div>
