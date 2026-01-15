@@ -7,6 +7,7 @@ interface FilterProps {
     filterValue: string;
     setFilterBy: Dispatch<SetStateAction<string>>;
     setFilterValue: Dispatch<SetStateAction<string>>;
+    ignoreOptions?: string[];
 }
 
 
@@ -24,7 +25,7 @@ interface FilterProps {
  * hooks in the parent component. These values can then be passed to any other
  * component (e.g. a `Table`) to perform the actual filtering logic.
  */
-export default function Filter({ options, filterBy, filterValue, setFilterBy, setFilterValue }: FilterProps) {
+export default function Filter({ options, filterBy, filterValue, ignoreOptions, setFilterBy, setFilterValue }: FilterProps) {
 
     const onChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setFilterBy(event.target.value);
@@ -34,12 +35,14 @@ export default function Filter({ options, filterBy, filterValue, setFilterBy, se
         setFilterValue(event.target.value);
     }
 
+    const optionsFiltered = options.filter(option => !ignoreOptions?.includes(option));
+
     return (
         <div className='filterWrapper'>
             <span>Filter by:</span>
             <select className={styles.select} defaultValue="" onChange={onChangeFilterBy}>
                 <option key="" value="">none</option>
-                {options.map(option => (<option key={option} value={option}>{option}</option>))}
+                {optionsFiltered.map(option => (<option key={option} value={option}>{option}</option>))}
             </select>
             {
             filterBy !== '' &&

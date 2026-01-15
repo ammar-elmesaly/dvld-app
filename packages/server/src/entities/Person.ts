@@ -20,10 +20,8 @@ export class Person extends BaseEntity {
 
     @OneToOne(
         () => User,
-        user => user.person,
-        { onDelete: 'SET NULL', nullable: true }
+        user => user.person
     )
-    @JoinColumn({ name: 'user_id' })
     user: User
 
     @Column()

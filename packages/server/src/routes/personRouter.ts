@@ -8,7 +8,6 @@ import fs from 'fs';
 
 const uploadPath = path.join(__dirname, '../../uploads/personalPictures');
 
-console.log(uploadPath)
 fs.mkdirSync(uploadPath, { recursive: true });
 
 const upload = multer({ dest: uploadPath });

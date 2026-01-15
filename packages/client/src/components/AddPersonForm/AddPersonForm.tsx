@@ -1,3 +1,4 @@
+import { baseUrl } from '../../api/urls';
 import Button from '../Button/Button';
 import styles from './AddPersonForm.module.css';
 // import { useState } from 'react';
@@ -148,7 +149,7 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
   const formData = new FormData(e.currentTarget);
 
-  const res = await fetch('http://localhost:3000/person/new', {
+  const res = await fetch(`${baseUrl}/person/new`, {
     method: 'POST',
     body: formData,
     credentials: 'include'
@@ -160,5 +161,7 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     return;
   }
 
-  alert('Registered successfully.')
+  const person = await res.json();
+
+  alert(`Person registered successfully with id: ${person.id}.`)
 }

@@ -6,13 +6,14 @@ interface OverlayProps {
     open: boolean;
     onClose: () => void;
     children: ReactNode;
+    zindex?: number;
 }
 
-export default function Overlay({ open, onClose, children }: OverlayProps) {
+export default function Overlay({ open, onClose, children, zindex = 9999 }: OverlayProps) {
     if (!open) return null;
 
     return createPortal(
-        <div className={styles.overlayBackdrop} onClick={onClose}>
+        <div className={styles.overlayBackdrop} style={{zIndex: zindex}} onClick={onClose}>
             <div
                 className={styles.overlayWindow}
                 onClick={(e) => e.stopPropagation()}

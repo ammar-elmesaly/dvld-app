@@ -25,6 +25,18 @@
     border-top: 2px white solid;
 }
 
+.formRow {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+    column-gap: 12px;
+}
+
+.activeRow {
+    display: flex;
+    gap: 12px
+}
+
 .inputGroup {
     display: flex;
     align-items: center;
@@ -53,15 +65,20 @@
 
 /* --- Extensions for Layout --- */
 
-.mainLayout {
-    display: flex;
+.mainLayout, .loginInfoLayout {
     gap: 20px;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .controls {
     display: flex;
-    justify-content: flex-end;
+    justify-items: right;
+    justify-content: space-between;
     gap: 10px;
     margin-top: 15px;
+}
+
+.controls > :first-child {
+    margin-left: auto;
 }

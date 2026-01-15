@@ -114,6 +114,7 @@ export default function People() {
       <div className={styles.controls}>
         <Filter
           options={Object.keys(persons[0] ?? {})}
+          ignoreOptions={["personal_photo"]}
           filterBy={filterBy}
           filterValue={filterValue}
           setFilterBy={setFilterBy}

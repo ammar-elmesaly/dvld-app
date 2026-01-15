@@ -17,8 +17,6 @@ export const getPersonById: RequestHandler = async (req, res) => {
 }
 
 export const createPersonHandler: RequestHandler = async (req, res) => {
-
-    console.log(req.body)
     const file = req.file;
 
     if (file && !file.mimetype.startsWith('image/'))
@@ -52,8 +50,6 @@ export const createPersonHandler: RequestHandler = async (req, res) => {
         nationalCountryId,
         file ? file.filename : undefined
     );
-
-    console.log(file?.filename);
 
     res.status(201).json(person);
 };

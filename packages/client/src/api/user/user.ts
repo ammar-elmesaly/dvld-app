@@ -1,22 +1,10 @@
-// import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../urls";
 
 export async function getAllUsers() {
-    // const res = await fetch(`${baseUrl}/user/all`);
+    const res = await fetch(`${baseUrl}/user/all`);
     
-    // if (!res.ok)
-    //     throw new Error("Sad :(");
+    if (!res.ok)
+        throw new Error("Unexpected error");
 
-    // return res.json();
-
-    return Promise.resolve(() => { 
-        return [
-            {
-                id: 10,
-                username: 'Ammar',
-                password: 'asdasdas',
-                email: 'ammar@hmail.com',
-                is_active: true
-            }
-        ]
-    });
+    return res.json();
 }

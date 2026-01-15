@@ -3,9 +3,8 @@ import { Gender } from '@dvld/shared/src/types/person';
 import { CountryRepo } from "../repositories/CountryRepo";
 import { AppError } from "../types/errors";
 
-export const getAllPersons = async () => {
-    const persons = await PersonRepo.find({ relations: { national_country: true } });
-    return persons;
+export const getAllPersons = () => {
+    return PersonRepo.find({ relations: { national_country: true } });
 }
 
 export const getPersonById = async (personId: number) => {

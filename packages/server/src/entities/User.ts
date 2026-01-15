@@ -5,6 +5,7 @@ import {
     PrimaryGeneratedColumn,
     OneToOne,
     OneToMany,
+    JoinColumn,
 } from 'typeorm';
 import { Person } from './Person';
 import { Application } from './Application';
@@ -16,8 +17,10 @@ export class User extends BaseEntity {
 
     @OneToOne(
         () => Person,
-        person => person.user
+        person => person.user,
+        { onDelete: 'CASCADE' }
     )
+    @JoinColumn({ name: 'person_id' })
     person: Person;
     
     @OneToMany(
