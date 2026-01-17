@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, TableHTMLAttributes } from "react";
 import Table from "../Table/Table";
 import { RowActionDef } from "../../types/table";
-import { UserDTO } from '@dvld/shared/src/dtos/user.dto';
+import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
 
 interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTableElement> {
-  users: UserDTO[];
+  applicationTypes: ApplicationTypeDTO[];
   filterBy?: string;
   filterValue?: string;
   openMenuRow: string | null;
@@ -12,8 +12,8 @@ interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTab
   rowActions: RowActionDef<RowType, RowActionType>[];
 }
 
-export default function ManageUsersTable<RowType, RowActionType>({
-  users,
+export default function ManageApplicationTypesTable<RowType, RowActionType>({
+  applicationTypes,
   filterBy = '',
   filterValue = '',
   openMenuRow,
@@ -24,7 +24,7 @@ export default function ManageUsersTable<RowType, RowActionType>({
 ) {
   return (
     <Table
-    data={users as unknown as Record<string, unknown>[]}
+    data={applicationTypes as unknown as Record<string, unknown>[]}
     filterBy={filterBy}
     filterValue={filterValue}
     rowActions={rowActions}

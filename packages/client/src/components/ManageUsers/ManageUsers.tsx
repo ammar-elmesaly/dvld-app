@@ -3,9 +3,10 @@ import styles from './ManageUsers.module.css';
 import Button from '../Button/Button';
 import Filter from '../Filter/Filter';
 import Overlay from '../Overlay/Overlay';
-import AddUserForm from '../AddUserForm/AddUserForm';
+import AddUserForm from '../Forms/AddUserForm/AddUserForm';
 import ManageUsersTable from '../Tables/ManageUsersTable';
 
+import { UserDTO } from '@dvld/shared/src/dtos/user.dto';
 import { RowActionDef, ActiveRowAction, UserActionType } from '../../types/table';
 import ViewUser from '../ViewUser/ViewUser';
 import { getAllUsers } from '../../api/user/user';
@@ -18,9 +19,9 @@ export default function ManageUsers() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
   // This sets which row action is active, which could be
   // View, Delete, Call, etc..
-  const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<Person, UserActionType>>(null);
+  const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<UserDTO, UserActionType>>(null);
 
-  const rowActions: RowActionDef<Person, UserActionType>[] = [
+  const rowActions: RowActionDef<UserDTO, UserActionType>[] = [
     {
       type: UserActionType.View,
       handler: (row) => setActiveRowAction({ row, type: UserActionType.View })
@@ -96,7 +97,7 @@ export default function ManageUsers() {
       break;
   }
 
-  const [users, setUsers] = useState<Person[]>([]);
+  const [users, setUsers] = useState<UserDTO[]>([]);
 
   useEffect(() => {
       getAllUsers().then(setUsers);

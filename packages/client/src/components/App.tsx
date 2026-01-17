@@ -1,24 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
 
 import People from './ManagePeople/ManagePeople';
+import Applications from './Applications/Applications';
 import ManageUsers from './ManageUsers/ManageUsers';
-import LoginForm from './LoginForm/LoginForm';
-import Button from './Button/Button';
+import LoginForm from './Forms/LoginForm/LoginForm';
 import Nav from './Nav/Nav';
 import AccountSettings from './AccountSettings/AccountSettings';
+import ManageApplicationTypes from './ManageApplicationTypes/ManageApplicationTypes';
 
 const loggedIn = true;  // temporary logged-in bool
-
-function Applications() {
-const [ count, setCount ] = useState(0);
-  return (
-    <>
-        <h1>سبحان الله: {count}</h1>
-        <Button onClick={() => setCount(count + 1)} color='success'>{count}</Button>
-    </>
-  );
-}
 
 function Drivers() {
   return <h1>Drivers Page</h1>;
@@ -41,6 +31,9 @@ function App() {
                 <Route path='/drivers' element={<Drivers/>} />
                 <Route path='/users' element={<ManageUsers />} />
                 <Route path='/account-settings' element={<AccountSettings/>} />
+                
+                {/* Applications Tab Items */}
+                <Route path='/application-types' element={<ManageApplicationTypes />} />
             </Routes>
         </BrowserRouter>
         </>

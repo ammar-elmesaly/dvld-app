@@ -3,7 +3,7 @@ import styles from './ManagePeople.module.css';
 import Button from '../Button/Button';
 import Filter from '../Filter/Filter';
 import Overlay from '../Overlay/Overlay';
-import AddPersonForm from '../AddPersonForm/AddPersonForm';
+import AddPersonForm from '../Forms/AddPersonForm/AddPersonForm';
 import ManagePeopleTable from '../Tables/ManagePeopleTable';
 import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
 

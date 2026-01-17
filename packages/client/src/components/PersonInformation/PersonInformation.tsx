@@ -5,7 +5,7 @@ interface PersonInfoProps {
   person?: PersonDTO;
 }
 
-import styles from '../AddPersonForm/AddPersonForm.module.css'
+import styles from '../Forms/AddPersonForm/AddPersonForm.module.css'
 
 export default function PersonInformation({ person }: PersonInfoProps) {
   const personToRender: PersonDTO = person ? person : {

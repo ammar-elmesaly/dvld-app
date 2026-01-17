@@ -1,5 +1,5 @@
 import styles from './LoginForm.module.css';
-import Button from '../Button/Button';
+import Button from '../../Button/Button';
 
 function LoginForm() {
   return (

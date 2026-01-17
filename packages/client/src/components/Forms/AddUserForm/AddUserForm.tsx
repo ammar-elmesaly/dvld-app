@@ -1,13 +1,13 @@
 import { PersonDTO } from '@dvld/shared/src/dtos/person.dto';
-import { getPersonById, getPersonByNationalId } from '../../api/person/person';
+import { getPersonById, getPersonByNationalId } from '../../../api/person/person';
 import AddPersonForm from '../AddPersonForm/AddPersonForm';
-import Button from '../Button/Button';
-import Filter from '../Filter/Filter';
-import Overlay from '../Overlay/Overlay';
-import PersonInformation from '../PersonInformation/PersonInformation';
+import Button from '../../Button/Button';
+import Filter from '../../Filter/Filter';
+import Overlay from '../../Overlay/Overlay';
+import PersonInformation from '../../PersonInformation/PersonInformation';
 import styles from './AddUserForm.module.css';
 import { useState } from 'react';
-import { baseUrl } from '../../api/urls';
+import { baseUrl } from '../../../api/urls';
 
 export default function AddUserForm() {
   const [filterBy, setFilterBy] = useState("");
