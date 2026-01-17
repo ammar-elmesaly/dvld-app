@@ -1,0 +1,63 @@
+.editLayout {
+    gap: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.headerRow {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+    column-gap: 12px;
+    margin: 12px;
+}
+
+.descriptionTextArea {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    resize: vertical;
+}
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+}
+
+.inputGroup i {
+    font-size: 14px;
+    color: #666;
+}
+
+.inputGroup input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.inputGroup:focus-within {
+    border-color: var(--primary-bg);
+}
+
+.controls {
+    display: flex;
+    justify-items: right;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.controls > :first-child {
+    margin-left: auto;
+}

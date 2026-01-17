@@ -5,6 +5,7 @@ import { User } from "./entities/User";
 import { Country } from "./entities/Country";
 import { Application } from "./entities/Application";
 import { ApplicationType } from "./entities/ApplicationType";
+import { TestType } from "./entities/TestType";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -19,6 +20,7 @@ export const AppDataSource = new DataSource({
         User,
         Country,
         Application,
-        ApplicationType
+        ApplicationType,
+        TestType
     ]
 });

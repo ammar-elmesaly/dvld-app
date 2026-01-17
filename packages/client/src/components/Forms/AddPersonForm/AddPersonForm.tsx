@@ -99,16 +99,27 @@ export default function AddPersonForm() {
               </div>
             </div>
             <div className={styles.formRow}>
-              <label htmlFor='country'>Country:</label>
-              <div className={styles.inputGroup}>
+              <label htmlFor="nationalCountryId">Country</label>
+
+              <div className={styles.selectWrapper}>
                 <i className="bi bi-globe"></i>
-                <select name="nationalCountryId">
-                  {
-                    countries.map((country, index) => (
-                      <option value={country.id ?? index + 1}>{country.country_name}</option>
-                    ))
-                  }
+
+                <select
+                  id="nationalCountryId"
+                  name="nationalCountryId"
+                  className={styles.select}
+                >
+                  {countries.map((country, index) => (
+                    <option
+                      key={country.id ?? index}
+                      value={country.id ?? index + 1}
+                    >
+                      {country.country_name}
+                    </option>
+                  ))}
                 </select>
+
+                <i className={`bi bi-chevron-down ${styles.arrow}`} />
               </div>
             </div>
           </div>

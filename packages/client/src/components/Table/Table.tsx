@@ -61,7 +61,7 @@ export default function Table<RowType, RowActionType>({
                     <td className={styles.actionCell}>
                       {openMenuRow === rowKey && (
                         <ContextMenu
-                          row={row}
+                          row={row as unknown as RowType}
                           rowActions={rowActions}
                           position={menuPosition}
                           onClose={() => setOpenMenuRow?.(null)}

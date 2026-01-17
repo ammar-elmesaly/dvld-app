@@ -21,3 +21,7 @@
 .list a:hover {
     background: rgba(116, 119, 119, 0.4);
 }
+
+.list a:focus {
+    outline: none;
+}

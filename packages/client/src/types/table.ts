@@ -20,6 +20,10 @@ export enum ApplicationTypesActionType {
     Edit = 'Edit'
 }
 
+export enum TestTypesActionType {
+    Edit = 'Edit'
+}
+
 export type RowActionDef<RowType, RowActionType> = {
     type: RowActionType;
     handler: (row: RowType) => void;

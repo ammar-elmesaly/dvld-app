@@ -1,8 +1,8 @@
-import styles from './Applications.module.css';
+import styles from './ApplicationsDashboard.module.css';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 
-export default function Applications() {
+export default function ApplicationsDashboard() {
   const navigate = useNavigate();
 
   return (
@@ -16,7 +16,7 @@ export default function Applications() {
         <div className={styles.card}>
           <h2>Driving License Services</h2>
           <p>Issue, renew, replace, and manage driving licenses.</p>
-          <Button color="primary">Open</Button>
+          <Button color="primary" onClick={() => navigate('/license-services')}>Open</Button>
         </div>
 
         <div className={styles.card}>
@@ -33,8 +33,14 @@ export default function Applications() {
 
         <div className={styles.card}>
           <h2>Manage Application Types</h2>
-          <p>Create and configure different application categories.</p>
+          <p>Configure different application types.</p>
           <Button color="primary" onClick={() => navigate('/application-types')}>Open</Button>
+        </div>
+
+        <div className={styles.card}>
+          <h2>Manage Test Types</h2>
+          <p>Create and configure different application categories.</p>
+          <Button color="primary" onClick={() => navigate('/test-types')}>Open</Button>
         </div>
       </div>
     </div>
