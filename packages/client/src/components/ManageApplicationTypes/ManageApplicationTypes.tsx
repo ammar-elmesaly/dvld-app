@@ -6,6 +6,7 @@ import ManageApplicationTypesTable from '../Tables/ManageApplicationTypesTable';
 import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
 import { RowActionDef, ActiveRowAction, ApplicationTypesActionType } from '../../types/table';
 import { getAllApplicationTypes } from '../../api/application/applicationType';
+import { EditApplicationType } from '../Edit/EditApplicationType/EditApplicationType';
 
 export default function ManageApplicationTypes() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
@@ -25,7 +26,7 @@ export default function ManageApplicationTypes() {
   switch (activeRowAction?.type) {
     case ApplicationTypesActionType.Edit:
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <EditApplicationType applicationType={activeRowAction.row} />
       );
       break;
   }

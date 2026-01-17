@@ -30,7 +30,7 @@ export default function ManagePeopleTable<RowType, RowActionType>({
     rowActions={rowActions}
     openMenuRow={openMenuRow}
     setOpenMenuRow={setOpenMenuRow}
-    ignoreColumns={["personal_photo"]}
+    ignoreColumns={["personal_photo", "address"]}
     {...rest}
     />
   );

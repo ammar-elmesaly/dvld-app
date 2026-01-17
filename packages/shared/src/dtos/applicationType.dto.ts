@@ -1,5 +1,5 @@
 export interface ApplicationTypeDTO {
     id: number;
-    title: string;
-    fees: number;
+    type_name: string;
+    type_fees: number;
 }
