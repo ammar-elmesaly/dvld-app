@@ -1,10 +1,8 @@
 import { baseUrl } from "../urls";
+import { apiFetch } from "../apiFetch";
 
 export async function getAllUsers() {
-    const res = await fetch(`${baseUrl}/user/all`);
-    
-    if (!res.ok)
-        throw new Error("Unexpected error");
+    const res = await apiFetch(`${baseUrl}/user/all`);
 
     return res.json();
 }

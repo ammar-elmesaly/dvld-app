@@ -7,6 +7,10 @@ export const getAllUsers = () => {
     return UserRepo.find({ relations: { person: true } });
 }
 
+export const getUserByName = async (username: string) => {
+    return UserRepo.findOneBy({ username });
+}
+
 export const createNewUser = async (personId: number, username: string, password: string, isActive: boolean) => {
     const person = await PersonRepo.findOne({
         where: { id: personId },

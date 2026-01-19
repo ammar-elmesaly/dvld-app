@@ -6,8 +6,13 @@ import Filter from '../../Filter/Filter';
 import Overlay from '../../Overlay/Overlay';
 import PersonInformation from '../../PersonInformation/PersonInformation';
 import styles from './NewLocalLicenseForm.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { baseUrl } from '../../../api/urls';
+import { getAllApplicationTypes } from '../../../api/application/applicationType';
+import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
+import { LicenseClassDTO } from "@dvld/shared/src/dtos/licenseClass.dto";
+import { getAllLicenseClasses } from '../../../api/license/licenseClass';
+import { apiFetch } from '../../../api/apiFetch';
 
 export default function NewLocalLicenseForm() {
   const [filterBy, setFilterBy] = useState("");
@@ -17,12 +22,20 @@ export default function NewLocalLicenseForm() {
   const [person, setPerson] = useState<PersonDTO | undefined>(undefined);
   const [next, setNext] = useState(false);
 
-  const licenseClasses = [
-    {
-      id: 1,
-      class_name: "Hello",
-    }
-  ];
+  const [applicationTypes, setApplicationTypes] = useState<ApplicationTypeDTO[]>([]);
+
+  const [licenseClasses, setLicenseClasses] = useState<LicenseClassDTO[]>([]);
+
+  useEffect(() => {
+      getAllApplicationTypes().then(setApplicationTypes);
+  }, []);
+
+  useEffect(() => {
+      getAllLicenseClasses().then(setLicenseClasses);
+  }, []);
+
+  const localLicenseFees = applicationTypes.find(type => type.id === 1)?.type_fees;
+
   return (
     <>
       <form method='POST' onSubmit={onSubmit} className={styles.form}>
@@ -89,7 +102,7 @@ export default function NewLocalLicenseForm() {
             <label htmlFor='fees'>Application Fees:</label>
             <div className={styles.inputGroup}>
               <i className="bi bi-cash"></i>
-              <span>15</span>
+              <span>{localLicenseFees}</span>
             </div>
           </div>
 
@@ -207,7 +220,7 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     isActive: formData.has("isActive"),
   };
 
-  const res = await fetch(`${baseUrl}/user/new`, {
+  const res = await apiFetch(`${baseUrl}/user/new`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -215,12 +228,6 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     body: JSON.stringify(payload),
     credentials: 'include'
   });
-
-  if (!res.ok) {
-    const error = await res.json();
-    alert(`Error: ${error.msg}`);
-    return;
-  }
 
   const user = await res.json();
 

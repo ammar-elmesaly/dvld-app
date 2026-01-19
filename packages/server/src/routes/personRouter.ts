@@ -5,6 +5,7 @@ import { validatePersonId, validateNewPerson, validatePersonNationalId } from '.
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import { requireAuth } from '../middleware/validators/auth';
 
 const uploadPath = path.join(__dirname, '../../uploads/personalPictures');
 
@@ -16,15 +17,15 @@ const upload = multer({ dest: uploadPath });
 const router = express.Router();
 
 // GET /person/all
-router.get('/all', getAllPersonsHandler);
+router.get('/all', requireAuth, getAllPersonsHandler);
 
 // GET /person/id/:personId
-router.get('/id/:personId', validatePersonId, validate, getPersonById);
+router.get('/id/:personId', requireAuth, validatePersonId, validate, getPersonById);
 
 // GET /person/nid/:nationalId
-router.get('/nid/:nationalId', validatePersonNationalId, validate, getPersonByNationalId);
+router.get('/nid/:nationalId', requireAuth, validatePersonNationalId, validate, getPersonByNationalId);
 
 // POST /person/new
-router.post('/new', upload.single("personalImage"), validateNewPerson, validate, createPersonHandler);
+router.post('/new', requireAuth, upload.single("personalImage"), validateNewPerson, validate, createPersonHandler);
 
 export default router;

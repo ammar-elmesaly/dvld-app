@@ -1,10 +1,8 @@
 import { baseUrl } from "../urls";
+import { apiFetch } from "../apiFetch";
 
 export async function getAllTestTypes() {
-    const res = await fetch(`${baseUrl}/testType/all`);
-    
-    if (!res.ok)
-        throw new Error("Unexpected error");
+    const res = await apiFetch(`${baseUrl}/testType/all`);r
 
     return res.json();
 }

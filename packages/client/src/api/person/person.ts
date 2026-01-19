@@ -1,34 +1,20 @@
 import { baseUrl } from "../urls";
+import { apiFetch } from "../apiFetch";
 
 export async function getAllPersons() {
-    const res = await fetch(`${baseUrl}/person/all`);
-    
-    if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.msg);
-    }
+    const res = await apiFetch(`${baseUrl}/person/all`);
 
     return res.json();
 }
 
 export async function getPersonById(id: number) {
-    const res = await fetch(`${baseUrl}/person/id/${id}`);
-
-    if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.msg);
-    }
+    const res = await apiFetch(`${baseUrl}/person/id/${id}`);
 
     return res.json();
 }
 
 export async function getPersonByNationalId(nationalId: number) {
-    const res = await fetch(`${baseUrl}/person/nid/${nationalId}`);
-
-    if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.msg);
-    }
+    const res = await apiFetch(`${baseUrl}/person/nid/${nationalId}`);
 
     return res.json();
 }

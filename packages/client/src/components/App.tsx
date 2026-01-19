@@ -1,47 +1,41 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import People from './ManagePeople/ManagePeople';
 import ApplicationsDashboard from './ApplicationsDashboard/ApplicationsDashboard';
 import ManageUsers from './ManageUsers/ManageUsers';
 import LoginForm from './Forms/LoginForm/LoginForm';
-import Nav from './Nav/Nav';
 import AccountSettings from './AccountSettings/AccountSettings';
 import ManageApplicationTypes from './ManageApplicationTypes/ManageApplicationTypes';
 import ManageTestTypes from './ManageTestTypes/ManageTestTypes';
 import DrivingLicenseDashboard from './DrivingLicensesDashboard/DrivingLicenseDashboard';
-
-const loggedIn = true;  // temporary logged-in bool
+import { WithNavLayout } from './withNavLayout';
 
 function Drivers() {
   return <h1>Drivers Page</h1>;
 }
 
 function App() {
-    if (!loggedIn) {
-        return (
-            <LoginForm />
-        );
-    }
+  return (
+    <>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          
+          <Route path='/login' element={<LoginForm />} />
+          <Route element={<WithNavLayout />}>
+            <Route path='/applications' element={<ApplicationsDashboard />} />
+            <Route path='/people' element={<People />} />
+            <Route path='/drivers' element={<Drivers />} />
+            <Route path='/users' element={<ManageUsers />} />
+            <Route path='/account-settings' element={<AccountSettings />} />
 
-    return (
-        <>
-        <BrowserRouter>
-            <Nav />
-            <Routes>
-                <Route path='/applications' element={<ApplicationsDashboard />} />
-                <Route path='/people' element={<People />} />
-                <Route path='/drivers' element={<Drivers/>} />
-                <Route path='/users' element={<ManageUsers />} />
-                <Route path='/account-settings' element={<AccountSettings/>} />
-                
-                {/* Applications Dashboard Items */}
-                <Route path='/application-types' element={<ManageApplicationTypes />} />
-                <Route path='/test-types' element={<ManageTestTypes />} />
-                <Route path='/license-services' element={<DrivingLicenseDashboard />} />
-            </Routes>
-        </BrowserRouter>
-        </>
-    );
+            {/* Applications Dashboard Items */}
+            <Route path='/application-types' element={<ManageApplicationTypes />} />
+            <Route path='/test-types' element={<ManageTestTypes />} />
+            <Route path='/license-services' element={<DrivingLicenseDashboard />} />
+          </Route>  
+        </Routes>
+    </>
+  );
 }
 
 export default App

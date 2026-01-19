@@ -1,3 +1,4 @@
+import { apiFetch } from '../../../api/apiFetch';
 import { getAllCountries } from '../../../api/country/country';
 import { baseUrl } from '../../../api/urls';
 import Button from '../../Button/Button';
@@ -172,17 +173,11 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
   const formData = new FormData(e.currentTarget);
 
-  const res = await fetch(`${baseUrl}/person/new`, {
+  const res = await apiFetch(`${baseUrl}/person/new`, {
     method: 'POST',
     body: formData,
     credentials: 'include'
   });
-
-  if (!res.ok) {
-    const error = await res.json();
-    alert(`Error: ${error.msg}`);
-    return;
-  }
 
   const person = await res.json();
 

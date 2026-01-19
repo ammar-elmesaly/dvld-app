@@ -8,6 +8,7 @@ import PersonInformation from '../../PersonInformation/PersonInformation';
 import styles from './AddUserForm.module.css';
 import { useState } from 'react';
 import { baseUrl } from '../../../api/urls';
+import { apiFetch } from '../../../api/apiFetch';
 
 export default function AddUserForm() {
   const [filterBy, setFilterBy] = useState("");
@@ -181,7 +182,7 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     isActive: formData.has("isActive"),
   };
 
-  const res = await fetch(`${baseUrl}/user/new`, {
+  const res = await apiFetch(`${baseUrl}/user/new`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -189,12 +190,6 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     body: JSON.stringify(payload),
     credentials: 'include'
   });
-
-  if (!res.ok) {
-    const error = await res.json();
-    alert(`Error: ${error.msg}`);
-    return;
-  }
 
   const user = await res.json();
 

@@ -5,14 +5,15 @@ import {
     PrimaryGeneratedColumn,
     JoinColumn,
     ManyToOne,
-    CreateDateColumn
+    CreateDateColumn,
+    OneToOne
 } from 'typeorm';
 
 import { Person } from './Person';
 import { ApplicationType } from './ApplicationType';
 import { User } from './User';
-import { ApplicationStatus } from '../types/application';
-
+import { ApplicationStatus } from '@dvld/shared/src/types/application';
+import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
 @Entity()
 export class Application extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
@@ -44,6 +45,12 @@ export class Application extends BaseEntity {
     )
     @JoinColumn({ name: 'created_by_user_id'})
     created_by_user: User;
+
+    @OneToOne(
+        () => LocalDrivingLicenseApplication,
+        local_driving_license_application => local_driving_license_application.application
+    )
+    local_driving_license_application: LocalDrivingLicenseApplication;
 
     @Column({ type: 'numeric' })
     paid_fees: number;

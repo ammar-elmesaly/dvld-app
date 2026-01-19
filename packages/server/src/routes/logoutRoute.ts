@@ -1,10 +1,10 @@
 import express from 'express';
-import { getAllCountriesHandler } from '../handlers/countryHandler';
+import { logoutHandler } from '../handlers/logoutHandler';
 import { requireAuth } from '../middleware/validators/auth';
 
 const router = express.Router();
 
-// GET /country/all
-router.get('/all', requireAuth, getAllCountriesHandler);
+// POST /logout
+router.post('/', requireAuth, logoutHandler);
 
 export default router;
