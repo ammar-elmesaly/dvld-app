@@ -13,6 +13,8 @@ import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
 import { LicenseClassDTO } from "@dvld/shared/src/dtos/licenseClass.dto";
 import { getAllLicenseClasses } from '../../../api/license/licenseClass';
 import { apiFetch } from '../../../api/apiFetch';
+import { UserSession } from '../../../types/UserSession';
+import { getCurrentUser } from '../../../api/user/user';
 
 export default function NewLocalLicenseForm() {
   const [filterBy, setFilterBy] = useState("");
@@ -23,8 +25,9 @@ export default function NewLocalLicenseForm() {
   const [next, setNext] = useState(false);
 
   const [applicationTypes, setApplicationTypes] = useState<ApplicationTypeDTO[]>([]);
-
   const [licenseClasses, setLicenseClasses] = useState<LicenseClassDTO[]>([]);
+
+  const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
 
   useEffect(() => {
       getAllApplicationTypes().then(setApplicationTypes);
@@ -34,11 +37,15 @@ export default function NewLocalLicenseForm() {
       getAllLicenseClasses().then(setLicenseClasses);
   }, []);
 
+  useEffect(() => {
+    getCurrentUser().then(setUser);
+  }, []);
+  
   const localLicenseFees = applicationTypes.find(type => type.id === 1)?.type_fees;
 
   return (
     <>
-      <form method='POST' onSubmit={onSubmit} className={styles.form}>
+      <form method='POST' onSubmit={(e) => onSubmit(e, user.userId, person?.id)} className={styles.form}>
         <div className={styles.headerRow}>
           <h1>New Local Driving License Application</h1>
         </div>
@@ -110,7 +117,7 @@ export default function NewLocalLicenseForm() {
             <label htmlFor='fees'>Created By:</label>
             <div className={styles.inputGroup}>
               <i className="bi bi-person-fill"></i>
-              <span>Current Username</span>
+              <span>{ user.username }</span>
             </div>
           </div>
         </div>
@@ -167,13 +174,8 @@ async function searchPerson(
         break;
       }
 
-      try {
-        const person = await getPersonById(personId);
-        setPerson(person);
-
-      } catch (err) {
-        alert(err);
-      }
+      const person = await getPersonById(personId);
+      setPerson(person);
 
       break;
     }
@@ -186,13 +188,8 @@ async function searchPerson(
         break;
       }
 
-      try { 
-        const person = await getPersonByNationalId(nationalId);
-        setPerson(person);
-
-      } catch (err) {
-        alert(err);
-      }
+      const person = await getPersonByNationalId(nationalId);
+      setPerson(person);
 
       break;
     }
@@ -202,8 +199,13 @@ async function searchPerson(
   }
 }
 
-async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+async function onSubmit(e: React.FormEvent<HTMLFormElement>, userId: number, personId: number | undefined) {
   e.preventDefault();
+  
+  if (!personId) {
+    alert('Error: please link a person first.');
+    return;
+  }
 
   const formData = new FormData(e.currentTarget);
 
@@ -217,10 +219,13 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 
   const payload = {
     ...data,
-    isActive: formData.has("isActive"),
-  };
+    personId,
+    createdByUserId: userId
+  }
 
-  const res = await apiFetch(`${baseUrl}/user/new`, {
+  console.log(payload)
+
+  const res = await apiFetch(`${baseUrl}/application/new/local`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -229,7 +234,7 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     credentials: 'include'
   });
 
-  const user = await res.json();
+  const application = await res.json();
 
-  alert(`User registered successfully with id: ${user.id}.`);
+  alert(`License application successfull with id: ${application.id}.`);
 }

@@ -9,6 +9,7 @@ import ManageApplicationTypes from './ManageApplicationTypes/ManageApplicationTy
 import ManageTestTypes from './ManageTestTypes/ManageTestTypes';
 import DrivingLicenseDashboard from './DrivingLicensesDashboard/DrivingLicenseDashboard';
 import { WithNavLayout } from './withNavLayout';
+import ManageApplications from './ManageApplications/ManageApplications';
 
 function Drivers() {
   return <h1>Drivers Page</h1>;
@@ -29,6 +30,7 @@ function App() {
             <Route path='/account-settings' element={<AccountSettings />} />
 
             {/* Applications Dashboard Items */}
+            <Route path='/local-driving-license-applications' element={<ManageApplications />}></Route>
             <Route path='/application-types' element={<ManageApplicationTypes />} />
             <Route path='/test-types' element={<ManageTestTypes />} />
             <Route path='/license-services' element={<DrivingLicenseDashboard />} />

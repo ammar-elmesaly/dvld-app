@@ -20,12 +20,6 @@ export default function ApplicationsDashboard() {
         </div>
 
         <div className={styles.card}>
-          <h2>Manage Applications</h2>
-          <p>Review, approve, or reject submitted applications.</p>
-          <Button color="primary">Open</Button>
-        </div>
-
-        <div className={styles.card}>
           <h2>Detain Licenses</h2>
           <p>Detain or release licenses according to violations.</p>
           <Button color="primary">Open</Button>

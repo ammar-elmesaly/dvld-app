@@ -129,13 +129,8 @@ async function searchPerson(
         break;
       }
 
-      try {
-        const person = await getPersonById(personId);
-        setPerson(person);
-
-      } catch (err) {
-        alert(err);
-      }
+      const person = await getPersonById(personId);
+      setPerson(person);
 
       break;
     }
@@ -148,13 +143,8 @@ async function searchPerson(
         break;
       }
 
-      try { 
-        const person = await getPersonByNationalId(nationalId);
-        setPerson(person);
-
-      } catch (err) {
-        alert(err);
-      }
+      const person = await getPersonByNationalId(nationalId);
+      setPerson(person);
 
       break;
     }

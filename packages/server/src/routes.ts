@@ -10,6 +10,8 @@ import applicationRouter from "./routes/applicationRouter";
 import loginRouter from "./routes/loginRoute";
 import logoutRouter from "./routes/logoutRoute";
 
+import meRouter from "./routes/meRoute";
+
 const router = express.Router();
 
 router.use('/person', personRouter);
@@ -22,5 +24,7 @@ router.use('/application', applicationRouter);
 
 router.use('/login', loginRouter);
 router.use('/logout', logoutRouter);
+
+router.use('/me', meRouter);
 
 export default router;

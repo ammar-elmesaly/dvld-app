@@ -1,8 +1,6 @@
 import { ApplicationDTO } from "./application.dto";
-import { LicenseClassDTO } from "./licenseClass.dto";
 
-export interface LocalDrivingLicenseApplicationDTO {
-    id: number;
-    application: ApplicationDTO;
-    license_class: LicenseClassDTO;
+export interface LocalDrivingLicenseApplicationDTO extends ApplicationDTO {
+    local_driving_license_application_id: number;
+    license_class_name: string;
 }

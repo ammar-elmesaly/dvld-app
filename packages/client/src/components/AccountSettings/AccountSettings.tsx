@@ -1,7 +1,11 @@
 import styles from './AccountSettings.module.css';
 import Button from '../Button/Button';
+import { logout } from '../../api/user/user';
+import { useNavigate } from 'react-router-dom';
 
 export default function AccountSettings() {
+  const navigate = useNavigate();
+
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>Account Settings</h2>
@@ -24,7 +28,13 @@ export default function AccountSettings() {
 
       <section className={styles.card}>
         <h3 className={styles.sectionTitle}>Sign Out</h3>
-        <Button color="error" type="button">
+        <Button onClick={async () => {
+            const code = await logout();
+            
+            if (code === 204)
+              navigate('/login');
+          }
+        } color="error" type="button">
           Sign Out
         </Button>
       </section>

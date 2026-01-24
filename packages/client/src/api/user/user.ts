@@ -6,3 +6,19 @@ export async function getAllUsers() {
 
     return res.json();
 }
+
+export async function getCurrentUser() {
+    const res = await apiFetch(`${baseUrl}/me`);
+
+    return res.json();
+}
+
+export async function logout() {
+    const res = await apiFetch(`${baseUrl}/logout`,
+        {
+            method: 'POST'
+        }
+    );
+
+    return res.status;
+}

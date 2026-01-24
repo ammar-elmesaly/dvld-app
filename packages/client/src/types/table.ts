@@ -16,6 +16,13 @@ export enum UserActionType {
     Call = 'Phone Call'
 }
 
+export enum ApplicationsActionType {
+    View = 'View',
+    NewApp = 'Make a new application',
+    Edit = 'Edit',
+    Delete = 'Delete'
+}
+
 export enum ApplicationTypesActionType {
     Edit = 'Edit'
 }

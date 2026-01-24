@@ -10,7 +10,7 @@ export async function apiFetch(input: RequestInfo, init?: RequestInit) {
             history.push('/login');
             
         } else {
-            alert(data.msg || 'Something went wrong');
+            alert(`Error: ${data.msg || 'Something went wrong'}`);
         }
 
         throw new Error(data.msg);
