@@ -11,8 +11,15 @@ export const toLocalDrivingLicenseApplicationDTO = (application: Application): L
         local_driving_license_application_id: application.local_driving_license_application.id,
         national_id: application.person.national_id,
         full_name: personFullName,
+
         application_date: application.application_date.toDateString(),
+        application_fees: application.application_type.type_fees,
+
         passed_tests: 0,  // TODO
+        paid_fees: application.paid_fees,
+        application_type_name: application.application_type.type_name,
+        created_by_user_name: application.created_by_user.username,
+
         status: application.application_status,
         license_class_name: application.local_driving_license_application.license_class.class_name,
     };

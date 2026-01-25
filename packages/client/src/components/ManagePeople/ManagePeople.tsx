@@ -8,7 +8,7 @@ import ManagePeopleTable from '../Tables/ManagePeopleTable';
 import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
 
 import { RowActionDef, ActiveRowAction, PeopleActionType } from '../../types/table';
-import PersonInformation from '../PersonInformation/PersonInformation';
+import PersonInformation from '../Info/PersonInfo/PersonInfo';
 import { getAllPersons } from '../../api/person/person';
 
 export default function People() {

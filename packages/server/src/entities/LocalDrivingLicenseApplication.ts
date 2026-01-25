@@ -4,10 +4,12 @@ import {
     PrimaryGeneratedColumn,
     OneToOne,
     JoinColumn,
-    ManyToOne
+    ManyToOne,
+    OneToMany
 } from 'typeorm';
 import { Application } from './Application';
 import { LicenseClass } from './LicenseClass';
+import { TestAppointment } from './TestAppointment';
 
 @Entity()
 export class LocalDrivingLicenseApplication extends BaseEntity {
@@ -28,4 +30,10 @@ export class LocalDrivingLicenseApplication extends BaseEntity {
         { onDelete: 'RESTRICT' }
     )
     license_class: LicenseClass
+
+    @OneToMany(
+        () => TestAppointment,
+        test_appointment => test_appointment.local_driving_license_application
+    )
+    test_appointments: TestAppointment[]
 }

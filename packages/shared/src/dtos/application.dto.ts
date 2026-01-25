@@ -4,7 +4,13 @@ export interface ApplicationDTO {
     application_id: number;
     national_id: string;
     full_name: string;
+    created_by_user_name: string;
+    application_fees: number;
+
     application_date: string;
+    application_type_name: string;
+    
     passed_tests: number;
+    paid_fees: number;
     status: ApplicationStatus;
 }

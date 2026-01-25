@@ -8,6 +8,7 @@ import { ApplicationType } from "./entities/ApplicationType";
 import { TestType } from "./entities/TestType";
 import { LicenseClass } from "./entities/LicenseClass";
 import { LocalDrivingLicenseApplication } from "./entities/LocalDrivingLicenseApplication";
+import { TestAppointment } from "./entities/TestAppointment";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -25,6 +26,7 @@ export const AppDataSource = new DataSource({
         ApplicationType,
         TestType,
         LicenseClass,
-        LocalDrivingLicenseApplication
+        LocalDrivingLicenseApplication,
+        TestAppointment
     ]
 });

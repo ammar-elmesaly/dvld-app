@@ -8,7 +8,7 @@ import ManageUsersTable from '../Tables/ManageUsersTable';
 
 import { UserDTO } from '@dvld/shared/src/dtos/user.dto';
 import { RowActionDef, ActiveRowAction, UserActionType } from '../../types/table';
-import ViewUser from '../ViewUser/ViewUser';
+import UserInfo from '../Info/UserInfo/UserInfo';
 import { getAllUsers } from '../../api/user/user';
 
 export default function ManageUsers() {
@@ -60,7 +60,7 @@ export default function ManageUsers() {
   switch (activeRowAction?.type) {
     case UserActionType.View:
       selectedAction = (
-        <ViewUser
+        <UserInfo
           user={ activeRowAction.row }
         />
       );

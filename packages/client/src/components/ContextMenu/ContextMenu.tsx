@@ -33,22 +33,26 @@ export default function ContextMenu<RowType, RowActionType>({
     <div
       id="context-menu-portal"
       className={styles.menu}
-      style={{
-        top: position.y,
-        left: position.x,
-      }}
+      style={{ top: position.y, left: position.x }}
     >
-      {rowActions.map(action => (
-        <Button
-          key={`${action.type}`}
-          onClick={() => {
-            action.handler(row);
-            onClose();
-          }}
-        >
-          {`${action.type}`}
-        </Button>
-      ))}
+      {rowActions.map(action => {
+        // Calculates disabled state using a predicate defined in RowActionDef
+        const isBtnDisabled = action.isDisabled ? action.isDisabled(row) : false;
+
+        return (
+          <Button
+            key={`${action.type}`}
+            disabled={isBtnDisabled}
+            onClick={() => {
+              if (isBtnDisabled) return;  // just to be safe :)
+              action.handler(row);
+              onClose();
+            }}
+          >
+            {`${action.type}`}
+          </Button>
+        );
+      })}
     </div>,
     document.body
   );

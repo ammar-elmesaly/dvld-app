@@ -14,6 +14,7 @@ import { ApplicationType } from './ApplicationType';
 import { User } from './User';
 import { ApplicationStatus } from '@dvld/shared/src/types/application';
 import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
+import { TestAppointment } from './TestAppointment';
 @Entity()
 export class Application extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
@@ -51,6 +52,12 @@ export class Application extends BaseEntity {
         local_driving_license_application => local_driving_license_application.application
     )
     local_driving_license_application: LocalDrivingLicenseApplication;
+
+    @OneToOne(
+        () => TestAppointment,
+        test_appointment => test_appointment.retake_test_application,
+    )
+    test_appointment: TestAppointment;
 
     @Column({ type: 'numeric' })
     paid_fees: number;

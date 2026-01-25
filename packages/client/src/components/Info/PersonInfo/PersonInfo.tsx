@@ -1,13 +1,14 @@
-import { uploadUrl } from "../../api/urls";
+import { uploadUrl } from "../../../api/urls";
 import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
 import { Gender } from "@dvld/shared/src/types/person";
 interface PersonInfoProps {
   person?: PersonDTO;
 }
 
-import styles from '../Forms/AddPersonForm/AddPersonForm.module.css'
+import styles from '../../Forms/AddPersonForm/AddPersonForm.module.css'
+import { InfoBox, InfoRow } from "../../../helpers/info";
 
-export default function PersonInformation({ person }: PersonInfoProps) {
+export default function PersonInfo({ person }: PersonInfoProps) {
   const personToRender: PersonDTO = person ? person : {
     id: 0,
     first_name: '??',
@@ -77,39 +78,3 @@ export default function PersonInformation({ person }: PersonInfoProps) {
     </section>
   );
 }
-
-function InfoRow({
-  label,
-  value,
-  icon
-}: {
-  label: string;
-  value: string;
-  icon?: string;
-}) {
-  return (
-    <div className={styles.formRow}>
-      <label>{label}</label>
-      <div className={styles.inputGroup}>
-        {icon && <i className={`bi ${icon}`} />}
-        <span>{value}</span>
-      </div>
-    </div>
-  );
-}
-
-function InfoBox({
-  value,
-  icon
-}: {
-  value: string;
-  icon?: string;
-}) {
-  return (
-    <div className={styles.inputGroup}>
-      {icon && <i className={`bi ${icon}`} />}
-      <span>{value}</span>
-    </div>
-  );
-}
-

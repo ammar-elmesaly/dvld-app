@@ -3,7 +3,9 @@ import {
     BaseEntity,
     Column,
     PrimaryGeneratedColumn,
+    OneToMany,
 } from 'typeorm';
+import { TestAppointment } from './TestAppointment';
 
 @Entity()
 export class TestType extends BaseEntity {
@@ -18,4 +20,10 @@ export class TestType extends BaseEntity {
 
     @Column({ type: 'numeric' })
     type_fees: number;
+
+    @OneToMany(
+        () => TestAppointment,
+        test_appointment => test_appointment.test_type
+    )
+    test_appointments: TestAppointment[]
 }

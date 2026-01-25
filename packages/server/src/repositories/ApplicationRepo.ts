@@ -7,9 +7,11 @@ export const ApplicationRepo = AppDataSource.getRepository(Application).extend({
             .innerJoinAndSelect(
                 'application.local_driving_license_application', 
                 'ldla'
-            )
-            .innerJoinAndSelect('ldla.license_class', 'lclass')
-            .innerJoinAndSelect('application.person', 'person')
+            ) // selecting local driving license application which is basically a join table (kind of)
+            .innerJoinAndSelect('ldla.license_class', 'lclass')  // selecting license_class table
+            .innerJoinAndSelect('application.person', 'person')  // selecting person
+            .innerJoinAndSelect('application.created_by_user', 'user')  // selecting created_by_user
+            .innerJoinAndSelect('application.application_type', 'type') // selecting application type
             .getMany();
     }
 });

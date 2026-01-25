@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 import { Person } from './Person';
 import { Application } from './Application';
+import { TestAppointment } from './TestAppointment';
+import { Test } from './Test';
 
 @Entity()
 export class User extends BaseEntity {
@@ -29,6 +31,18 @@ export class User extends BaseEntity {
     )
     applications: Application[]
     
+    @OneToMany(
+        () => TestAppointment,
+        test_appointment => test_appointment.user
+    )
+    test_appointments: TestAppointment[]
+
+    @OneToMany(
+        () => Test,
+        test => test.user
+    )
+    tests: Test[]
+
     @Column({ unique: true })
     username: string;
 

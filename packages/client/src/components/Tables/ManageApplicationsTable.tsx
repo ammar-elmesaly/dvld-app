@@ -24,7 +24,7 @@ export default function ManageApplicationsTable<RowType, RowActionType>({
 ) {
   return (
     <Table
-    ignoreColumns={['application_id']}
+    ignoreColumns={['application_id', 'application_fees', 'paid_fees', 'created_by_user_name', 'application_type_name']}
     data={applications as unknown as Record<string, unknown>[]}
     filterBy={filterBy}
     filterValue={filterValue}

@@ -18,9 +18,18 @@ export enum UserActionType {
 
 export enum ApplicationsActionType {
     View = 'View',
-    NewApp = 'Make a new application',
+    NewApp = 'New Application',
     Edit = 'Edit',
-    Delete = 'Delete'
+    Delete = 'Delete',
+    CancelApp = 'Cancel Application',
+
+    Vision = 'Schedule Vision Test',
+    Written = 'Schedule Written Test',
+    Street = 'Schedule Street Test',
+
+    IssueLicense = 'Issue Driving License (first time)',
+    ShowLicense = 'Show License',
+    ShowHistory = 'Show Person License History'
 }
 
 export enum ApplicationTypesActionType {
@@ -34,6 +43,7 @@ export enum TestTypesActionType {
 export type RowActionDef<RowType, RowActionType> = {
     type: RowActionType;
     handler: (row: RowType) => void;
+    isDisabled?: (row: RowType) => boolean;
 };
 
 export type ActiveRowAction<RowType, RowActionType> = {

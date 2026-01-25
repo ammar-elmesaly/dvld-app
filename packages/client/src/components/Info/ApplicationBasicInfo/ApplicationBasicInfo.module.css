@@ -1,0 +1,72 @@
+.form {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.mainLayout {
+    display: flex;
+    gap: 10px;
+}
+
+.fieldsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 95px 1fr; /* Consistent 95px width */
+    align-items: center;
+    column-gap: 8px;
+    font-size: 0.85rem;
+}
+
+.splitRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #ccc;
+    padding: 3px 6px;
+}
+
+.inputGroup i {
+    font-size: 12px; /* Smaller icons */
+    color: #666;
+}
+
+.applicantActionRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.nameDisplay {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+/* Make sure the button within the row isn't too bulky */
+.applicantActionRow button {
+    padding: 2px 8px;
+    font-size: 0.75rem;
+}

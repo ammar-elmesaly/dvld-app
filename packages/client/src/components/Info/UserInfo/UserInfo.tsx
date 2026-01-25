@@ -1,4 +1,4 @@
-export default function ViewUser({ user }) {
+export default function UserInfo({ user }) {
   return <>
     <h1>Viewing User</h1>
     <p>ID: {user.id}</p>
