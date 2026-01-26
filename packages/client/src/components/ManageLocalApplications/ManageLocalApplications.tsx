@@ -23,9 +23,15 @@ export default function ManageLocalApplications() {
   const [newLocalDrivingLicenseOpen, setNewLocalDrivingLicenseOpen] = useState(false);
 
   const [applications, setApplications] = useState<LocalDrivingLicenseApplicationDTO[]>([]);
+
+  const [refreshKey, setRefreshKey] = useState(0);
+  const handleRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
   useEffect(() => {
       getAllLocalDrivingLicenseApplications().then(setApplications);
-  }, []);
+  }, [refreshKey]);
 
   const rowActions: RowActionDef<LocalDrivingLicenseApplicationDTO, ApplicationsActionType>[] = [
     {
@@ -132,7 +138,11 @@ export default function ManageLocalApplications() {
       );
       break;
 
-    case ApplicationsActionType.Vision: {
+    case ApplicationsActionType.Vision:
+    case ApplicationsActionType.Written:
+    case ApplicationsActionType.Street:
+
+    {
       const localDrivingLicenseApplication = activeRowAction.row;
 
       selectedAction = (
@@ -145,23 +155,11 @@ export default function ManageLocalApplications() {
           <hr style={{ "margin": "15px 0px" }} />
           <ApplicationBasicInfo application={localDrivingLicenseApplication} />
           <hr style={{ "margin": "15px 0px" }} />
-          <ManageTestAppointments localDrivingLicenseApplication={localDrivingLicenseApplication} passedTests={localDrivingLicenseApplication.passed_tests}/>
+          <ManageTestAppointments handleManageLocalApplicationsRefresh={handleRefresh} localDrivingLicenseApplication={localDrivingLicenseApplication} passedTests={localDrivingLicenseApplication.passed_tests}/>
         </>
       );
       break;
     }
-
-    case ApplicationsActionType.Written:
-      selectedAction = (
-        <h1 className='stub'>STUB!</h1>
-      );
-      break;
-
-    case ApplicationsActionType.Street:
-      selectedAction = (
-        <h1 className='stub'>STUB!</h1>
-      );
-      break;
 
     case ApplicationsActionType.IssueLicense:
       selectedAction = (
@@ -196,7 +194,14 @@ export default function ManageLocalApplications() {
           setFilterBy={setFilterBy}
           setFilterValue={setFilterValue}
         />
-        <Button color='success' iconLeft="file-earmark-plus" onClick={() => setNewLocalDrivingLicenseOpen(true)}>New Local Driving License</Button>
+        <div className={styles.refreshAdd}>
+          <Button 
+            color='primary' 
+            icon="arrow-clockwise" 
+            onClick={handleRefresh} 
+          />
+          <Button color='success' iconLeft="file-earmark-plus" onClick={() => setNewLocalDrivingLicenseOpen(true)}>New Local Driving License</Button>
+        </div>
         <Overlay open={newLocalDrivingLicenseOpen} onClose={() => setNewLocalDrivingLicenseOpen(false)}>
           <NewLocalLicenseForm />
         </Overlay>

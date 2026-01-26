@@ -13,9 +13,10 @@ interface TestAppointmentFormProps {
   ldla: LocalDrivingLicenseApplicationDTO;
   testTypeId: number;
   testAppointment: TestAppointmentDTO;
+  handleRefresh: () => void;
 }
 
-export default function EditTestAppointmentForm({ ldla, testTypeId, testAppointment }: TestAppointmentFormProps) {
+export default function EditTestAppointmentForm({ ldla, testTypeId, testAppointment, handleRefresh }: TestAppointmentFormProps) {
   const minDateString = toInputDate(new Date());
   const oldDateString = toInputDate(new Date(testAppointment.appointment_date));
   
@@ -27,7 +28,7 @@ export default function EditTestAppointmentForm({ ldla, testTypeId, testAppointm
 
   return (
     <>
-      <form method='POST' onSubmit={onSubmit} className={styles.form}>
+      <form method='POST' onSubmit={(e) => onSubmit(e, testAppointment.id, handleRefresh)} className={styles.form}>
         <div className={styles.headerRow}>
           <h1>Edit Test Appointment</h1>
         </div>
@@ -96,14 +97,14 @@ export default function EditTestAppointmentForm({ ldla, testTypeId, testAppointm
   );
 }
 
-async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+async function onSubmit(e: React.FormEvent<HTMLFormElement>, testAppointmentId: number, handleRefresh: () => void) {
   e.preventDefault();
 
   const formData = new FormData(e.currentTarget);
 
   const data = Object.fromEntries(formData.entries());
 
-  const res = await apiFetch(`${baseUrl}/testAppointment/update`, {
+  const res = await apiFetch(`${baseUrl}/testAppointment/update/${testAppointmentId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -112,7 +113,8 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     credentials: 'include'
   });
 
-  const testAppointmentId = await res.json();
+  const updatedTestAppointmentId = await res.json();
 
-  alert(`Test appointment updated successfully: ${testAppointmentId}.`);
+  alert(`Test appointment with id: ${updatedTestAppointmentId} updated successfully.`);
+  handleRefresh();
 }

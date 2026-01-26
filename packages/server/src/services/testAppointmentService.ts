@@ -61,3 +61,23 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
 
     return testAppointment.id;
 }
+
+export async function updateTestAppointment(testAppointmentId: number, appointmentDate: Date) {
+    const appointment = await TestAppointment.findOne({
+        where: {
+            id: testAppointmentId
+        }
+    });
+
+    if (!appointment)
+        throw new AppError('Test Appointment not found', 404);
+
+    if (appointment.is_locked)
+        throw new AppError('Cannot edit a locked appointment', 400);
+
+    appointment.appointment_date = appointmentDate;
+
+    const newTestAppointment = await TestAppointment.save(appointment);
+    
+    return newTestAppointment.id;
+}

@@ -7,6 +7,7 @@ import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
 import { RowActionDef, ActiveRowAction, TestTypesActionType } from '../../types/table';
 import { getAllTestTypes } from '../../api/test/testType';
 import { EditTestType } from '../Edit/EditTestType/EditTestType';
+import Button from '../Button/Button';
 
 export default function ManageTestTypes() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
@@ -33,9 +34,14 @@ export default function ManageTestTypes() {
 
   const [testTypes, setTestTypes] = useState<TestTypeDTO[]>([]);
 
+  const [refreshKey, setRefreshKey] = useState(0);
+  const handleRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
   useEffect(() => {
       getAllTestTypes().then(setTestTypes);
-  }, []);
+  }, [refreshKey]);
 
   return (
     <section className={styles.section}>
@@ -43,6 +49,11 @@ export default function ManageTestTypes() {
         <h1 className={styles.h1}><i className='bi bi-people-fill'></i> Manage Test Types</h1>
       </div>
       <div className={styles.controls}>
+        <Button 
+          color='primary' 
+          icon="arrow-clockwise" 
+          onClick={handleRefresh} 
+        />
         { activeRowAction &&
         <Overlay open={activeRowAction !== null} onClose={() => setActiveRowAction(null)}>
           { selectedAction }

@@ -102,9 +102,14 @@ export default function People() {
 
   const [persons, setPeople] = useState<PersonDTO[]>([]);
 
+  const [refreshKey, setRefreshKey] = useState(0);
+  const handleRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
   useEffect(() => {
       getAllPersons().then(setPeople);
-  }, []);
+  }, [refreshKey]);
 
   return (
     <section className={styles.section}>
@@ -120,7 +125,14 @@ export default function People() {
           setFilterBy={setFilterBy}
           setFilterValue={setFilterValue}
         />
-        <Button color='success' iconLeft="person-fill-add" onClick={() => setAddPersonOpen(true)}>Add a person</Button>
+        <div className={styles.refreshAdd}>
+          <Button 
+            color='primary' 
+            icon="arrow-clockwise" 
+            onClick={handleRefresh} 
+          />
+          <Button color='success' iconLeft="person-fill-add" onClick={() => setAddPersonOpen(true)}>Add a person</Button>
+        </div>
         <Overlay open={addPersonOpen} onClose={() => setAddPersonOpen(false)}>
           <AddPersonForm />
         </Overlay>

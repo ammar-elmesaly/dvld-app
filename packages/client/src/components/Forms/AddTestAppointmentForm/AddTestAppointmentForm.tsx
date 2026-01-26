@@ -11,9 +11,10 @@ import { getTestTypeById } from '../../../api/test/testType';
 interface TestAppointmentFormProps {
   ldla: LocalDrivingLicenseApplicationDTO;
   testTypeId: number;
+  handleRefresh: () => void;
 }
 
-export default function AddTestAppointmentForm({ ldla, testTypeId }: TestAppointmentFormProps) {
+export default function AddTestAppointmentForm({ ldla, testTypeId, handleRefresh }: TestAppointmentFormProps) {
   // Minimum date you can select is today (now), you can't make an appointment in the past
   // obviously :)
   const minDateString = toInputDate(new Date());
@@ -25,7 +26,7 @@ export default function AddTestAppointmentForm({ ldla, testTypeId }: TestAppoint
 
   return (
     <>
-      <form method='POST' onSubmit={onSubmit} className={styles.form}>
+      <form method='POST' onSubmit={(e) => onSubmit(e, handleRefresh)} className={styles.form}>
         <div className={styles.headerRow}>
           <h1>New Test Appointment</h1>
         </div>
@@ -94,7 +95,7 @@ export default function AddTestAppointmentForm({ ldla, testTypeId }: TestAppoint
   );
 }
 
-async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+async function onSubmit(e: React.FormEvent<HTMLFormElement>, handleRefresh: () => void) {
   e.preventDefault();
 
   const formData = new FormData(e.currentTarget);
@@ -111,6 +112,6 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
   });
 
   const testAppointmentId = await res.json();
-
   alert(`Test appointment creation successfull with id: ${testAppointmentId}.`);
+  handleRefresh();
 }

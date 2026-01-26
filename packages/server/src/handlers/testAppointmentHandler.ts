@@ -23,3 +23,12 @@ export const newTestAppointmentHandler: RequestHandler = async (req, res) => {
     
     res.status(201).json(testAppointmentId);
 }
+
+export const updateTestAppointmentHandler: RequestHandler = async (req, res) => {
+    const { testAppointmentId } = req.params;
+    const { appointmentDate } = req.body;
+
+    const updatedTestAppointmentId = await testAppointmentService.updateTestAppointment(Number(testAppointmentId), appointmentDate);
+
+    res.json(updatedTestAppointmentId);
+}

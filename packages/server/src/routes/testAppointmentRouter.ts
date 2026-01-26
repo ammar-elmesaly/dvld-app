@@ -1,6 +1,6 @@
 import express from 'express';
 import { requireAuth } from '../middleware/validators/auth';
-import { getAllTestAppointmentsHandler, newTestAppointmentHandler } from '../handlers/testAppointmentHandler';
+import { getAllTestAppointmentsHandler, newTestAppointmentHandler, updateTestAppointmentHandler } from '../handlers/testAppointmentHandler';
 
 const router = express.Router();
 
@@ -9,5 +9,8 @@ router.get('/:localDrivingLicenseApplicationId/all', requireAuth, getAllTestAppo
 
 // POST /testAppointment/new
 router.post('/new', requireAuth, newTestAppointmentHandler);
+
+// PUT /testAppointment/update/:testAppointmentId
+router.put('/update/:testAppointmentId', requireAuth, updateTestAppointmentHandler);
 
 export default router;

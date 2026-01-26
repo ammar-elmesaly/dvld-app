@@ -7,6 +7,7 @@ import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
 import { RowActionDef, ActiveRowAction, ApplicationTypesActionType } from '../../types/table';
 import { getAllApplicationTypes } from '../../api/application/applicationType';
 import { EditApplicationType } from '../Edit/EditApplicationType/EditApplicationType';
+import Button from '../Button/Button';
 
 export default function ManageApplicationTypes() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
@@ -33,9 +34,14 @@ export default function ManageApplicationTypes() {
 
   const [applicationTypes, setApplicationTypes] = useState<ApplicationTypeDTO[]>([]);
 
+  const [refreshKey, setRefreshKey] = useState(0);
+  const handleRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
   useEffect(() => {
       getAllApplicationTypes().then(setApplicationTypes);
-  }, []);
+  }, [refreshKey]);
 
   return (
     <section className={styles.section}>
@@ -43,6 +49,11 @@ export default function ManageApplicationTypes() {
         <h1 className={styles.h1}><i className='bi bi-people-fill'></i> Manage Application Types</h1>
       </div>
       <div className={styles.controls}>
+        <Button 
+          color='primary' 
+          icon="arrow-clockwise" 
+          onClick={handleRefresh} 
+        />
         { activeRowAction &&
         <Overlay open={activeRowAction !== null} onClose={() => setActiveRowAction(null)}>
           { selectedAction }

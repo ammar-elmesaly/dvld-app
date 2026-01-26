@@ -99,9 +99,14 @@ export default function ManageUsers() {
 
   const [users, setUsers] = useState<UserDTO[]>([]);
 
+  const [refreshKey, setRefreshKey] = useState(0);
+  const handleRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
   useEffect(() => {
       getAllUsers().then(setUsers);
-  }, []);
+  }, [refreshKey]);
 
   return (
     <section className={styles.section}>
@@ -116,7 +121,14 @@ export default function ManageUsers() {
           setFilterBy={setFilterBy}
           setFilterValue={setFilterValue}
         />
-        <Button color='success' iconLeft="person-fill-add" onClick={() => setAddUserOpen(true)}>Add a user</Button>
+        <div className={styles.refreshAdd}>
+          <Button 
+            color='primary' 
+            icon="arrow-clockwise" 
+            onClick={handleRefresh} 
+          />
+          <Button color='success' iconLeft="person-fill-add" onClick={() => setAddUserOpen(true)}>Add a user</Button>
+        </div>
         <Overlay open={addUserOpen} onClose={() => setAddUserOpen(false)}>
           <AddUserForm />
         </Overlay>

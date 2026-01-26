@@ -14,6 +14,7 @@ import EditTestAppointmentForm from '../Edit/EditTestAppointmentForm/EditTestApp
 interface ManageTestAppointmentsProps {
   localDrivingLicenseApplication: LocalDrivingLicenseApplicationDTO;
   passedTests: number;
+  handleManageLocalApplicationsRefresh: () => void;  // Parent component refresh
 }
 
 export default function ManageTestAppointments({ localDrivingLicenseApplication, passedTests }: ManageTestAppointmentsProps) {
@@ -21,10 +22,17 @@ export default function ManageTestAppointments({ localDrivingLicenseApplication,
 
   const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<TestAppointmentDTO, TestAppoitnmentsActionType>>(null);
 
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
   const rowActions: RowActionDef<TestAppointmentDTO, TestAppoitnmentsActionType>[] = [
     {
       type: TestAppoitnmentsActionType.Edit,
-      handler: (row) => setActiveRowAction({ row, type: TestAppoitnmentsActionType.Edit })
+      handler: (row) => setActiveRowAction({ row, type: TestAppoitnmentsActionType.Edit }),
+      isDisabled: (row) => row.is_locked
     },
 
     {
@@ -39,7 +47,7 @@ export default function ManageTestAppointments({ localDrivingLicenseApplication,
   switch (activeRowAction?.type) {
     case TestAppoitnmentsActionType.Edit:
       selectedAction = (
-        <EditTestAppointmentForm testAppointment={activeRowAction.row} testTypeId={passedTests + 1} ldla={localDrivingLicenseApplication} />
+        <EditTestAppointmentForm testAppointment={activeRowAction.row} testTypeId={passedTests + 1} ldla={localDrivingLicenseApplication} handleRefresh={handleRefresh} />
       );
       break;
 
@@ -55,7 +63,8 @@ export default function ManageTestAppointments({ localDrivingLicenseApplication,
 
   useEffect(() => {
       getAllTestAppointments(localDrivingLicenseApplication.local_driving_license_application_id).then(setTestAppointments);
-  }, [localDrivingLicenseApplication]);
+  }, [localDrivingLicenseApplication, refreshKey]);
+
 
   return (
     <section className={styles.section}>
@@ -63,13 +72,18 @@ export default function ManageTestAppointments({ localDrivingLicenseApplication,
         <h2 className={styles.h1}><i className='bi bi-window-fullscreen'></i> Manage Test Appointments</h2>
       </div>
       <div className={styles.controls}>
+        <Button 
+          color='primary' 
+          icon="arrow-clockwise" 
+          onClick={handleRefresh} 
+        />
         <Button color='success' icon="file-earmark-plus-fill" onClick={() => setAddTestAppointmentOpen(true)} />
         <Overlay open={addTestAppointmentOpen} onClose={() => setAddTestAppointmentOpen(false)}>
           {/*
           Test appointment form takes passedTests + 1, meaning if no passed test, then passedTests = 0,
           then testTypeId = 1 (vision Test), and so on
           */}
-          <AddTestAppointmentForm testTypeId={passedTests + 1} ldla={localDrivingLicenseApplication} />
+          <AddTestAppointmentForm testTypeId={passedTests + 1} ldla={localDrivingLicenseApplication} handleRefresh={handleRefresh} />
         </Overlay>
         { activeRowAction &&
         <Overlay open={activeRowAction !== null} onClose={() => setActiveRowAction(null)}>
