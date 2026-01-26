@@ -47,18 +47,19 @@ export class TestAppointment extends BaseEntity {
     user: User;
 
     @Column()
-    isLocked: boolean;
+    is_locked: boolean;
 
     @OneToOne(
         () => Application,
         application => application.test_appointment,
+        { nullable: true }
     )
     @JoinColumn({ name: 'retake_test_application_id' })
     retake_test_application: Application;
 
     @OneToOne(
         () => Test,
-        test => test.test_appointment
+        test => test.test_appointment,
     )
     test: Test;
 }

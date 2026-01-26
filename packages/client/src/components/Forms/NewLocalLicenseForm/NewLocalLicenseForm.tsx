@@ -234,7 +234,7 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>, userId: number, per
     credentials: 'include'
   });
 
-  const application = await res.json();
+  const applicationId = await res.json();
 
-  alert(`License application successfull with id: ${application.id}.`);
+  alert(`License application successfull with id: ${applicationId}.`);
 }

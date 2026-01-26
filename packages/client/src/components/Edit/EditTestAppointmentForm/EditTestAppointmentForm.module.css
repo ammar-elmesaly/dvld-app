@@ -1,0 +1,104 @@
+.form {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Added gap for spacing */
+}
+
+.headerRow {
+    display: flex;
+    justify-content: center;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+    column-gap: 12px;
+}
+
+.activeRow {
+    display: flex;
+    gap: 12px
+}
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+}
+
+.inputGroup i {
+    font-size: 14px;
+    color: #666;
+}
+
+.inputGroup input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+
+
+.inputGroup:focus-within {
+    border-color: var(--primary-bg);
+}
+
+/* --- Extensions for Layout --- */
+
+.mainLayout {
+    gap: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.controls {
+    display: flex;
+    justify-items: right;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.selectWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.select {
+    width: 100%;
+    padding: 10px 36px 10px 36px;
+    border-radius: 8px;
+    border: 1px solid #2d2f36;
+    background: #1f2128;
+    color: #fff;
+    font-size: 14px;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.select:focus {
+    outline: none;
+    border-color: #4f7cff;
+    box-shadow: 0 0 0 2px rgba(79, 124, 255, .3);
+}
+
+.selectWrapper i:first-child {
+    position: absolute;
+    left: 12px;
+    color: #aaa;
+}
+
+.arrow {
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+    color: #aaa;
+}

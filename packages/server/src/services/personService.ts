@@ -57,7 +57,7 @@ export const addNewPerson = async (
     if (!country)
         throw new AppError('Country not found', 404);
 
-    const newPerson = PersonRepo.create({
+    const newPerson = await PersonRepo.create({
         first_name: firstName,
         second_name: secondName,
         third_name: thirdName,
@@ -70,7 +70,7 @@ export const addNewPerson = async (
         email,
         national_country: country,
         personal_photo: personalPhoto
-    });
+    }).save();
 
-    return newPerson.save();
+    return newPerson.id;
 }

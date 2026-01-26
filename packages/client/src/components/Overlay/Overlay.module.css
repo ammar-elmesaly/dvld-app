@@ -15,4 +15,5 @@
     max-height: 90vh;
     padding: 1.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
 }

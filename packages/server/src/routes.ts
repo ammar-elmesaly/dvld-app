@@ -10,6 +10,8 @@ import applicationRouter from "./routes/applicationRouter";
 import loginRouter from "./routes/loginRoute";
 import logoutRouter from "./routes/logoutRoute";
 
+import testAppointmentRouter from "./routes/testAppointmentRouter";
+
 import meRouter from "./routes/meRoute";
 
 const router = express.Router();
@@ -21,6 +23,8 @@ router.use('/applicationType', applicationTypeRouter);
 router.use('/testType', testTypeRouter);
 router.use('/licenseClass', licenseClassRouter);
 router.use('/application', applicationRouter);
+
+router.use('/testAppointment', testAppointmentRouter);
 
 router.use('/login', loginRouter);
 router.use('/logout', logoutRouter);

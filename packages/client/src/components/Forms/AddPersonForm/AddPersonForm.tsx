@@ -1,6 +1,7 @@
 import { apiFetch } from '../../../api/apiFetch';
 import { getAllCountries } from '../../../api/country/country';
 import { baseUrl } from '../../../api/urls';
+import { toInputDate, yearsAgo } from '../../../helpers/date';
 import Button from '../../Button/Button';
 import styles from './AddPersonForm.module.css';
 import { CountryDTO } from "@dvld/shared/src/dtos/country.dto";
@@ -153,21 +154,6 @@ export default function AddPersonForm() {
   );
 }
 
-function yearsAgo(years: number): Date {
-  const d = new Date();
-  d.setFullYear(d.getFullYear() - years);
-  return d;
-}
-
-// Format date object because <input> min attribute doesn't accept any other format
-// except YYYY-MM-DD
-function toInputDate(date: Date) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, '0');
-  const d = String(date.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
-}
-
 const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
@@ -179,7 +165,7 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     credentials: 'include'
   });
 
-  const person = await res.json();
+  const personId = await res.json();
 
-  alert(`Person registered successfully with id: ${person.id}.`)
+  alert(`Person registered successfully with id: ${personId}.`)
 }

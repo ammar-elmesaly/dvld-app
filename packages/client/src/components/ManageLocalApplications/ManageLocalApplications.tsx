@@ -12,6 +12,7 @@ import NewLocalLicenseForm from '../Forms/NewLocalLicenseForm/NewLocalLicenseFor
 import { ApplicationStatus } from '@dvld/shared/src/types/application';
 import { ApplicationBasicInfo } from '../Info/ApplicationBasicInfo/ApplicationBasicInfo';
 import { DrivingLicenseInfo } from '../Info/DrivingLicenseInfo/DrivingLicenseInfo';
+import ManageTestAppointments from '../ManageTestAppointments/ManageTestAppointments';
 
 export default function ManageLocalApplications() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
@@ -88,8 +89,6 @@ export default function ManageLocalApplications() {
     },
   ];
 
-
-
   let selectedAction: React.ReactNode = null;
 
   switch (activeRowAction?.type) {
@@ -133,11 +132,24 @@ export default function ManageLocalApplications() {
       );
       break;
 
-    case ApplicationsActionType.Vision:
+    case ApplicationsActionType.Vision: {
+      const localDrivingLicenseApplication = activeRowAction.row;
+
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <>
+          <DrivingLicenseInfo
+            dlAppId={localDrivingLicenseApplication.local_driving_license_application_id}
+            licenseClass={localDrivingLicenseApplication.license_class_name}
+            passedTests={`${localDrivingLicenseApplication.passed_tests}/3`}
+          />
+          <hr style={{ "margin": "15px 0px" }} />
+          <ApplicationBasicInfo application={localDrivingLicenseApplication} />
+          <hr style={{ "margin": "15px 0px" }} />
+          <ManageTestAppointments localDrivingLicenseApplication={localDrivingLicenseApplication} passedTests={localDrivingLicenseApplication.passed_tests}/>
+        </>
       );
       break;
+    }
 
     case ApplicationsActionType.Written:
       selectedAction = (

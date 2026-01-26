@@ -45,7 +45,7 @@ export const createPersonHandler: RequestHandler = async (req, res) => {
         nationalCountryId,
     } = req.body;
 
-    const person = await personService.addNewPerson(
+    const personId = await personService.addNewPerson(
         firstName,
         secondName,
         thirdName,
@@ -60,5 +60,5 @@ export const createPersonHandler: RequestHandler = async (req, res) => {
         file ? file.filename : undefined
     );
 
-    res.status(201).json(person);
+    res.status(201).json(personId);
 };

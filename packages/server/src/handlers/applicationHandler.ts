@@ -22,9 +22,9 @@ export const newApplicationHandler: RequestHandler = async (req, res) => {
         createdByUserId
     } = req.body;
 
-    const application = await applicationService.newApplication(personId, applicationTypeId, createdByUserId);
+    const applicationId = await applicationService.newApplication(personId, applicationTypeId, createdByUserId);
 
-    res.json(application);
+    res.status(201).json(applicationId);
 }
 
 export const newLocalDrivingLicenseHandler: RequestHandler = async (req, res) => {
@@ -34,7 +34,7 @@ export const newLocalDrivingLicenseHandler: RequestHandler = async (req, res) =>
         createdByUserId
     } = req.body;
 
-    const localDrivingLicenseApplication = await applicationService.newLocalDrivingLicenseApp(licenseClassId, personId, createdByUserId);
+    const localDrivingLicenseApplicationId = await applicationService.newLocalDrivingLicenseApp(licenseClassId, personId, createdByUserId);
 
-    res.status(201).json(localDrivingLicenseApplication);
+    res.status(201).json(localDrivingLicenseApplicationId);
 }

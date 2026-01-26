@@ -51,3 +51,9 @@ td:last-child {
     position: relative;
     width: 1px;
 }
+
+.compact th,
+.compact td {
+    padding: 4px 8px;
+    font-size: 16px;
+}

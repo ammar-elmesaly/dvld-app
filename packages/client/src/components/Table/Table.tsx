@@ -11,6 +11,7 @@ interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTab
   openMenuRow: string | null;
   setOpenMenuRow?: Dispatch<SetStateAction<string | null>>;
   ignoreColumns?: string[];
+  compact?: boolean;
 }
 
 export default function Table<RowType, RowActionType>({
@@ -21,6 +22,7 @@ export default function Table<RowType, RowActionType>({
   openMenuRow,
   setOpenMenuRow,
   ignoreColumns,
+  compact,
   ...rest
 }: TableProps<RowType, RowActionType>) {
 
@@ -35,7 +37,7 @@ export default function Table<RowType, RowActionType>({
   return (
     <>
       <div className={styles.tableWrapper}>
-        <table className={styles.table} {...rest}>
+        <table className={`${styles.table} ${compact ? styles.compact : ''}`} {...rest}>
           <thead>
             <tr>
               {rowActions && <th />}

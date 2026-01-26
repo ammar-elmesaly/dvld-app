@@ -25,12 +25,12 @@ export const createNewUser = async (personId: number, username: string, password
     
     const hashedPassword = await hash(password);
 
-    const newUser = UserRepo.create({
+    const newUser = await UserRepo.create({
         person,
         username,
         password: hashedPassword,
         is_active: isActive
-    });
+    }).save();
 
-    return newUser.save();
+    return newUser.id;
 }

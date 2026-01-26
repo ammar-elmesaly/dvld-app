@@ -181,7 +181,7 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     credentials: 'include'
   });
 
-  const user = await res.json();
+  const userId = await res.json();
 
-  alert(`User registered successfully with id: ${user.id}.`);
+  alert(`User registered successfully with id: ${userId}.`);
 }
