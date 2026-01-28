@@ -27,7 +27,7 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
             test_type: true
         },
         order: {
-            appointment_date: 'DESC'
+            created_at: 'DESC'
         },
     });
     
@@ -42,7 +42,10 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
     let retakeTestApplicationId;
 
     if (lastAppointment) {
-        if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Fail) {
+        if (!lastAppointment.is_locked) {
+            throw new AppError("Cannot have 2 active (unlocked) test appointments at the same time.", 400);
+
+        } else if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Fail) {
             // If an applicant fails a test, and wants to retake it, we make a retake test application
             // and assign it to the testAppointment
             const RETAKE_TEST_APPLICATION_TYPE_ID = 7;
@@ -50,8 +53,6 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
             retakeTestApplicationId = await newApplication(ldla.application.person.id, RETAKE_TEST_APPLICATION_TYPE_ID, createdByUserId);
         } else if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Success) {
             throw new AppError("New appointments are unavailable for tests with an existing passing status.", 400);
-        } else {
-            throw new AppError("Cannot have 2 active (unlocked) test appointments at the same time.", 400);
         }
     }
     

@@ -6,5 +6,5 @@ export interface TestAppointmentDTO {
     paid_fees: number;
     is_locked: boolean;
     retake_test_fees?: number;
-    test_status: TestResult;
+    test_status?: TestResult;
 }

@@ -5,7 +5,8 @@ import {
     PrimaryGeneratedColumn,
     ManyToOne,
     JoinColumn,
-    OneToOne
+    OneToOne,
+    CreateDateColumn
 } from 'typeorm';
 import { TestType } from './TestType';
 import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
@@ -35,6 +36,9 @@ export class TestAppointment extends BaseEntity {
 
     @Column()
     appointment_date: Date
+
+    @CreateDateColumn()
+    created_at: Date
 
     @Column({ type: 'numeric' })
     paid_fees: number;
