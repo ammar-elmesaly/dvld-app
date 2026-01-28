@@ -15,6 +15,7 @@
     grid-template-columns: 90px 1fr;
     align-items: center;
     column-gap: 12px;
+    margin: 15px 0px;
 }
 
 .activeRow {
@@ -54,6 +55,10 @@
     gap: 20px;
     flex-wrap: wrap;
     flex-direction: column;
+}
+
+.retakeTestInfo {
+    margin-top: 1rem;
 }
 
 .controls {

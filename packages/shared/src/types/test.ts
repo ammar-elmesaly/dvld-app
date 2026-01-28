@@ -1,4 +1,4 @@
 export enum TestResult {
-    Failed = 0,
+    Fail = 0,
     Success = 1
 }

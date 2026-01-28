@@ -188,7 +188,7 @@ export default function ManageLocalApplications() {
       <div className={styles.controls}>
         <Filter
           options={Object.keys(applications[0] ?? {})}
-          ignoreOptions={['application_id', 'application_fees', 'paid_fees', 'created_by_user_name', 'application_type_name']}
+          ignoreOptions={['application_id', 'application_fees', 'paid_fees', 'retake_test_fees',  'created_by_user_name', 'application_type_name']}
           filterBy={filterBy}
           filterValue={filterValue}
           setFilterBy={setFilterBy}

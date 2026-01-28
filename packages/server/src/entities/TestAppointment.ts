@@ -42,6 +42,7 @@ export class TestAppointment extends BaseEntity {
     @ManyToOne(
         () => User,
         user => user.test_appointments,
+        { nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id' })
     user: User;
@@ -55,8 +56,8 @@ export class TestAppointment extends BaseEntity {
         { nullable: true }
     )
     @JoinColumn({ name: 'retake_test_application_id' })
-    retake_test_application: Application;
-
+    retake_test_application?: Application;
+    
     @OneToOne(
         () => Test,
         test => test.test_appointment,

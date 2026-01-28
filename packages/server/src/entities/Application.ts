@@ -6,7 +6,8 @@ import {
     JoinColumn,
     ManyToOne,
     CreateDateColumn,
-    OneToOne
+    OneToOne,
+    VirtualColumn
 } from 'typeorm';
 
 import { Person } from './Person';
@@ -67,4 +68,13 @@ export class Application extends BaseEntity {
 
     @CreateDateColumn()
     application_date: Date;
+
+    @VirtualColumn({
+        query: (_alias) => `
+            SELECT type_fees 
+            FROM application_type
+            WHERE application_type.id = 7
+        `
+    })
+    retake_test_fees: number;
 }

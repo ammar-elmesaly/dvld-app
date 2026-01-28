@@ -1,37 +1,53 @@
 import { TestResult } from "@dvld/shared/src/types/test";
 import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseApplication";
-import { TestAppointment } from "../entities/TestAppointment";
+import { TestAppointmentRepo } from "../repositories/TestAppointmentRepo";
 import { TestType } from "../entities/TestType";
 import { User } from "../entities/User";
 import { AppError } from "../types/errors";
+import { newApplication } from "./applicationService";
+
 
 export async function getTestAppointments(localDrivingLicenseApplicationId: number) {
-    const ldla = await LocalDrivingLicenseApplication.findOneBy({ id: localDrivingLicenseApplicationId });
-    if (!ldla)
+    const ldlaExists = await LocalDrivingLicenseApplication.existsBy({ id: localDrivingLicenseApplicationId });
+    if (!ldlaExists)
         throw new AppError('Local driving license application not found', 404);
 
-    return TestAppointment.findBy({ local_driving_license_application: ldla });
+    return TestAppointmentRepo.getAllTestAppointments(localDrivingLicenseApplicationId);
 }
 
 export async function createTestAppointment(testTypeId: number, localDrivingLicenseApplicationId: number, appointmentDate: Date, createdByUserId: number) {
-    const pastAppointments = await TestAppointment.find({
+    const lastAppointment = await TestAppointmentRepo.findOne({
         where: {
             local_driving_license_application: { id: localDrivingLicenseApplicationId },
+            test_type: { id: testTypeId }
         },
         relations: {
             local_driving_license_application: true,
-            test: true
+            test: true,
+            test_type: true
         },
         order: {
             appointment_date: 'DESC'
         },
     });
+    
+    const ldla = await LocalDrivingLicenseApplication.findOne({
+        where: { id: localDrivingLicenseApplicationId},
+        relations: { application: { person: true } }
+    });
 
-    const lastAppointment = pastAppointments[pastAppointments.length - 1];
+    if (!ldla)
+        throw new AppError('Local driving license application not found', 404);
+
+    let retakeTestApplicationId;
+
     if (lastAppointment) {
-        if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Failed) {
-            // Make a new retake test application and then link it to the new test appointment
-            // Retake test logic
+        if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Fail) {
+            // If an applicant fails a test, and wants to retake it, we make a retake test application
+            // and assign it to the testAppointment
+            const RETAKE_TEST_APPLICATION_TYPE_ID = 7;
+
+            retakeTestApplicationId = await newApplication(ldla.application.person.id, RETAKE_TEST_APPLICATION_TYPE_ID, createdByUserId);
         } else if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Success) {
             throw new AppError("New appointments are unavailable for tests with an existing passing status.", 400);
         } else {
@@ -43,27 +59,37 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
     if (!testType)
         throw new AppError('Test Type not found', 404);
 
-    const ldla = await LocalDrivingLicenseApplication.findOneBy({ id: localDrivingLicenseApplicationId });
-    if (!ldla)
-        throw new AppError('Local driving license application not found', 404);
-
+    const passedTestCount = ldla.passed_tests;
+    // This checks if applying for a test which passed already or skipping a one (TODO IMPROVE LOGIC)
+    if (testTypeId !== passedTestCount + 1)
+        throw new AppError("Can't make a test appointment without passing or already passing other tests.", 400);
+    
     const createdByUser = await User.findOneBy({ id: createdByUserId });
     if (!createdByUser)
         throw new AppError('User not found', 404);
 
-    const testAppointment = await TestAppointment.create({
+    const testFees = Number(testType.type_fees);
+    const retakeTestApplicationFees = retakeTestApplicationId ? Number(ldla.application.retake_test_fees) : 0;
+
+    const totalPaidFees = testFees + retakeTestApplicationFees;
+
+    const testAppointment = await TestAppointmentRepo.create({
         test_type: testType,
-        local_driving_license_application: ldla,
+        local_driving_license_application: { id: ldla.id },
         is_locked: false,
-        paid_fees: testType.type_fees,  // should also add retake test fees
-        appointment_date: appointmentDate
+        paid_fees: totalPaidFees,
+        appointment_date: appointmentDate,
+        user: createdByUser,
+        retake_test_application: retakeTestApplicationId 
+            ? { id: retakeTestApplicationId } 
+            : undefined
     }).save();
 
     return testAppointment.id;
 }
 
 export async function updateTestAppointment(testAppointmentId: number, appointmentDate: Date) {
-    const appointment = await TestAppointment.findOne({
+    const appointment = await TestAppointmentRepo.findOne({
         where: {
             id: testAppointmentId
         }
@@ -77,7 +103,7 @@ export async function updateTestAppointment(testAppointmentId: number, appointme
 
     appointment.appointment_date = appointmentDate;
 
-    const newTestAppointment = await TestAppointment.save(appointment);
+    const newTestAppointment = await TestAppointmentRepo.save(appointment);
     
     return newTestAppointment.id;
 }

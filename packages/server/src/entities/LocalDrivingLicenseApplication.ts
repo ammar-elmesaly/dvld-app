@@ -5,7 +5,8 @@ import {
     OneToOne,
     JoinColumn,
     ManyToOne,
-    OneToMany
+    OneToMany,
+    VirtualColumn
 } from 'typeorm';
 import { Application } from './Application';
 import { LicenseClass } from './LicenseClass';
@@ -29,11 +30,22 @@ export class LocalDrivingLicenseApplication extends BaseEntity {
         license_class => license_class.local_driving_license_application,
         { onDelete: 'RESTRICT' }
     )
-    license_class: LicenseClass
+    license_class: LicenseClass;
 
     @OneToMany(
         () => TestAppointment,
         test_appointment => test_appointment.local_driving_license_application
     )
-    test_appointments: TestAppointment[]
+    test_appointments: TestAppointment[];
+
+    @VirtualColumn({
+        query: (alias) => `
+            SELECT COUNT(*) 
+            FROM test t 
+            INNER JOIN test_appointment ta ON t.test_appointment_id = ta.id 
+            WHERE ta.local_driving_license_application_id = ${alias}.id 
+            AND t.test_status = '1'::test_test_status_enum
+        `
+    })
+    passed_tests: number;
 }

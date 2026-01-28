@@ -1,44 +1,39 @@
 import Button from '../../Button/Button';
-import styles from './AddTestAppointmentForm.module.css';
+import styles from './TakeTestForm.module.css';
 import { useEffect, useState } from 'react';
 import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';
 import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/localDrivingLicenseApplication.dto';
-import { toInputDate } from '../../../helpers/date';
 import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
 import { getTestTypeById } from '../../../api/test/testType';
-import { RetakeTestInfo } from '../../Info/RetakeTestInfo/RetakeTestInfo';
 import { TestAppointmentDTO } from '@dvld/shared/src/dtos/testAppointment.dto';
 import { UserSession } from '../../../types/UserSession';
 import { getCurrentUser } from '../../../api/user/user';
-import { TestResult } from '@dvld/shared/src/types/test';
 
 interface TestAppointmentFormProps {
   ldla: LocalDrivingLicenseApplicationDTO;
   testTypeId: number;
-  lastTestAppointment?: TestAppointmentDTO;
+  testAppointment: TestAppointmentDTO;
   handleRefresh: () => void;
+  handleManageLocalApplicationsRefresh: () => void;
 }
 
-export default function AddTestAppointmentForm({ ldla, testTypeId, lastTestAppointment, handleRefresh }: TestAppointmentFormProps) {
-  // Minimum date you can select is today (now), you can't make an appointment in the past
-  // obviously :)
-  const minDateString = toInputDate(new Date());
+export default function TakeTestForm({ ldla, testTypeId, testAppointment, handleManageLocalApplicationsRefresh, handleRefresh }: TestAppointmentFormProps) {
   const [testType, setTestType] = useState<TestTypeDTO | undefined>(undefined);
   
   const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
-  
+    
   useEffect(() => {
     getTestTypeById(testTypeId).then(setTestType)
   }, [testTypeId]);
 
-    useEffect(() => {
+  useEffect(() => {
     getCurrentUser().then(setUser);
   }, []);
 
   return (
     <>
-      <form method='POST' onSubmit={onSubmit} className={styles.form}>
+      <form method='POST' onSubmit={(e) => onSubmit(e, testAppointment.id, user.userId, handleManageLocalApplicationsRefresh, handleRefresh)} className={styles.form}>
         <div className={styles.headerRow}>
           <h1>New Test Appointment</h1>
         </div>
@@ -79,7 +74,7 @@ export default function AddTestAppointmentForm({ ldla, testTypeId, lastTestAppoi
             <label htmlFor='appointment date'>Date:</label>
             <div className={styles.inputGroup}>
               <i className="bi bi-calendar3"></i>
-              <input name="appointmentDate" type="date" min={minDateString} required />
+              <span>{ testAppointment.appointment_date }</span>
             </div>
           </div>
 
@@ -91,15 +86,22 @@ export default function AddTestAppointmentForm({ ldla, testTypeId, lastTestAppoi
             </div>
           </div>
 
-          {
-            lastTestAppointment?.test_status === TestResult.Fail && (
-            <div className={styles.retakeTestInfo}>
-              <RetakeTestInfo testTypeFees={testType?.type_fees}
-              retakeTestFees={ldla.retake_test_fees}
-              />
+          <div className={styles.formRow}>
+            <label htmlFor='Test Result'>Result:</label>
+            <div className={styles.radioGroup}>
+              <label htmlFor='test result succeeded'><input type="radio" name="testStatus" value="1" required /> Success</label>
+              <label htmlFor='test result failed'><input type="radio" name="testStatus" value="0" required /> Fail</label>
             </div>
-            )
-          }
+          </div>
+
+          <div className={styles.formRow}>
+            <label htmlFor='test_notes'>Notes:</label>
+            <div className={styles.inputGroup}>
+              <i className="bi bi-text-paragraph"></i>
+              <textarea name="testNotes" className={styles.notesTextArea} />
+            </div>
+          </div>  
+
         </div>  
         <div className={styles.controls} >
           <Button
@@ -113,31 +115,43 @@ export default function AddTestAppointmentForm({ ldla, testTypeId, lastTestAppoi
       </form>
     </>
   );
+}
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+async function onSubmit(
+  e: React.FormEvent<HTMLFormElement>,
+  testAppointmentId: number,
+  createdByUserId: number,
+  handleManageLocalApplicationsRefresh: () => void,
+  handleRefresh: () => void
+) {
+  e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+  const confirm = window.confirm("Are you sure to record test result? This can't be modified later.");
 
-    const payload = {
-      ...data,
-      testTypeId: testType?.id,
-      localDrivingLicenseApplicationId: ldla.local_driving_license_application_id,
-      createdByUserId: user.userId
-    };
+  if (!confirm)
+    return;
 
-    const res = await apiFetch(`${baseUrl}/testAppointment/new`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-      credentials: 'include'
-    });
+  const formData = new FormData(e.currentTarget);
 
-    const testAppointmentId = await res.json();
-    alert(`Test appointment creation successfull with id: ${testAppointmentId}.`);
-    handleRefresh();
-  }
+  const data = Object.fromEntries(formData.entries());
+
+  const payload = {
+    ...data,
+    testAppointmentId,
+    createdByUserId,
+  };
+
+  const res = await apiFetch(`${baseUrl}/test/new`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+    credentials: 'include'
+  });
+
+  const testId = await res.json();
+  alert(`Test taken successfully with id: ${testId}.`);
+  handleRefresh();
+  handleManageLocalApplicationsRefresh(); // Basically refreshes the main Manage Local Driving License Applications Page
 }

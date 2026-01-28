@@ -2,7 +2,7 @@ import { AppDataSource } from "../dataSource";
 import { Application } from "../entities/Application";
 
 export const ApplicationRepo = AppDataSource.getRepository(Application).extend({
-    getAllLocalDrivingLicenseApplication() {
+    getAllLocalDrivingLicenseApplications() {
         return ApplicationRepo.createQueryBuilder('application')
             .innerJoinAndSelect(
                 'application.local_driving_license_application', 

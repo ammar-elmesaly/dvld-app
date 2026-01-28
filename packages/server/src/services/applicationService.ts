@@ -13,7 +13,7 @@ export function getAllApplications() {
 }
 
 export function getAllLocalDrivingLicenseApplications() {
-    return ApplicationRepo.getAllLocalDrivingLicenseApplication();
+    return ApplicationRepo.getAllLocalDrivingLicenseApplications();
 }
 
 export async function newApplication(personId: number, applicationTypeId: number, createdByUserId: number) {

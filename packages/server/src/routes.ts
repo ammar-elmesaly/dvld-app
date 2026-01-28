@@ -11,6 +11,7 @@ import loginRouter from "./routes/loginRoute";
 import logoutRouter from "./routes/logoutRoute";
 
 import testAppointmentRouter from "./routes/testAppointmentRouter";
+import testRouter from "./routes/testRouter";
 
 import meRouter from "./routes/meRoute";
 
@@ -25,6 +26,7 @@ router.use('/licenseClass', licenseClassRouter);
 router.use('/application', applicationRouter);
 
 router.use('/testAppointment', testAppointmentRouter);
+router.use('/test', testRouter);
 
 router.use('/login', loginRouter);
 router.use('/logout', logoutRouter);

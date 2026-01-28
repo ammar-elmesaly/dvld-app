@@ -12,5 +12,7 @@ export interface ApplicationDTO {
     
     passed_tests: number;
     paid_fees: number;
+    retake_test_fees: number;
+    
     status: ApplicationStatus;
 }

@@ -2,27 +2,12 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Added gap for spacing */
+    gap: 15px; /* Added gap for spacing */
 }
 
 .headerRow {
     display: flex;
     justify-content: center;
-}
-
-.filterRow {
-    display: grid;
-    grid-template-columns: 2fr 0.25fr 0.25fr;
-    align-items: center;
-    column-gap: 12px;
-}
-
-.personInfoRow {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 2px white solid;
 }
 
 .formRow {
@@ -84,6 +69,15 @@
     margin-left: auto;
 }
 
+.notesTextArea {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    resize: vertical;
+}
+
+
 .selectWrapper {
     position: relative;
     display: flex;
@@ -114,6 +108,11 @@
     position: absolute;
     left: 12px;
     color: #aaa;
+}
+
+.radioGroup {
+    display: flex;
+    gap: 15px;
 }
 
 .arrow {

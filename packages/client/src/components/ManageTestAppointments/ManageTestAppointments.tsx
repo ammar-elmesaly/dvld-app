@@ -10,6 +10,7 @@ import Button from '../Button/Button';
 import AddTestAppointmentForm from '../Forms/AddTestAppointmentForm/AddTestAppointmentForm';
 import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/localDrivingLicenseApplication.dto';
 import EditTestAppointmentForm from '../Edit/EditTestAppointmentForm/EditTestAppointmentForm';
+import TakeTestForm from '../Forms/TakeTestForm/TakeTestForm';
 
 interface ManageTestAppointmentsProps {
   localDrivingLicenseApplication: LocalDrivingLicenseApplicationDTO;
@@ -17,7 +18,7 @@ interface ManageTestAppointmentsProps {
   handleManageLocalApplicationsRefresh: () => void;  // Parent component refresh
 }
 
-export default function ManageTestAppointments({ localDrivingLicenseApplication, passedTests }: ManageTestAppointmentsProps) {
+export default function ManageTestAppointments({ localDrivingLicenseApplication, passedTests, handleManageLocalApplicationsRefresh }: ManageTestAppointmentsProps) {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
 
   const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<TestAppointmentDTO, TestAppoitnmentsActionType>>(null);
@@ -37,7 +38,8 @@ export default function ManageTestAppointments({ localDrivingLicenseApplication,
 
     {
       type: TestAppoitnmentsActionType.TakeTest,
-      handler: (row) => setActiveRowAction({ row, type: TestAppoitnmentsActionType.TakeTest })
+      handler: (row) => setActiveRowAction({ row, type: TestAppoitnmentsActionType.TakeTest }),
+      isDisabled: (row) => row.is_locked
     }
   ];
 
@@ -53,7 +55,7 @@ export default function ManageTestAppointments({ localDrivingLicenseApplication,
 
     case TestAppoitnmentsActionType.TakeTest:
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <TakeTestForm testAppointment={activeRowAction.row} testTypeId={passedTests + 1} ldla={localDrivingLicenseApplication} handleManageLocalApplicationsRefresh={handleManageLocalApplicationsRefresh} handleRefresh={handleRefresh}/>
       );
       break;
   }
@@ -83,7 +85,7 @@ export default function ManageTestAppointments({ localDrivingLicenseApplication,
           Test appointment form takes passedTests + 1, meaning if no passed test, then passedTests = 0,
           then testTypeId = 1 (vision Test), and so on
           */}
-          <AddTestAppointmentForm testTypeId={passedTests + 1} ldla={localDrivingLicenseApplication} handleRefresh={handleRefresh} />
+          <AddTestAppointmentForm lastTestAppointment={testAppointments[testAppointments.length - 1]} testTypeId={passedTests + 1} ldla={localDrivingLicenseApplication} handleRefresh={handleRefresh} />
         </Overlay>
         { activeRowAction &&
         <Overlay open={activeRowAction !== null} onClose={() => setActiveRowAction(null)}>

@@ -15,8 +15,10 @@ export const toLocalDrivingLicenseApplicationDTO = (application: Application): L
         application_date: application.application_date.toDateString(),
         application_fees: application.application_type.type_fees,
 
-        passed_tests: 0,  // TODO
+        passed_tests: application.local_driving_license_application.passed_tests, 
         paid_fees: application.paid_fees,
+        retake_test_fees: application.retake_test_fees,
+        
         application_type_name: application.application_type.type_name,
         created_by_user_name: application.created_by_user.username,
 
