@@ -5,6 +5,7 @@ import { TestType } from "../entities/TestType";
 import { User } from "../entities/User";
 import { AppError } from "../types/errors";
 import { newApplication } from "./applicationService";
+import { getApplicationTypeById } from "./applicationTypeService";
 
 
 export async function getTestAppointments(localDrivingLicenseApplicationId: number) {
@@ -16,6 +17,8 @@ export async function getTestAppointments(localDrivingLicenseApplicationId: numb
 }
 
 export async function createTestAppointment(testTypeId: number, localDrivingLicenseApplicationId: number, appointmentDate: Date, createdByUserId: number) {
+    const RETAKE_TEST_APPLICATION_TYPE_ID = 7;
+
     const lastAppointment = await TestAppointmentRepo.findOne({
         where: {
             local_driving_license_application: { id: localDrivingLicenseApplicationId },
@@ -48,7 +51,6 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
         } else if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Fail) {
             // If an applicant fails a test, and wants to retake it, we make a retake test application
             // and assign it to the testAppointment
-            const RETAKE_TEST_APPLICATION_TYPE_ID = 7;
 
             retakeTestApplicationId = await newApplication(ldla.application.person.id, RETAKE_TEST_APPLICATION_TYPE_ID, createdByUserId);
         } else if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Success) {
@@ -69,11 +71,15 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
     if (!createdByUser)
         throw new AppError('User not found', 404);
 
+    const retakeTestApplicationType = await getApplicationTypeById(RETAKE_TEST_APPLICATION_TYPE_ID);
+
     const testFees = Number(testType.type_fees);
-    const retakeTestApplicationFees = retakeTestApplicationId ? Number(ldla.application.retake_test_fees) : 0;
+    const retakeTestFees =
+        retakeTestApplicationId
+        ? Number(retakeTestApplicationType?.type_fees)
+        : 0;
 
-    const totalPaidFees = testFees + retakeTestApplicationFees;
-
+    const totalPaidFees = testFees + retakeTestFees;
     const testAppointment = await TestAppointmentRepo.create({
         test_type: testType,
         local_driving_license_application: { id: ldla.id },

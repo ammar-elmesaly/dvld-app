@@ -84,8 +84,10 @@ export default function ManageTestAppointments({ localDrivingLicenseApplication,
           {/*
           Test appointment form takes passedTests + 1, meaning if no passed test, then passedTests = 0,
           then testTypeId = 1 (vision Test), and so on
+
+          test appointments are ordered by created_at DESC, so last one is at index 0
           */}
-          <AddTestAppointmentForm lastTestAppointment={testAppointments[testAppointments.length - 1]} testTypeId={passedTests + 1} ldla={localDrivingLicenseApplication} handleRefresh={handleRefresh} />
+          <AddTestAppointmentForm lastTestAppointment={testAppointments[0]} testTypeId={passedTests + 1} ldla={localDrivingLicenseApplication} handleRefresh={handleRefresh} />
         </Overlay>
         { activeRowAction &&
         <Overlay open={activeRowAction !== null} onClose={() => setActiveRowAction(null)}>

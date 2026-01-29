@@ -12,6 +12,7 @@ import { User } from './User';
 import { Country } from './Country';
 import { Application } from './Application';
 import { Gender } from '@dvld/shared/src/types/person';
+import { Driver } from './Driver';
 
 @Entity()
 export class Person extends BaseEntity {
@@ -69,5 +70,11 @@ export class Person extends BaseEntity {
         () => Application,
         application => application.person
     )
-    applications: Application[]
+    applications: Application[];
+
+    @OneToOne(
+        () => Driver,
+        driver => driver.person
+    )
+    driver: Driver;
 }

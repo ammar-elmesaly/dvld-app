@@ -6,6 +6,7 @@ import {
     OneToMany,
 } from 'typeorm';
 import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
+import { License } from './License';
 
 @Entity()
 export class LicenseClass extends BaseEntity {
@@ -32,4 +33,10 @@ export class LicenseClass extends BaseEntity {
         local_driving_license_application => local_driving_license_application.license_class,
     )
     local_driving_license_application: LocalDrivingLicenseApplication;
+
+    @OneToMany(
+        () => License,
+        license => license.license_class
+    )
+    licenses: License[];
 }

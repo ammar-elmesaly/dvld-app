@@ -13,6 +13,7 @@ import { ApplicationStatus } from '@dvld/shared/src/types/application';
 import { ApplicationBasicInfo } from '../Info/ApplicationBasicInfo/ApplicationBasicInfo';
 import { DrivingLicenseInfo } from '../Info/DrivingLicenseInfo/DrivingLicenseInfo';
 import ManageTestAppointments from '../ManageTestAppointments/ManageTestAppointments';
+import { IssueDrivingLicenseForm } from '../Forms/IssueDrivingLicenseForm/IssueDrivingLicenseForm';
 
 export default function ManageLocalApplications() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
@@ -163,7 +164,17 @@ export default function ManageLocalApplications() {
 
     case ApplicationsActionType.IssueLicense:
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <>
+          <DrivingLicenseInfo
+            dlAppId={activeRowAction.row.local_driving_license_application_id}
+            licenseClass={activeRowAction.row.license_class_name}
+            passedTests={`${activeRowAction.row.passed_tests}/3`}
+          />
+          <hr style={{ "margin": "15px 0px" }} />
+          <ApplicationBasicInfo application={activeRowAction.row} />
+          <hr style={{ "margin": "15px 0px" }} />
+          <IssueDrivingLicenseForm />
+        </>
       );
       break;
 

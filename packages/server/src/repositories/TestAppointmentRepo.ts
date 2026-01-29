@@ -8,6 +8,7 @@ export const TestAppointmentRepo = AppDataSource.getRepository(TestAppointment).
             .leftJoinAndSelect('test_appointment.test', 'test')
             .leftJoinAndSelect('test_appointment.retake_test_application', 'rta')
             .leftJoinAndSelect('rta.application_type', 'application_type')
+            .orderBy('test_appointment.created_at', 'DESC')
             .getMany();
     }
 });

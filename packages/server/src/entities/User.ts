@@ -11,6 +11,8 @@ import { Person } from './Person';
 import { Application } from './Application';
 import { TestAppointment } from './TestAppointment';
 import { Test } from './Test';
+import { License } from './License';
+import { Driver } from './Driver';
 
 @Entity()
 export class User extends BaseEntity {
@@ -41,8 +43,20 @@ export class User extends BaseEntity {
         () => Test,
         test => test.user
     )
-    tests: Test[]
+    tests: Test[];
 
+    @OneToMany(
+        () => License,
+        license => license.user
+    )
+    licenses: License[];
+    
+    @OneToMany(
+        () => Driver,
+        driver => driver.user
+    )
+    drivers: Driver[];
+    
     @Column({ unique: true })
     username: string;
 

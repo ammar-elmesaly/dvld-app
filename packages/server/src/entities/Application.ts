@@ -6,8 +6,7 @@ import {
     JoinColumn,
     ManyToOne,
     CreateDateColumn,
-    OneToOne,
-    VirtualColumn
+    OneToOne
 } from 'typeorm';
 
 import { Person } from './Person';
@@ -16,6 +15,7 @@ import { User } from './User';
 import { ApplicationStatus } from '@dvld/shared/src/types/application';
 import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
 import { TestAppointment } from './TestAppointment';
+import { License } from './License';
 @Entity()
 export class Application extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
@@ -60,6 +60,12 @@ export class Application extends BaseEntity {
     )
     test_appointment: TestAppointment;
 
+    @OneToOne(
+        () => License,
+        license => license.application
+    )
+    license: License;
+
     @Column({ type: 'numeric' })
     paid_fees: number;
 
@@ -68,13 +74,4 @@ export class Application extends BaseEntity {
 
     @CreateDateColumn()
     application_date: Date;
-
-    @VirtualColumn({
-        query: (_alias) => `
-            SELECT type_fees 
-            FROM application_type
-            WHERE application_type.id = 7
-        `
-    })
-    retake_test_fees: number;
 }
