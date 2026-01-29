@@ -1,5 +1,43 @@
-// import { License } from "../entities/License";
+import { License } from "../entities/License";
+import { LicenseClass } from "../entities/LicenseClass";
+import { ApplicationRepo } from "../repositories/ApplicationRepo";
+import { AppError } from "../types/errors";
 
-export async function issueLicense() {
-    
+import { createNewDriver } from "./driverService";
+
+export async function issueLicense(
+    createdByUserId: number,
+    personId: number,
+    licenseClassId: number,
+    applicationId: number,
+    notes?: string,
+) {
+    const driverId = await createNewDriver(createdByUserId, personId);
+
+    const application = await ApplicationRepo.findOneBy({ id: applicationId });
+    if (!application)
+        throw new AppError('Application not found', 404);
+
+    const licenseClass = await LicenseClass.findOneBy({ id: licenseClassId });
+    if (!licenseClass)
+        throw new AppError('License class not found', 404);
+
+    const issueDate = new Date();
+    const expirationDate = new Date(issueDate);
+    expirationDate.setFullYear(
+        expirationDate.getFullYear() + licenseClass.default_validity_length
+    );
+
+    const newLicense = await License.create({
+        paid_fees: licenseClass.class_fees,
+        notes,
+        driver: { id: driverId },
+        application,
+        issue_date: issueDate,
+        expiration_date: expirationDate,
+        user: { id: createdByUserId },
+        license_class: licenseClass
+    }).save();
+
+    return newLicense.id;
 }

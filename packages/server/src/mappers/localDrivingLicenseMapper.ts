@@ -8,6 +8,7 @@ export const toLocalDrivingLicenseApplicationDTO = (application: Application, re
 
     return {
         application_id: application.id,
+        applicant_person_id: application.person.id,
         local_driving_license_application_id: application.local_driving_license_application.id,
         national_id: application.person.national_id,
         full_name: personFullName,
@@ -23,6 +24,8 @@ export const toLocalDrivingLicenseApplicationDTO = (application: Application, re
         created_by_user_name: application.created_by_user.username,
 
         status: application.application_status,
+
         license_class_name: application.local_driving_license_application.license_class.class_name,
+        license_class_id: application.local_driving_license_application.license_class.id,
     };
 };

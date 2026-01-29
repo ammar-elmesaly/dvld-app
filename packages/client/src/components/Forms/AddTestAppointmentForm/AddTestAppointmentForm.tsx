@@ -32,7 +32,7 @@ export default function AddTestAppointmentForm({ ldla, testTypeId, lastTestAppoi
     getTestTypeById(testTypeId).then(setTestType)
   }, [testTypeId]);
 
-    useEffect(() => {
+  useEffect(() => {
     getCurrentUser().then(setUser);
   }, []);
 

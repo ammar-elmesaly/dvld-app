@@ -26,6 +26,7 @@ export default function ManageLocalApplications() {
   const [applications, setApplications] = useState<LocalDrivingLicenseApplicationDTO[]>([]);
 
   const [refreshKey, setRefreshKey] = useState(0);
+  
   const handleRefresh = () => {
     setRefreshKey(prev => prev + 1);
   };
@@ -173,7 +174,11 @@ export default function ManageLocalApplications() {
           <hr style={{ "margin": "15px 0px" }} />
           <ApplicationBasicInfo application={activeRowAction.row} />
           <hr style={{ "margin": "15px 0px" }} />
-          <IssueDrivingLicenseForm />
+          <IssueDrivingLicenseForm
+          licenseClassId={activeRowAction.row.license_class_id}
+          applicationId={activeRowAction.row.application_id}
+          personId={activeRowAction.row.applicant_person_id}
+          handleRefresh={handleRefresh}/>
         </>
       );
       break;
@@ -199,7 +204,7 @@ export default function ManageLocalApplications() {
       <div className={styles.controls}>
         <Filter
           options={Object.keys(applications[0] ?? {})}
-          ignoreOptions={['application_id', 'application_fees', 'paid_fees', 'retake_test_fees',  'created_by_user_name', 'application_type_name']}
+          ignoreOptions={['application_id', 'applicant_person_id', 'license_class_id', 'application_fees', 'paid_fees', 'retake_test_fees',  'created_by_user_name', 'application_type_name']}
           filterBy={filterBy}
           filterValue={filterValue}
           setFilterBy={setFilterBy}

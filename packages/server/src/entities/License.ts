@@ -5,7 +5,8 @@ import {
     PrimaryGeneratedColumn,
     OneToOne,
     JoinColumn,
-    ManyToOne
+    ManyToOne,
+    Unique
 } from 'typeorm';
 
 import { Application } from './Application';
@@ -13,6 +14,7 @@ import { Driver } from './Driver';
 import { LicenseClass } from './LicenseClass';
 import { User } from './User';
 
+@Unique(['driver', 'license_class'])
 @Entity()
 export class License extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
