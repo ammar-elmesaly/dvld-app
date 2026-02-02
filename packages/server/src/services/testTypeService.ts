@@ -7,3 +7,7 @@ export function getAllTestTypes() {
 export function getTestTypeById(testTypeId: number) {
     return TestType.findOneBy({ id: testTypeId });
 }
+
+export function getTestTypeByName(systemName: string) {
+    return TestType.findOneBy({ system_name: systemName });
+}

@@ -16,6 +16,7 @@ import { ApplicationStatus } from '@dvld/shared/src/types/application';
 import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
 import { TestAppointment } from './TestAppointment';
 import { License } from './License';
+import { InternationalLicense } from './InternationalLicense';
 @Entity()
 export class Application extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
@@ -65,6 +66,12 @@ export class Application extends BaseEntity {
         license => license.application
     )
     license: License;
+
+    @OneToOne(
+        () => InternationalLicense,
+        intLicense => intLicense.application
+    )
+    internationalLicense: InternationalLicense;
 
     @Column({ type: 'numeric' })
     paid_fees: number;

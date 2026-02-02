@@ -1,5 +1,5 @@
 import { RowActionDef } from '../../types/table';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Button from '../Button/Button';
 import styles from './ContextMenu.module.css';
@@ -17,11 +17,39 @@ export default function ContextMenu<RowType, RowActionType>({
   onClose,
   position
 }: ContextMenuProps<RowType, RowActionType>) {
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [coords, setCoords] = useState({ x: position.x, y: position.y });
+
+  useLayoutEffect(() => {
+    if (!menuRef.current) return;
+
+    const { offsetWidth, offsetHeight } = menuRef.current;
+    const { innerWidth, innerHeight } = window;
+
+    let newX = position.x;
+    let newY = position.y;
+
+    // Check if menu overflows the right edge
+    if (position.x + offsetWidth > innerWidth) {
+      newX = position.x - offsetWidth;
+    }
+
+    // Check if menu overflows the bottom edge
+    if (position.y + offsetHeight > innerHeight) {
+      newY = position.y - offsetHeight;
+    }
+    
+    // Safety check: ensure it doesn't go off the top/left either
+    newX = Math.max(5, newX); 
+    newY = Math.max(5, newY);
+
+    setCoords({ x: newX, y: newY });
+  }, [position]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      const menu = document.getElementById('context-menu-portal');
-      if (menu && !menu.contains(event.target as Node)) {
+      // Using ref instead of ID for better React practices
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         onClose();
       }
     }
@@ -31,20 +59,23 @@ export default function ContextMenu<RowType, RowActionType>({
 
   return createPortal(
     <div
-      id="context-menu-portal"
+      ref={menuRef}
       className={styles.menu}
-      style={{ top: position.y, left: position.x }}
+      style={{ 
+        top: coords.y, 
+        left: coords.x,
+        position: 'fixed', // Ensure it's fixed relative to viewport
+        visibility: menuRef.current ? 'visible' : 'hidden' // Hide until measured
+      }}
     >
       {rowActions.map(action => {
-        // Calculates disabled state using a predicate defined in RowActionDef
         const isBtnDisabled = action.isDisabled ? action.isDisabled(row) : false;
-
         return (
           <Button
             key={`${action.type}`}
             disabled={isBtnDisabled}
             onClick={() => {
-              if (isBtnDisabled) return;  // just to be safe :)
+              if (isBtnDisabled) return;
               action.handler(row);
               onClose();
             }}

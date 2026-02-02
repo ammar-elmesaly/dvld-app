@@ -16,4 +16,5 @@ export interface ApplicationDTO {
     retake_test_fees: number;
     
     status: ApplicationStatus;
+    license_id?: number;
 }

@@ -12,3 +12,9 @@ export async function getTestTypeById(testTypeId: number) {
 
     return res.json();
 }
+
+export async function getTestTypeByName(systemName: string) {
+    const res = await apiFetch(`${baseUrl}/testType/name/${systemName}`);
+
+    return res.json();
+}

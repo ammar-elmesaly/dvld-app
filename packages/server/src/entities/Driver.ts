@@ -11,6 +11,7 @@ import {
 import { License } from './License';
 import { User } from './User';
 import { Person } from './Person';
+import { InternationalLicense } from './InternationalLicense';
 
 @Entity()
 export class Driver extends BaseEntity {
@@ -40,4 +41,10 @@ export class Driver extends BaseEntity {
         license => license.driver
     )
     licenses: License[];
+
+    @OneToOne(
+        () => InternationalLicense,
+        intLicense => intLicense.driver
+    )
+    internationalLicense: InternationalLicense;
 }

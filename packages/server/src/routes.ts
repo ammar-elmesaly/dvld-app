@@ -7,6 +7,7 @@ import testTypeRouter from "./routes/testTypeRouter";
 
 import licenseClassRouter from "./routes/licenseClassRouter";
 import licenseRouter from "./routes/licenseRouter";
+import internationalLicenseRouter from "./routes/internationalLicenseRouter";
 
 import applicationRouter from "./routes/applicationRouter";
 
@@ -28,6 +29,7 @@ router.use('/testType', testTypeRouter);
 
 router.use('/licenseClass', licenseClassRouter);
 router.use('/license', licenseRouter);
+router.use('/internationalLicense', internationalLicenseRouter);
 
 router.use('/application', applicationRouter);
 

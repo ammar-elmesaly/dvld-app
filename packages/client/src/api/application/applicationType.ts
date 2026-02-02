@@ -6,3 +6,9 @@ export async function getAllApplicationTypes() {
 
     return res.json();
 }
+
+export async function getApplicationTypeByName(systemName: string) {
+    const res = await apiFetch(`${baseUrl}/applicationType/name/${systemName}`);
+
+    return res.json();
+}

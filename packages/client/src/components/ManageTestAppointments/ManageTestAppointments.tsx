@@ -82,6 +82,7 @@ export default function ManageTestAppointments({ localDrivingLicenseApplication,
         <Button color='success' icon="file-earmark-plus-fill" onClick={() => setAddTestAppointmentOpen(true)} />
         <Overlay open={addTestAppointmentOpen} onClose={() => setAddTestAppointmentOpen(false)}>
           {/*
+          TODO
           Test appointment form takes passedTests + 1, meaning if no passed test, then passedTests = 0,
           then testTypeId = 1 (vision Test), and so on
 

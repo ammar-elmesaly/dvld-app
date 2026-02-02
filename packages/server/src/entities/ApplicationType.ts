@@ -13,6 +13,9 @@ export class ApplicationType extends BaseEntity {
     id: number;
 
     @Column()
+    system_name: string;
+
+    @Column()
     type_name: string;
 
     @Column({ type: 'numeric' })

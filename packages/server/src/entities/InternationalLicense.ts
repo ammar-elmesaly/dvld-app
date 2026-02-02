@@ -5,44 +5,34 @@ import {
     PrimaryGeneratedColumn,
     OneToOne,
     JoinColumn,
-    ManyToOne,
-    Unique
+    ManyToOne
 } from 'typeorm';
 
 import { Application } from './Application';
 import { Driver } from './Driver';
-import { LicenseClass } from './LicenseClass';
 import { User } from './User';
 
-@Unique(['driver', 'license_class'])
 @Entity()
-export class License extends BaseEntity {
+export class InternationalLicense extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
     @OneToOne(
         () => Application,
-        application => application.license,
+        application => application.internationalLicense,
         { onDelete: 'CASCADE' }
     )
     @JoinColumn({ name: 'application_id' })
     application: Application;
 
-    @ManyToOne(
+
+    @OneToOne(
         () => Driver,
-        driver => driver.licenses,
+        driver => driver.internationalLicense,
         { onDelete: 'CASCADE' }
     )
-    @JoinColumn({ name: 'driver_id'})
+    @JoinColumn({ name: 'driver_id' })
     driver: Driver;
-
-    @ManyToOne(
-        () => LicenseClass,
-        license_class => license_class.licenses,
-        { onDelete: 'RESTRICT' }
-    )
-    @JoinColumn({ name: 'license_class_id '})
-    license_class: LicenseClass;
 
     @Column()
     is_active: boolean;
@@ -61,7 +51,7 @@ export class License extends BaseEntity {
 
     @ManyToOne(
         () => User,
-        user => user.licenses
+        user => user.internationalLicenses
     )
     @JoinColumn({ name: 'created_by_user_id '})
     user: User;

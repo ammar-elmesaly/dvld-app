@@ -22,6 +22,36 @@ export const getPersonById = async (personId: number) => {
 
 }
 
+export const getPersonWithDriverById = async (personId: number) => {
+    const person = await PersonRepo.findOne({
+        where: { id: personId },
+        relations: {
+            national_country: true,
+            driver: true
+        }
+    });
+
+    if (!person)
+        throw new AppError("Person not found", 404);
+    
+    return person;
+
+}
+
+export const getPersonByDriverId = async (driverId: number) => {
+    const person = await PersonRepo.findOne({
+        where: { driver: { id: driverId } },
+        relations: {
+            national_country: true
+        }
+    });
+
+    if (!person)
+        throw new AppError("Person not found", 404);
+    
+    return person;
+}
+
 export const getPersonByNationalId = async (nationalId: string) => {
     const person = await PersonRepo.findOne({
         where: { national_id: nationalId },

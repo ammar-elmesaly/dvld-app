@@ -9,7 +9,7 @@ export const getAllPersonsHandler: RequestHandler = async (_req, res) => {
     res.json(personsMapped);
 }
 
-export const getPersonById: RequestHandler = async (req, res) => {
+export const getPersonByIdHandler: RequestHandler = async (req, res) => {
     const { personId } = req.params;
 
     const person = await personService.getPersonById(personId as unknown as number);
@@ -17,7 +17,15 @@ export const getPersonById: RequestHandler = async (req, res) => {
     res.json(toPersonDTO(person));
 }
 
-export const getPersonByNationalId: RequestHandler = async (req, res) => {
+export const getPersonByDriverIdHandler: RequestHandler = async (req, res) => {
+    const { driverId } = req.params;
+
+    const person = await personService.getPersonByDriverId(driverId as unknown as number);
+
+    res.json(toPersonDTO(person));
+}
+
+export const getPersonByNationalIdHandler: RequestHandler = async (req, res) => {
     const { nationalId } = req.params;
 
     const person = await personService.getPersonByNationalId(nationalId as string);

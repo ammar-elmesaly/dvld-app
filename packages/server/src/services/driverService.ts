@@ -19,3 +19,11 @@ export async function createNewDriver(createdByUserId: number, personId: number)
 
     return newDriver.id;
 }
+
+export async function getDriverById(driverId: number) {
+    const driver = await Driver.findOneBy({ id: driverId });
+    if (!driver)
+        throw new AppError('Driver not found', 404);
+
+    return driver;
+}

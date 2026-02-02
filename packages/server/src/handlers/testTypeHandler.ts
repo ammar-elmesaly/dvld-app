@@ -14,3 +14,11 @@ export const getTestTypeById: RequestHandler = async (req, res) => {
     
     res.json(testType);
 }
+
+export const getTestTypeByName: RequestHandler = async (req, res) => {
+    const { systemName } = req.params;
+
+    const testType = await testTypeService.getTestTypeByName(systemName!);
+    
+    res.json(testType);
+}

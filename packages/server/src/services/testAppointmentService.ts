@@ -5,7 +5,7 @@ import { TestType } from "../entities/TestType";
 import { User } from "../entities/User";
 import { AppError } from "../types/errors";
 import { newApplication } from "./applicationService";
-import { getApplicationTypeById } from "./applicationTypeService";
+import { getApplicationTypeByName } from "./applicationTypeService";
 
 
 export async function getTestAppointments(localDrivingLicenseApplicationId: number) {
@@ -17,8 +17,6 @@ export async function getTestAppointments(localDrivingLicenseApplicationId: numb
 }
 
 export async function createTestAppointment(testTypeId: number, localDrivingLicenseApplicationId: number, appointmentDate: Date, createdByUserId: number) {
-    const RETAKE_TEST_APPLICATION_TYPE_ID = 7;
-
     const lastAppointment = await TestAppointmentRepo.findOne({
         where: {
             local_driving_license_application: { id: localDrivingLicenseApplicationId },
@@ -52,7 +50,7 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
             // If an applicant fails a test, and wants to retake it, we make a retake test application
             // and assign it to the testAppointment
 
-            retakeTestApplicationId = await newApplication(ldla.application.person.id, RETAKE_TEST_APPLICATION_TYPE_ID, createdByUserId);
+            retakeTestApplicationId = await newApplication(ldla.application.person.id, 'RETAKE_TEST_SERVICE', createdByUserId);
         } else if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Success) {
             throw new AppError("New appointments are unavailable for tests with an existing passing status.", 400);
         }
@@ -71,7 +69,7 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
     if (!createdByUser)
         throw new AppError('User not found', 404);
 
-    const retakeTestApplicationType = await getApplicationTypeById(RETAKE_TEST_APPLICATION_TYPE_ID);
+    const retakeTestApplicationType = await getApplicationTypeByName('RETAKE_TEST_SERVICE');
 
     const testFees = Number(testType.type_fees);
     const retakeTestFees =

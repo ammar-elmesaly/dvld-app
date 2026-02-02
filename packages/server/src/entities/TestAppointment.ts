@@ -57,7 +57,7 @@ export class TestAppointment extends BaseEntity {
     @OneToOne(
         () => Application,
         application => application.test_appointment,
-        { nullable: true }
+        { nullable: true, onDelete: 'CASCADE' }
     )
     @JoinColumn({ name: 'retake_test_application_id' })
     retake_test_application?: Application;

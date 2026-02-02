@@ -13,6 +13,7 @@ import { TestAppointment } from './TestAppointment';
 import { Test } from './Test';
 import { License } from './License';
 import { Driver } from './Driver';
+import { InternationalLicense } from './InternationalLicense';
 
 @Entity()
 export class User extends BaseEntity {
@@ -50,6 +51,12 @@ export class User extends BaseEntity {
         license => license.user
     )
     licenses: License[];
+
+    @OneToMany(
+        () => InternationalLicense,
+        intLicense => intLicense.user
+    )
+    internationalLicenses: InternationalLicense[];
     
     @OneToMany(
         () => Driver,

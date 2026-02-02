@@ -12,6 +12,7 @@ export const ApplicationRepo = AppDataSource.getRepository(Application).extend({
             .innerJoinAndSelect('application.person', 'person')  // selecting person
             .innerJoinAndSelect('application.created_by_user', 'user')  // selecting created_by_user
             .innerJoinAndSelect('application.application_type', 'type') // selecting application type
+            .leftJoinAndSelect('application.license', 'license')
             .getMany();
     }
 });

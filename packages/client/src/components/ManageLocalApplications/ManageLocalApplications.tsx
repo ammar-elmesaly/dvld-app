@@ -14,6 +14,9 @@ import { ApplicationBasicInfo } from '../Info/ApplicationBasicInfo/ApplicationBa
 import { DrivingLicenseInfo } from '../Info/DrivingLicenseInfo/DrivingLicenseInfo';
 import ManageTestAppointments from '../ManageTestAppointments/ManageTestAppointments';
 import { IssueDrivingLicenseForm } from '../Forms/IssueDrivingLicenseForm/IssueDrivingLicenseForm';
+import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo';
+import { getLicenseWithPersonById } from '../../api/license/license';
+import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
 
 export default function ManageLocalApplications() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
@@ -27,6 +30,8 @@ export default function ManageLocalApplications() {
 
   const [refreshKey, setRefreshKey] = useState(0);
   
+  const [licenseWithPerson, setLicenseWithPerson] = useState<LicensePersonDTO | undefined>(undefined);
+
   const handleRefresh = () => {
     setRefreshKey(prev => prev + 1);
   };
@@ -34,6 +39,15 @@ export default function ManageLocalApplications() {
   useEffect(() => {
       getAllLocalDrivingLicenseApplications().then(setApplications);
   }, [refreshKey]);
+
+  useEffect(() => {
+    if (!activeRowAction?.row.license_id)
+      return;
+
+    const licenseId = activeRowAction?.row.license_id;
+
+    getLicenseWithPersonById(licenseId).then(setLicenseWithPerson)
+  }, [activeRowAction]);
 
   const rowActions: RowActionDef<LocalDrivingLicenseApplicationDTO, ApplicationsActionType>[] = [
     {
@@ -82,7 +96,7 @@ export default function ManageLocalApplications() {
     {
       type: ApplicationsActionType.IssueLicense,
       handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.IssueLicense }),
-      isDisabled: (row) => row.passed_tests !== 3
+      isDisabled: (row) => row.passed_tests !== 3 || row.status === ApplicationStatus.Completed
     },
 
     {
@@ -109,7 +123,7 @@ export default function ManageLocalApplications() {
             passedTests={`${activeRowAction.row.passed_tests}/3`}
           />
           <hr style={{ "margin": "15px 0px" }} />
-          <ApplicationBasicInfo application={activeRowAction.row} />
+          <ApplicationBasicInfo personId={activeRowAction.row.applicant_person_id} application={activeRowAction.row} />
           <hr style={{ "margin": "15px 0px" }} />
         </>
       );
@@ -155,7 +169,7 @@ export default function ManageLocalApplications() {
             passedTests={`${localDrivingLicenseApplication.passed_tests}/3`}
           />
           <hr style={{ "margin": "15px 0px" }} />
-          <ApplicationBasicInfo application={localDrivingLicenseApplication} />
+          <ApplicationBasicInfo personId={localDrivingLicenseApplication.applicant_person_id} application={localDrivingLicenseApplication} />
           <hr style={{ "margin": "15px 0px" }} />
           <ManageTestAppointments handleManageLocalApplicationsRefresh={handleRefresh} localDrivingLicenseApplication={localDrivingLicenseApplication} passedTests={localDrivingLicenseApplication.passed_tests}/>
         </>
@@ -172,7 +186,7 @@ export default function ManageLocalApplications() {
             passedTests={`${activeRowAction.row.passed_tests}/3`}
           />
           <hr style={{ "margin": "15px 0px" }} />
-          <ApplicationBasicInfo application={activeRowAction.row} />
+          <ApplicationBasicInfo personId={activeRowAction.row.applicant_person_id} application={activeRowAction.row} />
           <hr style={{ "margin": "15px 0px" }} />
           <IssueDrivingLicenseForm
           licenseClassId={activeRowAction.row.license_class_id}
@@ -183,11 +197,19 @@ export default function ManageLocalApplications() {
       );
       break;
 
-    case ApplicationsActionType.ShowLicense:
+    case ApplicationsActionType.ShowLicense: {
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <>
+          {
+            licenseWithPerson &&
+            <DriverLicenseInfo
+            licenseWithPerson={licenseWithPerson}
+            />
+          }
+        </>
       );
       break;
+    }
 
     case ApplicationsActionType.ShowHistory:
       selectedAction = (
@@ -204,7 +226,7 @@ export default function ManageLocalApplications() {
       <div className={styles.controls}>
         <Filter
           options={Object.keys(applications[0] ?? {})}
-          ignoreOptions={['application_id', 'applicant_person_id', 'license_class_id', 'application_fees', 'paid_fees', 'retake_test_fees',  'created_by_user_name', 'application_type_name']}
+          ignoreOptions={['application_id', 'applicant_person_id', 'license_id', 'license_class_id', 'application_fees', 'paid_fees', 'retake_test_fees',  'created_by_user_name', 'application_type_name']}
           filterBy={filterBy}
           filterValue={filterValue}
           setFilterBy={setFilterBy}

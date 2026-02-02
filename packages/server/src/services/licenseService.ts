@@ -1,3 +1,4 @@
+import { ApplicationStatus } from "@dvld/shared/src/types/application";
 import { License } from "../entities/License";
 import { LicenseClass } from "../entities/LicenseClass";
 import { ApplicationRepo } from "../repositories/ApplicationRepo";
@@ -18,6 +19,11 @@ export async function issueLicense(
     if (!application)
         throw new AppError('Application not found', 404);
 
+    application.last_status_date = new Date();
+    application.application_status = ApplicationStatus.Completed;
+
+    await ApplicationRepo.save(application);
+
     const licenseClass = await LicenseClass.findOneBy({ id: licenseClassId });
     if (!licenseClass)
         throw new AppError('License class not found', 404);
@@ -36,8 +42,37 @@ export async function issueLicense(
         issue_date: issueDate,
         expiration_date: expirationDate,
         user: { id: createdByUserId },
-        license_class: licenseClass
+        license_class: licenseClass,
+        is_active: true, // TODO
     }).save();
 
     return newLicense.id;
+}
+
+export function getLicenseById(licenseId: number) {
+    return License.findOne({
+        where: {
+            id: licenseId
+        },
+        relations: {
+            driver: true,
+            license_class: true
+        }
+    });
+}
+
+export function getLicenseWithPersonById(licenseId: number) {
+    return License.findOne({
+        where: {
+            id: licenseId
+        },
+        relations: {
+            driver: {
+                person: {
+                    national_country: true
+                }
+            },
+            license_class: true
+        }
+    });
 }

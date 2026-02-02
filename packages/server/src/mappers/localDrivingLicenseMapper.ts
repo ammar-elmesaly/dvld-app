@@ -27,5 +27,6 @@ export const toLocalDrivingLicenseApplicationDTO = (application: Application, re
 
         license_class_name: application.local_driving_license_application.license_class.class_name,
         license_class_id: application.local_driving_license_application.license_class.id,
+        license_id: application.license?.id
     };
 };

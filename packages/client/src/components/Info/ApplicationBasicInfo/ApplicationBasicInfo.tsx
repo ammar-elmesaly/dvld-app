@@ -2,16 +2,27 @@ import { ApplicationDTO } from "@dvld/shared/src/dtos/application.dto";
 import { InfoRow } from "../../../helpers/info";
 import styles from "./ApplicationBasicInfo.module.css";
 import Button from "../../Button/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Overlay from "../../Overlay/Overlay";
 import PersonInfo from "../PersonInfo/PersonInfo";
+import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
+import { getPersonById } from "../../../api/person/person";
 
 interface ApplicationBasicInfoProps {
   application: ApplicationDTO;
+  personId?: number;
 }
 
-export function ApplicationBasicInfo({ application }: ApplicationBasicInfoProps) {
+export function ApplicationBasicInfo({ application, personId }: ApplicationBasicInfoProps) {
   const [viewPersonOpen, setViewPersonOpen] = useState(false);
+  const [person, setPerson] = useState<PersonDTO | undefined>(undefined);
+
+  useEffect(() => {
+    if (!personId)
+      return;
+    
+    getPersonById(personId).then(setPerson)
+  }, [personId]);
 
   return (
     <section className={styles.form}>
@@ -64,7 +75,7 @@ export function ApplicationBasicInfo({ application }: ApplicationBasicInfoProps)
       </div>
 
       <Overlay open={viewPersonOpen} onClose={() => setViewPersonOpen(false)}>
-        <PersonInfo />
+        <PersonInfo person={person} />
       </Overlay>
     </section>
   );
