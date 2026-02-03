@@ -32,6 +32,12 @@ export enum ApplicationsActionType {
     ShowHistory = 'Show Person License History'
 }
 
+export enum InternationalApplicationsActionType {
+    ShowPerson = 'Show Person Details',
+    ShowLicense = 'Show License',
+    ShowHistory = 'Show Person License History'
+}
+
 export enum TestAppoitnmentsActionType {
     Edit = 'Edit',
     TakeTest = 'Take Test'

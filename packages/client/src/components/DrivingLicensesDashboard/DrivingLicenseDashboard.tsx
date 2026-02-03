@@ -34,7 +34,7 @@ export default function DrivingLicenseDashboard() {
           <p>Review, approve, or reject driving license applications.</p>
           <div className={styles.controls}>
             <Button color="info" onClick={() => navigate('/local-driving-license-applications')}>Local</Button>
-            <Button color="info">International</Button>
+            <Button color="info" onClick={() => navigate('/international-driving-license-applications') }>International</Button>
           </div>
         </div>
 

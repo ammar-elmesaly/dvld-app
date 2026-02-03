@@ -11,6 +11,7 @@ import {
 import { Application } from './Application';
 import { Driver } from './Driver';
 import { User } from './User';
+import { License } from './License';
 
 @Entity()
 export class InternationalLicense extends BaseEntity {
@@ -18,8 +19,16 @@ export class InternationalLicense extends BaseEntity {
     id: number;
 
     @OneToOne(
+        () => License,
+        license => license.international_license,
+        { nullable: false }
+    )
+    @JoinColumn({ name: 'local_license_id'})
+    local_license: License;
+
+    @OneToOne(
         () => Application,
-        application => application.internationalLicense,
+        application => application.international_license,
         { onDelete: 'CASCADE' }
     )
     @JoinColumn({ name: 'application_id' })
@@ -28,7 +37,7 @@ export class InternationalLicense extends BaseEntity {
 
     @OneToOne(
         () => Driver,
-        driver => driver.internationalLicense,
+        driver => driver.international_license,
         { onDelete: 'CASCADE' }
     )
     @JoinColumn({ name: 'driver_id' })

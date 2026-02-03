@@ -71,7 +71,7 @@ export class Application extends BaseEntity {
         () => InternationalLicense,
         intLicense => intLicense.application
     )
-    internationalLicense: InternationalLicense;
+    international_license: InternationalLicense;
 
     @Column({ type: 'numeric' })
     paid_fees: number;

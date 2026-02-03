@@ -46,5 +46,5 @@ export class Driver extends BaseEntity {
         () => InternationalLicense,
         intLicense => intLicense.driver
     )
-    internationalLicense: InternationalLicense;
+    international_license: InternationalLicense;
 }

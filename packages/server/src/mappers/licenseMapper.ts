@@ -7,8 +7,8 @@ export function toLicenseDTO(license: License): LicenseDTO {
         id: license.id,
         driver_id: license.driver.id,
         is_active: license.is_active,
-        expiration_date: license.expiration_date,
-        issue_date: license.issue_date,
+        expiration_date: new Date(license.expiration_date).toLocaleDateString(),
+        issue_date: new Date(license.issue_date).toLocaleDateString(),
         notes: license.notes,
         is_detained: false, // TODO
         issue_reason: 'Test', // TODO
@@ -22,8 +22,8 @@ export function toLicenseWithPersonDTO(license: License): LicensePersonDTO {
             id: license.id,
             driver_id: license.driver.id,
             is_active: license.is_active,
-            expiration_date: license.expiration_date,
-            issue_date: license.issue_date,
+            expiration_date: new Date(license.expiration_date).toLocaleDateString(),
+            issue_date: new Date(license.issue_date).toLocaleDateString(),
             notes: license.notes,
             is_detained: false, // TODO
             issue_reason: 'Test', // TODO

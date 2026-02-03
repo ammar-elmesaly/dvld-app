@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllApplicationsHandler, getLocalDrivingLicenseApplicationsHandler, newLocalDrivingLicenseHandler, newApplicationHandler } from '../handlers/applicationHandler';
+import { getAllApplicationsHandler, getLocalDrivingLicenseApplicationsHandler, newLocalDrivingLicenseHandler, newApplicationHandler, getInternationalDrivingLicenseApplicationsHandler } from '../handlers/applicationHandler';
 import { requireAuth } from '../middleware/validators/auth';
 
 const router = express.Router();
@@ -9,6 +9,9 @@ router.get('/all', requireAuth, getAllApplicationsHandler);
 
 // GET /application/all/local
 router.get('/all/local', requireAuth, getLocalDrivingLicenseApplicationsHandler);
+
+// GET /application/all/international
+router.get('/all/international', requireAuth, getInternationalDrivingLicenseApplicationsHandler);
 
 // POST /application/new
 router.post('/new', requireAuth, newApplicationHandler);

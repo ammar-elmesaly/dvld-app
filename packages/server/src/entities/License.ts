@@ -13,6 +13,7 @@ import { Application } from './Application';
 import { Driver } from './Driver';
 import { LicenseClass } from './LicenseClass';
 import { User } from './User';
+import { InternationalLicense } from './InternationalLicense';
 
 @Unique(['driver', 'license_class'])
 @Entity()
@@ -20,6 +21,12 @@ export class License extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
+    @OneToOne(
+        () => InternationalLicense,
+        intLicense => intLicense.local_license
+    )
+    international_license: InternationalLicense;
+    
     @OneToOne(
         () => Application,
         application => application.license,

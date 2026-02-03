@@ -16,6 +16,10 @@ export function getAllLocalDrivingLicenseApplications() {
     return ApplicationRepo.getAllLocalDrivingLicenseApplications();
 }
 
+export function getAllInternationalDrivingLicenseApplications() {
+    return ApplicationRepo.getAllInternationalDrivingLicenseApplications();
+}
+
 export async function newApplication(personId: number, applicationTypeSystemName: string, createdByUserId: number) {
     const person = await PersonRepo.findOneBy({ id: personId });
     if (!person)
@@ -40,7 +44,7 @@ export async function newApplication(personId: number, applicationTypeSystemName
         created_by_user: createdByUser,
         last_status_date: new Date(),
         application_status: applicationStatus,
-        paid_fees: 0
+        paid_fees: applicationType.type_fees
     }).save();
 
     return newApplication.id;

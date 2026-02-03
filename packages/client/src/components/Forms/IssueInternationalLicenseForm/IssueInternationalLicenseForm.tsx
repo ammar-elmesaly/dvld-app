@@ -41,7 +41,7 @@ export default function IssueInternationalLicenseForm() {
                   type='text' 
                   onChange={(e) => setFilterValue(e.target.value)} 
                   value={filterValue}
-                  placeholder='Enter license id'
+                  placeholder='Enter local license id (class 3)'
                 />
               </div>
               <Button color='primary' icon='link' type='button'
@@ -101,7 +101,7 @@ export default function IssueInternationalLicenseForm() {
     const payload = {
       ...data,
       createdByUserId: user.userId,
-      personId: licenseWithPerson.person.id,
+      licenseId: licenseWithPerson.license.id,
     };
 
     const res = await apiFetch(`${baseUrl}/internationalLicense/issue`, {

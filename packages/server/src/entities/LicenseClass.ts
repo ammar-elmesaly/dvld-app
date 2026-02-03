@@ -17,6 +17,9 @@ export class LicenseClass extends BaseEntity {
     class_name: string;
 
     @Column()
+    system_name: string;
+
+    @Column()
     class_description: string;
 
     @Column({ type: 'numeric' })

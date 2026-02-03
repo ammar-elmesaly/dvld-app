@@ -6,3 +6,9 @@ export async function getAllLocalDrivingLicenseApplications() {
 
     return res.json();
 }
+
+export async function getAllInternationalDrivingLicenseApplications() {
+    const res = await apiFetch(`${baseUrl}/application/all/international`);
+
+    return res.json();
+}

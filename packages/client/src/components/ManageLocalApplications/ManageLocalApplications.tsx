@@ -15,8 +15,12 @@ import { DrivingLicenseInfo } from '../Info/DrivingLicenseInfo/DrivingLicenseInf
 import ManageTestAppointments from '../ManageTestAppointments/ManageTestAppointments';
 import { IssueDrivingLicenseForm } from '../Forms/IssueDrivingLicenseForm/IssueDrivingLicenseForm';
 import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo';
-import { getLicenseWithPersonById } from '../../api/license/license';
+import { getAllLicensesWithDriverId, getLicenseWithPersonById } from '../../api/license/license';
 import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
+import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo';
+import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense';
+import { LicenseDTO } from '@dvld/shared/src/dtos/license.dto';
+import { InternationalLicenseDTO } from '@dvld/shared/src/dtos/internationalLicense.dto';
 
 export default function ManageLocalApplications() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
@@ -31,6 +35,9 @@ export default function ManageLocalApplications() {
   const [refreshKey, setRefreshKey] = useState(0);
   
   const [licenseWithPerson, setLicenseWithPerson] = useState<LicensePersonDTO | undefined>(undefined);
+
+  const [localLicenses, setLocalLicenses] = useState<LicenseDTO[] | undefined>();
+  const [intLicenses, setIntLicenses] = useState<InternationalLicenseDTO[] | undefined>();
 
   const handleRefresh = () => {
     setRefreshKey(prev => prev + 1);
@@ -47,6 +54,14 @@ export default function ManageLocalApplications() {
     const licenseId = activeRowAction?.row.license_id;
 
     getLicenseWithPersonById(licenseId).then(setLicenseWithPerson)
+  }, [activeRowAction]);
+
+  useEffect(() => {
+    if (!activeRowAction?.row.driver_id)
+      return;
+
+    getAllInternationalLicensesWithDriverId(activeRowAction.row.driver_id).then(setIntLicenses);
+    getAllLicensesWithDriverId(activeRowAction.row.driver_id).then(setLocalLicenses);
   }, [activeRowAction]);
 
   const rowActions: RowActionDef<LocalDrivingLicenseApplicationDTO, ApplicationsActionType>[] = [
@@ -107,7 +122,8 @@ export default function ManageLocalApplications() {
 
     {
       type: ApplicationsActionType.ShowHistory,
-      handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.ShowHistory })
+      handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.ShowHistory }),
+      isDisabled: (row) => !row.driver_id
     },
   ];
 
@@ -213,7 +229,7 @@ export default function ManageLocalApplications() {
 
     case ApplicationsActionType.ShowHistory:
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <LicenseHistoryInfo localLicenses={localLicenses ?? []} internationalLicenses={intLicenses ?? []} person={licenseWithPerson?.person} />
       );
       break;
   }
@@ -226,7 +242,7 @@ export default function ManageLocalApplications() {
       <div className={styles.controls}>
         <Filter
           options={Object.keys(applications[0] ?? {})}
-          ignoreOptions={['application_id', 'applicant_person_id', 'license_id', 'license_class_id', 'application_fees', 'paid_fees', 'retake_test_fees',  'created_by_user_name', 'application_type_name']}
+          ignoreOptions={['application_id', 'applicant_person_id', 'license_id', 'license_class_id', 'application_fees', 'driver_id', 'paid_fees', 'retake_test_fees',  'created_by_user_name', 'application_type_name']}
           filterBy={filterBy}
           filterValue={filterValue}
           setFilterBy={setFilterBy}

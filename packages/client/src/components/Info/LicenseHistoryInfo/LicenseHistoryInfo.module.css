@@ -1,0 +1,113 @@
+.form {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.mainLayout {
+    display: flex;
+    gap: 10px;
+}
+
+.personInfoRow {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px white solid;
+}
+
+.fieldsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 95px 1fr;
+    align-items: center;
+    column-gap: 8px;
+    font-size: 0.85rem;
+}
+
+.splitRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #ccc;
+    padding: 3px 6px;
+}
+
+.linkAction {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.link {
+    color: #0066cc;
+    text-decoration: underline;
+    font-size: 0.8rem;
+}
+
+/* This is the container for the labels and switch */
+.localInternationalRow {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 12px;
+    align-self: center; /* Center the whole row within your column form */
+}
+
+.label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    transition: all 0.2s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.label.active {
+    color: #2563eb;
+}
+
+.label.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: #2563eb;
+    border-radius: 50%;
+}
+
+.switch {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}

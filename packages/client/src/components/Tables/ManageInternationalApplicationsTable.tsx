@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, TableHTMLAttributes } from "react";
 import Table from "../Table/Table";
 import { RowActionDef } from "../../types/table";
-import { ApplicationDTO } from '@dvld/shared/src/dtos/application.dto';
+import { InternationalDrivingLicenseApplicationDTO } from "@dvld/shared/src/dtos/internationalDrivingLicenseApplication.dto";
 
 interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTableElement> {
-  applications: ApplicationDTO[];
+  applications: InternationalDrivingLicenseApplicationDTO[];
   filterBy?: string;
   filterValue?: string;
   openMenuRow: string | null;
@@ -12,7 +12,7 @@ interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTab
   rowActions: RowActionDef<RowType, RowActionType>[];
 }
 
-export default function ManageApplicationsTable<RowType, RowActionType>({
+export default function ManageInternationalApplicationsTable<RowType, RowActionType>({
   applications,
   filterBy = '',
   filterValue = '',
@@ -24,7 +24,6 @@ export default function ManageApplicationsTable<RowType, RowActionType>({
 ) {
   return (
     <Table
-    ignoreColumns={['application_id', 'applicant_person_id', 'license_id', 'license_class_id', 'application_fees', 'driver_id', 'paid_fees', 'retake_test_fees', 'created_by_user_name', 'application_type_name']}
     data={applications as unknown as Record<string, unknown>[]}
     filterBy={filterBy}
     filterValue={filterValue}

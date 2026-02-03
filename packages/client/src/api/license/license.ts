@@ -12,3 +12,9 @@ export async function getLicenseWithPersonById(licenseId: number) {
 
     return res.json();
 }
+
+export async function getAllLicensesWithDriverId(driverId: number) {
+    const res = await apiFetch(`${baseUrl}/license/all/driverId/${driverId}`);
+
+    return res.json();
+}

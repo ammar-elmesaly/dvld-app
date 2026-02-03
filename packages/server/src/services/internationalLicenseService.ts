@@ -1,23 +1,24 @@
 import { InternationalLicense } from "../entities/InternationalLicense";
 import { newApplication } from "./applicationService";
 import { getApplicationTypeByName } from "./applicationTypeService";
-import { getPersonWithDriverById } from "./personService";
+import { getPersonByDriverId } from "./personService";
+import { getLicenseById } from "./licenseService";
 import { AppError } from "../types/errors";
 
 export async function issueLicense(
     createdByUserId: number,
-    personId: number,
+    licenseId: number,
     notes?: string,
 ) {
-    const person = await getPersonWithDriverById(personId);
-    if (!person)
-        throw new AppError('Person not found', 404);
+    const license = await getLicenseById(licenseId);
 
-    const driver = person.driver;
-    if (!driver)
-        throw new AppError('Driver not found', 404);
+    if (license.license_class.system_name !== 'CLASS_3')
+        throw new AppError('License class must be ordinary driving license in order to issue international license', 400);
 
-    const internationalLicenseApplicationId = await newApplication(personId, 'INTERNATIONAL_LICENSE_SERVICE', createdByUserId);
+    const driver = license.driver;
+    const person = await getPersonByDriverId(driver.id);
+
+    const internationalLicenseApplicationId = await newApplication(person.id, 'INTERNATIONAL_LICENSE_SERVICE', createdByUserId);
 
     const applicationType = await getApplicationTypeByName('INTERNATIONAL_LICENSE_SERVICE');
 
@@ -35,13 +36,14 @@ export async function issueLicense(
         issue_date: issueDate,
         expiration_date: expirationDate,
         user: { id: createdByUserId },
+        local_license: license,
         is_active: true, // TODO
     }).save();
 
     return newLicense.id;
 }
 
-export function getLicenseById(intLicenseId: number) {
+export function getInternationalLicenseById(intLicenseId: number) {
     return InternationalLicense.findOne({
         where: {
             id: intLicenseId
@@ -52,7 +54,7 @@ export function getLicenseById(intLicenseId: number) {
     });
 }
 
-export function getLicenseWithPersonById(intLicenseId: number) {
+export function getInternationalLicenseWithPersonById(intLicenseId: number) {
     return InternationalLicense.findOne({
         where: {
             id: intLicenseId
@@ -65,4 +67,15 @@ export function getLicenseWithPersonById(intLicenseId: number) {
             }
         }
     });
+}
+
+export function getAllInternationalLicensesWithDriverId(driverId: number) {
+    return InternationalLicense.find({
+        where: {
+            driver: { id: driverId }
+        },
+        relations: {
+            driver: true
+        }
+    })
 }

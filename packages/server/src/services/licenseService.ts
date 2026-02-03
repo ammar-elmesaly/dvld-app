@@ -49,10 +49,27 @@ export async function issueLicense(
     return newLicense.id;
 }
 
-export function getLicenseById(licenseId: number) {
-    return License.findOne({
+export async function getLicenseById(licenseId: number) {
+    const license = await License.findOne({
         where: {
             id: licenseId
+        },
+        relations: {
+            driver: true,
+            license_class: true
+        }
+    });
+
+    if (!license)
+        throw new AppError('License not found', 404);
+
+    return license;
+}
+
+export async function getAllLicensesByDriverId(driverId: number) {
+    return License.find({
+        where: {
+            driver: { id: driverId }
         },
         relations: {
             driver: true,

@@ -36,3 +36,12 @@ export const getLicenseByIdHandler: RequestHandler = async (req, res) => {
         res.json(toLicenseDTO(license));
     }
 }
+
+export const getAllLicensesByDriverIdHandler: RequestHandler = async (req, res) => {
+    const { driverId } = req.params;
+
+    const licenses = await licenseService.getAllLicensesByDriverId(Number(driverId));
+    const licensesMapped = licenses.map(lic => toLicenseDTO(lic));
+
+    res.json(licensesMapped);
+}

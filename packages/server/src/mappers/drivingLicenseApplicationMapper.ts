@@ -1,5 +1,6 @@
 import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/localDrivingLicenseApplication.dto';
 import { Application } from '../entities/Application';
+import { InternationalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/internationalDrivingLicenseApplication.dto';
 
 export const toLocalDrivingLicenseApplicationDTO = (application: Application, retakeTestFees: number | undefined): LocalDrivingLicenseApplicationDTO => {
     const { first_name, second_name, third_name, last_name } = application.person;
@@ -20,6 +21,8 @@ export const toLocalDrivingLicenseApplicationDTO = (application: Application, re
         paid_fees: application.paid_fees,
         retake_test_fees: retakeTestFees || 0,
         
+        driver_id: application.person.driver?.id,
+        
         application_type_name: application.application_type.type_name,
         created_by_user_name: application.created_by_user.username,
 
@@ -30,3 +33,17 @@ export const toLocalDrivingLicenseApplicationDTO = (application: Application, re
         license_id: application.license?.id
     };
 };
+
+export const toInternationalDrivingLicenseApplicationDTO = (application: Application): InternationalDrivingLicenseApplicationDTO => {
+    const local_license = application.international_license.local_license;
+    
+    return {
+        application_id: application.id,
+        local_license_id: local_license.id,
+        international_id: application.international_license.id,
+        driver_id: application.international_license.driver.id,
+        is_active: application.international_license.is_active,
+        issue_date: new Date(application.international_license.issue_date).toLocaleDateString(),
+        expiration_date: new Date(application.international_license.expiration_date).toLocaleDateString()
+    };
+}

@@ -6,11 +6,11 @@ import { toInternationalLicenseDTO, toInternationalLicenseWithPersonDTO } from "
 export const issueNewLicenseHandler: RequestHandler = async (req, res) => {
     const {
         createdByUserId,
-        personId,
+        licenseId,
         notes
     } = req.body;
     
-    const newLicenseId = await intLicenseService.issueLicense(createdByUserId, personId, notes);
+    const newLicenseId = await intLicenseService.issueLicense(createdByUserId, licenseId, notes);
 
     res.status(201).json(newLicenseId);
 }
@@ -20,17 +20,26 @@ export const getLicenseByIdHandler: RequestHandler = async (req, res) => {
     const { intLicenseId } = req.params;
 
     if (include === "person") {
-        const license = await intLicenseService.getLicenseWithPersonById(Number(intLicenseId));
+        const license = await intLicenseService.getInternationalLicenseWithPersonById(Number(intLicenseId));
         if (!license)
             throw new AppError('International license not found.', 404);
 
         res.json(toInternationalLicenseWithPersonDTO(license));
     
     } else {
-        const license = await intLicenseService.getLicenseById(Number(intLicenseId));
+        const license = await intLicenseService.getInternationalLicenseById(Number(intLicenseId));
         if (!license)
             throw new AppError('International license not found.', 404);
     
         res.json(toInternationalLicenseDTO(license));
     }
+}
+
+export const getAllInternationalLicensesWithDriverIdHandler: RequestHandler = async (req, res) => {
+    const { driverId } = req.params;
+
+    const intLicenses = await intLicenseService.getAllInternationalLicensesWithDriverId(Number(driverId));
+    const intLicensesMapped = intLicenses.map(intLic => toInternationalLicenseDTO(intLic));
+
+    res.json(intLicensesMapped);
 }

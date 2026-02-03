@@ -10,6 +10,7 @@ import ManageTestTypes from './ManageTestTypes/ManageTestTypes';
 import DrivingLicenseDashboard from './DrivingLicensesDashboard/DrivingLicenseDashboard';
 import { WithNavLayout } from './withNavLayout';
 import ManageLocalApplications from './ManageLocalApplications/ManageLocalApplications';
+import ManageInternationalApplications from './ManageInternationalApplications/ManageInternationalApplications';
 
 function Drivers() {
   return <h1>Drivers Page</h1>;
@@ -31,6 +32,8 @@ function App() {
 
             {/* Applications Dashboard Items */}
             <Route path='/local-driving-license-applications' element={<ManageLocalApplications />}></Route>
+            <Route path='/international-driving-license-applications' element={<ManageInternationalApplications />}></Route>
+
             <Route path='/application-types' element={<ManageApplicationTypes />} />
             <Route path='/test-types' element={<ManageTestTypes />} />
             <Route path='/license-services' element={<DrivingLicenseDashboard />} />

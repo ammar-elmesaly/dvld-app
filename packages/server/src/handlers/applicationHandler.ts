@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import * as applicationService from "../services/applicationService";
-import { toLocalDrivingLicenseApplicationDTO } from "../mappers/localDrivingLicenseMapper";
+import { toInternationalDrivingLicenseApplicationDTO, toLocalDrivingLicenseApplicationDTO } from "../mappers/drivingLicenseApplicationMapper";
 import { getApplicationTypeByName } from "../services/applicationTypeService";
 
 export const getAllApplicationsHandler: RequestHandler = async (_req, res) => {
@@ -14,6 +14,14 @@ export const getLocalDrivingLicenseApplicationsHandler: RequestHandler = async (
 
     const retakeTestApplication = await getApplicationTypeByName('RETAKE_TEST_SERVICE');
     const applicationsMapped = applications.map(app => toLocalDrivingLicenseApplicationDTO(app, retakeTestApplication?.type_fees));
+    res.json(applicationsMapped);
+}
+
+export const getInternationalDrivingLicenseApplicationsHandler: RequestHandler = async (_req, res) => {
+    const applications = await applicationService.getAllInternationalDrivingLicenseApplications();
+
+    const applicationsMapped = applications.map(app => toInternationalDrivingLicenseApplicationDTO(app));
+
     res.json(applicationsMapped);
 }
 

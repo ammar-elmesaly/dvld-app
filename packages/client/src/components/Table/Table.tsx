@@ -8,7 +8,7 @@ interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTab
   filterBy?: string;
   filterValue?: string;
   rowActions?: RowActionDef<RowType, RowActionType>[];
-  openMenuRow: string | null;
+  openMenuRow?: string | null;
   setOpenMenuRow?: Dispatch<SetStateAction<string | null>>;
   ignoreColumns?: string[];
   compact?: boolean;
