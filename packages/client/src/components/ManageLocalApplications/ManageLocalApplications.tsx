@@ -111,7 +111,7 @@ export default function ManageLocalApplications() {
     {
       type: ApplicationsActionType.IssueLicense,
       handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.IssueLicense }),
-      isDisabled: (row) => row.passed_tests !== 3 || row.status === ApplicationStatus.Completed
+      // isDisabled: (row) => row.passed_tests !== 3 || row.status === ApplicationStatus.Completed
     },
 
     {

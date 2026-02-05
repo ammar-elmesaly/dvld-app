@@ -31,6 +31,19 @@ export const renewLicenseHandler: RequestHandler = async (req, res) => {
     res.status(201).json(newLicenseId)
 }
 
+export const replaceLicenseHandler: RequestHandler = async (req, res) => {
+    const { createdByUserId, licenseId, replacementType, notes } = req.body;
+
+    const newLicenseId = await licenseService.replaceLicense(
+        createdByUserId,
+        licenseId,
+        replacementType,
+        notes
+    );
+
+    res.status(201).json(newLicenseId);
+}
+
 export const getLicenseByIdHandler: RequestHandler = async (req, res) => {
     const { include } = req.query;
     const { licenseId } = req.params;

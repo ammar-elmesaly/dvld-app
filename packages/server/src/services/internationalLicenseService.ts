@@ -37,7 +37,7 @@ export async function issueLicense(
         expiration_date: expirationDate,
         user: { id: createdByUserId },
         local_license: license,
-        is_active: true, // TODO
+        is_active: true,
     }).save();
 
     return newLicense.id;

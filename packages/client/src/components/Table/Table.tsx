@@ -72,9 +72,17 @@ export default function Table<RowType, RowActionType>({
                     </td>
                   )}
 
-                  {headers.map(header => (
-                    <td key={header}>{String(row[header] ?? '')}</td>
-                  ))}
+                  {headers.map(header => {
+                    return (
+                      <td key={header} >
+                        {
+                          typeof row[header] === 'boolean'
+                          ? <input className='isActiveCheckbox' type="checkbox" checked={row[header]} readOnly />
+                          : String(row[header] ?? '')
+                        }
+                      </td>
+                    );
+                  })}
                 </tr>
               );
             })}

@@ -57,3 +57,7 @@ td:last-child {
     padding: 4px 8px;
     font-size: 16px;
 }
+
+input[type="checkbox"] {
+  accent-color: #fff; /* Changes the checked color to orange-red */
+}

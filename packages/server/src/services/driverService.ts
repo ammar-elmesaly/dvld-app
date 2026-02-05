@@ -3,10 +3,18 @@ import { PersonRepo } from "../repositories/PersonRepo";
 import { UserRepo } from "../repositories/UserRepo";
 import { AppError } from "../types/errors";
 
-export async function createNewDriver(createdByUserId: number, personId: number) {
+export async function createOrGetDriver(createdByUserId: number, personId: number) {
     const user = await UserRepo.findOneBy({ id: createdByUserId });
     if (!user)
         throw new AppError('User not found', 404);
+
+    const oldDriver = await Driver.findOne({
+        where: {
+            person: { id: personId }
+        }
+    });
+    if (oldDriver)
+        return oldDriver.id;
 
     const person = await PersonRepo.findOneBy({ id: personId});
     if (!person)

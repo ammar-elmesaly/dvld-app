@@ -6,12 +6,14 @@ import NewLocalLicenseForm from '../Forms/NewLocalLicenseForm/NewLocalLicenseFor
 import { useNavigate } from 'react-router-dom';
 import IssueInternationalLicenseForm from '../Forms/IssueInternationalLicenseForm/IssueInternationalLicenseForm';
 import RenewDrivingLicenseForm from '../Forms/RenewDrivingLicenseForm/RenewDrivingLicenseForm';
+import ReplaceLicenseForm from '../Forms/ReplaceLicenseForm/ReplaceLicenseForm';
 
 export default function DrivingLicenseDashboard() {
   const navigate = useNavigate();
   const [localLicenseOpen, setLocalLicenseOpen] = useState(false);
   const [internationalLicenseOpen, setInternationalLicenseOpen] = useState(false);
   const [renewLicenseOpen, setRenewLicenseOpen] = useState(false);
+  const [replaceLicenseOpen, setReplaceLicenseOpen] = useState(false);
 
   return (
     <>
@@ -52,7 +54,7 @@ export default function DrivingLicenseDashboard() {
           <h2>Replacement for Lost or Damaged License</h2>
           <p></p>
           <div className={styles.controls}>
-            <Button color="info">Replace</Button>
+            <Button color="info" onClick={() => setReplaceLicenseOpen(true)}>Replace</Button>
           </div>
         </div>
 
@@ -83,6 +85,10 @@ export default function DrivingLicenseDashboard() {
 
     <Overlay open={renewLicenseOpen} onClose={() => setRenewLicenseOpen(false)}>
       <RenewDrivingLicenseForm />
+    </Overlay>
+
+    <Overlay open={replaceLicenseOpen} onClose={() => setReplaceLicenseOpen(false)}>
+      <ReplaceLicenseForm />
     </Overlay>
     </>
   );
