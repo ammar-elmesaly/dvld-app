@@ -5,7 +5,7 @@ interface PersonInfoProps {
   person?: PersonDTO;
 }
 
-import styles from '../../Forms/AddPersonForm/AddPersonForm.module.css'
+import styles from '../../Forms/Forms.module.css';
 import { InfoBox, InfoRow } from "../../../helpers/info";
 
 export default function PersonInfo({ person }: PersonInfoProps) {

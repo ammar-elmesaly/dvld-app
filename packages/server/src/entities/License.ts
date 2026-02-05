@@ -6,7 +6,7 @@ import {
     OneToOne,
     JoinColumn,
     ManyToOne,
-    Unique
+    Index
 } from 'typeorm';
 
 import { Application } from './Application';
@@ -14,8 +14,9 @@ import { Driver } from './Driver';
 import { LicenseClass } from './LicenseClass';
 import { User } from './User';
 import { InternationalLicense } from './InternationalLicense';
+import { IssueReason } from '@dvld/shared/src/types/license';
 
-@Unique(['driver', 'license_class'])
+@Index(["driver", "license_class"], { unique: true, where: '"is_active" = true' })
 @Entity()
 export class License extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
@@ -62,6 +63,9 @@ export class License extends BaseEntity {
 
     @Column({ nullable: true })
     notes: string;
+
+    @Column({ type: 'enum', enum: IssueReason })
+    issue_reason: IssueReason;
 
     @Column({ type: 'numeric' })
     paid_fees: number;

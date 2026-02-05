@@ -35,6 +35,6 @@ export const AppDataSource = new DataSource({
         LocalDrivingLicenseApplication,
         TestAppointment,
         Test,
-        Driver,
+        Driver
     ]
 });

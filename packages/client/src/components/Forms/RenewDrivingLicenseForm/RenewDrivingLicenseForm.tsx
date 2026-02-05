@@ -10,16 +10,20 @@ import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
 import { getApplicationTypeByName } from '../../../api/application/applicationType';
 import { UserSession } from '../../../types/UserSession';
 import { getCurrentUser } from '../../../api/user/user';
-
+import { LicenseClassDTO } from '@dvld/shared/src/dtos/licenseClass.dto';
+import { getLicenseClassByName } from '../../../api/license/licenseClass';
 export default function RenewDrivingLicenseForm() {
   const [filterValue, setFilterValue] = useState("");
   const [licenseWithPerson, setLicenseWithPerson] = useState<LicensePersonDTO | undefined>(undefined);
+  
+  const [licenseClass, setLicenseClass] = useState<LicenseClassDTO | undefined>(undefined);
+
   const [renewApplicationType, setRenewApplicationType] = useState<ApplicationTypeDTO | undefined>(undefined);
 
   const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
 
   useEffect(() => {
-    getApplicationTypeByName('RENEW_DRIVING_LICENSE_SERVICE').then(setRenewApplicationType);
+    getApplicationTypeByName('RENEW_LICENSE_SERVICE').then(setRenewApplicationType);
   }, []);
 
   useEffect(() => {
@@ -37,15 +41,15 @@ export default function RenewDrivingLicenseForm() {
           <div className={styles.fieldsContainer}>
             <div className={styles.filterRow}>
               <div className={styles.inputGroup}>
-                <input 
-                  type='text' 
-                  onChange={(e) => setFilterValue(e.target.value)} 
+                <input
+                  type='text'
+                  onChange={(e) => setFilterValue(e.target.value)}
                   value={filterValue}
                   placeholder='Enter license id'
                 />
               </div>
               <Button color='primary' icon='link' type='button'
-                onClick={() => searchLicense(filterValue, setLicenseWithPerson)}
+                onClick={() => searchLicense(filterValue, setLicenseWithPerson, setLicenseClass)}
               />
             </div>
             <div className={styles.licenseInfoRow}>
@@ -54,34 +58,57 @@ export default function RenewDrivingLicenseForm() {
                 <DriverLicenseInfo licenseWithPerson={licenseWithPerson} />
               }
             </div>
-            <div className={styles.applicationInfoRow}>
               {
-                licenseWithPerson &&
-                <>
+              licenseWithPerson &&
+              <>
+                <div className={styles.tripleSplitRow}>
                   <div className={styles.formRow}>
-                    <label htmlFor='renewal_fees'>Fees:</label>
+                    <label htmlFor='renewal_fees'>R.L.App Fees:</label>
                     <div className={styles.inputGroup}>
                       <i className="bi bi-cash"></i>
-                      <span>{ renewApplicationType?.type_fees }</span>
+                      <span>{renewApplicationType?.type_fees}</span>
                     </div>
                   </div>
+
                   <div className={styles.formRow}>
-                    <label htmlFor='notes'>Notes:</label>
+                    <label htmlFor='license_fees'>License Fees:</label>
                     <div className={styles.inputGroup}>
-                      <i className="bi bi-text-paragraph"></i>
-                      <textarea name="notes" className={styles.notesTextArea} />
+                      <i className="bi bi-cash"></i>
+                      <span>{licenseClass?.class_fees}</span>
                     </div>
                   </div>
-                </>
-              }
-            </div>
+
+                  <div className={styles.formRow}>
+                    <label htmlFor='renewal_fees'>Total Fees:</label>
+                    <div className={styles.inputGroup}>
+                      <i className="bi bi-cash"></i>
+                      <span>
+                        {
+                          Number(renewApplicationType?.type_fees)
+                          +
+                          Number(licenseClass?.class_fees)
+                        }
+                      </span>
+                    </div>
+                  </div> 
+                </div>
+
+                <div className={styles.formRow}>
+                  <label htmlFor='notes'>Notes:</label>
+                  <div className={styles.inputGroup}>
+                    <i className="bi bi-text-paragraph"></i>
+                    <textarea name="notes" className={styles.notesTextArea} />
+                  </div>
+                </div>
+              </>
+            }
           </div>
         </div>
         <div className={styles.controls} >
           <Button
-          color='success'
-          iconLeft='arrow-clockwise'
-          type='submit'
+            color='success'
+            iconLeft='arrow-clockwise'
+            type='submit'
           >
             Renew
           </Button>
@@ -129,15 +156,19 @@ export default function RenewDrivingLicenseForm() {
 
 async function searchLicense(
   filterValue: string,
-  setLicense: React.Dispatch<React.SetStateAction<LicensePersonDTO | undefined>>
+  setLicenseWithPerson: React.Dispatch<LicensePersonDTO | undefined>,
+  setLicenseClass: React.Dispatch<LicenseClassDTO | undefined>
 ) {
-    const licenseId = Number(filterValue);
+  const licenseId = Number(filterValue);
 
-    if (!Number.isInteger(licenseId)) {
-      alert('Error: Id must be a number');
-      return;
-    }
+  if (!Number.isInteger(licenseId)) {
+    alert('Error: Id must be a number');
+    return;
+  }
 
-    const license = await getLicenseWithPersonById(licenseId);
-    setLicense(license);
+  const licenseWithPerson: LicensePersonDTO = await getLicenseWithPersonById(licenseId);
+  const licenseClass = await getLicenseClassByName(licenseWithPerson.license.license_system_name);
+
+  setLicenseWithPerson(licenseWithPerson);
+  setLicenseClass(licenseClass);
 }

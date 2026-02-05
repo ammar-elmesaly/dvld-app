@@ -5,11 +5,13 @@ import Overlay from '../Overlay/Overlay';
 import NewLocalLicenseForm from '../Forms/NewLocalLicenseForm/NewLocalLicenseForm';
 import { useNavigate } from 'react-router-dom';
 import IssueInternationalLicenseForm from '../Forms/IssueInternationalLicenseForm/IssueInternationalLicenseForm';
+import RenewDrivingLicenseForm from '../Forms/RenewDrivingLicenseForm/RenewDrivingLicenseForm';
 
 export default function DrivingLicenseDashboard() {
   const navigate = useNavigate();
   const [localLicenseOpen, setLocalLicenseOpen] = useState(false);
   const [internationalLicenseOpen, setInternationalLicenseOpen] = useState(false);
+  const [renewLicenseOpen, setRenewLicenseOpen] = useState(false);
 
   return (
     <>
@@ -42,7 +44,7 @@ export default function DrivingLicenseDashboard() {
           <h2>Renew Driving License</h2>
           <p></p>
           <div className={styles.controls}>
-            <Button color="info">Renew</Button>
+            <Button color="info" onClick={() => setRenewLicenseOpen(true)}>Renew</Button>
           </div>
         </div>
 
@@ -77,6 +79,10 @@ export default function DrivingLicenseDashboard() {
 
     <Overlay open={internationalLicenseOpen} onClose={() => setInternationalLicenseOpen(false)}>
       <IssueInternationalLicenseForm />
+    </Overlay>
+
+    <Overlay open={renewLicenseOpen} onClose={() => setRenewLicenseOpen(false)}>
+      <RenewDrivingLicenseForm />
     </Overlay>
     </>
   );

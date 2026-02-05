@@ -14,7 +14,7 @@ export default function ManageLocalLicensesTable({
   return (
     <Table
     data={licenses as unknown as Record<string, unknown>[]}
-    ignoreColumns={['notes']}
+    ignoreColumns={['notes', 'license_system_name']}
     {...rest}
     />
   );

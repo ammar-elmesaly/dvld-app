@@ -6,3 +6,9 @@ export async function getAllLicenseClasses() {
 
     return res.json();
 }
+
+export async function getLicenseClassByName(systemName: string) {
+    const res = await apiFetch(`${baseUrl}/licenseClass/name/${systemName}`);
+
+    return res.json();
+}

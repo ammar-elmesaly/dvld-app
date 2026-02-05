@@ -192,6 +192,12 @@
     gap: 20px;
 }
 
+.tripleSplitRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
 .radioGroup {
     display: flex;
     gap: 15px;

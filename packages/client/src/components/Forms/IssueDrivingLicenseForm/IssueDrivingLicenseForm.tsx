@@ -9,10 +9,10 @@ import { UserSession } from "../../../types/UserSession";
 interface IssueDrivingLicenseProps {
   personId: number;
   licenseClassId: number;
-  applicationId: number;
+  localDrivingLicenseApplicationId: number;
   handleRefresh: () => void;
 }
-export function IssueDrivingLicenseForm({ personId, licenseClassId, applicationId, handleRefresh }: IssueDrivingLicenseProps) {
+export function IssueDrivingLicenseForm({ personId, licenseClassId, localDrivingLicenseApplicationId, handleRefresh }: IssueDrivingLicenseProps) {
   const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export function IssueDrivingLicenseForm({ personId, licenseClassId, applicationI
       createdByUserId: user.userId,
       personId,
       licenseClassId,
-      applicationId,
+      localDrivingLicenseApplicationId,
     };
 
     const res = await apiFetch(`${baseUrl}/license/issue`, {

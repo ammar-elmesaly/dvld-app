@@ -1,4 +1,4 @@
-import styles from "../components/Forms/AddPersonForm/AddPersonForm.module.css";
+import styles from '../components/Forms/Forms.module.css';
 
 export function InfoRow({
   label,

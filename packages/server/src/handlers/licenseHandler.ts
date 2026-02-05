@@ -3,18 +3,32 @@ import * as licenseService from "../services/licenseService";
 import { toLicenseDTO, toLicenseWithPersonDTO } from "../mappers/licenseMapper";
 import { AppError } from "../types/errors";
 
-export const issueNewLicenseHandler: RequestHandler = async (req, res) => {
+export const issueLicenseFirstTimeHandler: RequestHandler = async (req, res) => {
     const {
         createdByUserId,
         personId,
         licenseClassId,
-        applicationId,
+        localDrivingLicenseApplicationId,
         notes
     } = req.body;
     
-    const newLicenseId = await licenseService.issueLicense(createdByUserId, personId, licenseClassId, applicationId, notes);
+    const newLicenseId = await licenseService.issueLicenseFirstTime(
+        createdByUserId,
+        personId,
+        licenseClassId,
+        localDrivingLicenseApplicationId,
+        notes
+    );
 
     res.status(201).json(newLicenseId);
+}
+
+export const renewLicenseHandler: RequestHandler = async (req, res) => {
+    const { createdByUserId, licenseId, notes } = req.body;
+
+    const newLicenseId = await licenseService.renewLicense(createdByUserId, licenseId, notes);
+
+    res.status(201).json(newLicenseId)
 }
 
 export const getLicenseByIdHandler: RequestHandler = async (req, res) => {

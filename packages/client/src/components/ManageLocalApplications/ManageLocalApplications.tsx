@@ -206,7 +206,7 @@ export default function ManageLocalApplications() {
           <hr style={{ "margin": "15px 0px" }} />
           <IssueDrivingLicenseForm
           licenseClassId={activeRowAction.row.license_class_id}
-          applicationId={activeRowAction.row.application_id}
+          localDrivingLicenseApplicationId={activeRowAction.row.application_id}
           personId={activeRowAction.row.applicant_person_id}
           handleRefresh={handleRefresh}/>
         </>

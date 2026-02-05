@@ -6,7 +6,7 @@ interface PersonInfoProps {
   licenseWithPerson: LicensePersonDTO;
 }
 
-import styles from '../../Forms/AddPersonForm/AddPersonForm.module.css'
+import styles from '../../Forms/Forms.module.css';
 import { InfoRow } from "../../../helpers/info";
 import { LicenseDTO } from "@dvld/shared/src/dtos/license.dto";
 
