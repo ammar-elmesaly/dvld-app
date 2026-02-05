@@ -11,15 +11,15 @@ import { getApplicationTypeByName } from '../../../api/application/applicationTy
 import { UserSession } from '../../../types/UserSession';
 import { getCurrentUser } from '../../../api/user/user';
 
-export default function IssueInternationalLicenseForm() {
+export default function RenewDrivingLicenseForm() {
   const [filterValue, setFilterValue] = useState("");
   const [licenseWithPerson, setLicenseWithPerson] = useState<LicensePersonDTO | undefined>(undefined);
-  const [internationalApplicationType, setInternationalApplicationType] = useState<ApplicationTypeDTO | undefined>(undefined);
+  const [renewApplicationType, setRenewApplicationType] = useState<ApplicationTypeDTO | undefined>(undefined);
 
   const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
 
   useEffect(() => {
-    getApplicationTypeByName('INTERNATIONAL_LICENSE_SERVICE').then(setInternationalApplicationType);
+    getApplicationTypeByName('RENEW_DRIVING_LICENSE_SERVICE').then(setRenewApplicationType);
   }, []);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function IssueInternationalLicenseForm() {
     <>
       <form method='POST' onSubmit={onSubmit} className={styles.form}>
         <div className={styles.headerRow}>
-          <h1>Issue international license</h1>
+          <h1>Renew Driving License</h1>
         </div>
 
         <div className={styles.mainLayout}>
@@ -41,7 +41,7 @@ export default function IssueInternationalLicenseForm() {
                   type='text' 
                   onChange={(e) => setFilterValue(e.target.value)} 
                   value={filterValue}
-                  placeholder='Enter local license id (class 3)'
+                  placeholder='Enter license id'
                 />
               </div>
               <Button color='primary' icon='link' type='button'
@@ -57,13 +57,22 @@ export default function IssueInternationalLicenseForm() {
             <div className={styles.applicationInfoRow}>
               {
                 licenseWithPerson &&
-                <div className={styles.formRow}>
-                  <label htmlFor='international fees'>Fees:</label>
-                  <div className={styles.inputGroup}>
-                    <i className="bi bi-cash"></i>
-                    <span>{ internationalApplicationType?.type_fees }</span>
+                <>
+                  <div className={styles.formRow}>
+                    <label htmlFor='renewal_fees'>Fees:</label>
+                    <div className={styles.inputGroup}>
+                      <i className="bi bi-cash"></i>
+                      <span>{ renewApplicationType?.type_fees }</span>
+                    </div>
                   </div>
-                </div>
+                  <div className={styles.formRow}>
+                    <label htmlFor='notes'>Notes:</label>
+                    <div className={styles.inputGroup}>
+                      <i className="bi bi-text-paragraph"></i>
+                      <textarea name="notes" className={styles.notesTextArea} />
+                    </div>
+                  </div>
+                </>
               }
             </div>
           </div>
@@ -71,10 +80,10 @@ export default function IssueInternationalLicenseForm() {
         <div className={styles.controls} >
           <Button
           color='success'
-          iconLeft='globe'
+          iconLeft='arrow-clockwise'
           type='submit'
           >
-            Issue
+            Renew
           </Button>
         </div>
       </form>
@@ -89,7 +98,7 @@ export default function IssueInternationalLicenseForm() {
       return;
     }
 
-    const confirm = window.confirm("Are you sure to issue license?");
+    const confirm = window.confirm("Are you sure to renew license?");
 
     if (!confirm)
       return;
@@ -104,7 +113,7 @@ export default function IssueInternationalLicenseForm() {
       licenseId: licenseWithPerson.license.id,
     };
 
-    const res = await apiFetch(`${baseUrl}/internationalLicense/issue`, {
+    const res = await apiFetch(`${baseUrl}/license/renew`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -113,8 +122,8 @@ export default function IssueInternationalLicenseForm() {
       credentials: 'include'
     });
 
-    const internationalLicenseId = await res.json();
-    alert(`International license issued successfully with id: ${internationalLicenseId}.`);
+    const renewedLicenseId = await res.json();
+    alert(`License renewed successfully with new license id: ${renewedLicenseId}.`);
   }
 }
 

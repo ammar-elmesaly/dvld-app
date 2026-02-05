@@ -5,7 +5,7 @@ import Button from '../../Button/Button';
 import Filter from '../../Filter/Filter';
 import Overlay from '../../Overlay/Overlay';
 import PersonInformation from '../../Info/PersonInfo/PersonInfo';
-import styles from './NewLocalLicenseForm.module.css';
+import styles from '../Forms.module.css';
 import { useEffect, useState } from 'react';
 import { baseUrl } from '../../../api/urls';
 import { getAllApplicationTypes } from '../../../api/application/applicationType';

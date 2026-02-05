@@ -5,7 +5,7 @@ import Button from '../../Button/Button';
 import Filter from '../../Filter/Filter';
 import Overlay from '../../Overlay/Overlay';
 import PersonInformation from '../../Info/PersonInfo/PersonInfo';
-import styles from './AddUserForm.module.css';
+import styles from '../Forms.module.css';
 import { useState } from 'react';
 import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';

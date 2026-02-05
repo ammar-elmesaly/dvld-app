@@ -1,5 +1,5 @@
 import Button from '../../Button/Button';
-import styles from './AddTestAppointmentForm.module.css';
+import styles from '../Forms.module.css';
 import { useEffect, useState } from 'react';
 import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';

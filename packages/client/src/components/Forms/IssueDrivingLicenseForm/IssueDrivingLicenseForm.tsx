@@ -3,7 +3,7 @@ import { apiFetch } from "../../../api/apiFetch";
 import { baseUrl } from "../../../api/urls";
 import { getCurrentUser } from "../../../api/user/user";
 import Button from "../../Button/Button";
-import styles from "./IssueDrivingLicenseForm.module.css";
+import styles from "../Forms.module.css";
 import { UserSession } from "../../../types/UserSession";
 
 interface IssueDrivingLicenseProps {
@@ -25,7 +25,7 @@ export function IssueDrivingLicenseForm({ personId, licenseClassId, applicationI
         <label htmlFor='notes'>Notes:</label>
         <div className={styles.inputGroup}>
           <i className="bi bi-text-paragraph"></i>
-          <textarea className={styles.textArea} name="notes" />
+          <textarea className={styles.notesTextArea} name="notes" />
         </div>
       </div>
       <div className={styles.controls}>

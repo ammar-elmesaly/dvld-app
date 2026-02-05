@@ -1,5 +1,5 @@
 import Button from '../../Button/Button';
-import styles from './TakeTestForm.module.css';
+import styles from '../Forms.module.css';
 import { useEffect, useState } from 'react';
 import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';
@@ -33,7 +33,7 @@ export default function TakeTestForm({ ldla, testTypeId, testAppointment, handle
 
   return (
     <>
-      <form method='POST' onSubmit={(e) => onSubmit(e, testAppointment.id, user.userId, handleManageLocalApplicationsRefresh, handleRefresh)} className={styles.form}>
+      <form method='POST' onSubmit={(e) => onSubmit(e, testAppointment.id, user.userId, handleManageLocalApplicationsRefresh, handleRefresh)} className={styles.takeTestFormForm}>
         <div className={styles.headerRow}>
           <h1>New Test Appointment</h1>
         </div>

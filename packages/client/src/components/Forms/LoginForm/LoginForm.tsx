@@ -1,4 +1,4 @@
-import styles from './LoginForm.module.css';
+import styles from '../Forms.module.css';
 import Button from '../../Button/Button';
 import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';
@@ -27,7 +27,7 @@ function LoginForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} method='POST' className={styles.form}>
+    <form onSubmit={onSubmit} method='POST' className={styles.loginFormForm}>
       <div className={styles.formRow}>
         <label>Username:</label>
         <div className={styles.inputGroup}>
