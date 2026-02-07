@@ -10,6 +10,7 @@ import { UserRepo } from "../repositories/UserRepo";
 import { newApplication } from "./applicationService";
 import { getPersonByDriverId } from "./personService";
 import { Not } from "typeorm";
+import { isExpired } from "../utils/dateUtil";
 
 export async function issueLicenseFirstTime(
     createdByUserId: number,
@@ -106,10 +107,10 @@ export async function renewLicense(createdByUserId: number, licenseId: number, n
     if (activeLicenseExits)
         throw new AppError('Cannot renew a license while having an active license of the same class', 400);
 
-    const today = new Date();
     const oldLicenseExpirationDate = new Date(oldLicense.expiration_date);
-    
-    if (today < oldLicenseExpirationDate)
+    const licenseExpired = isExpired(oldLicenseExpirationDate);
+
+    if (!licenseExpired)
         throw new AppError('Cannot renew a license which has not expired yet', 400);
     
     // ======== End checks and start acting ========
@@ -168,10 +169,10 @@ export async function replaceLicense(
     if (!oldLicense.is_active)
         throw new AppError('Cannot replace an inactive license', 400);
 
-    const today = new Date();
     const oldLicenseExpirationDate = new Date(oldLicense.expiration_date);
-    
-    if (today >= oldLicenseExpirationDate)
+    const licenseExpired = isExpired(oldLicenseExpirationDate);
+
+    if (licenseExpired)
         throw new AppError('Cannot replace an expired license, renew it instead', 400);
 
     // ======== End checks and start acting ========

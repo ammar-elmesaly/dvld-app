@@ -5,7 +5,8 @@ import {
     PrimaryGeneratedColumn,
     OneToOne,
     JoinColumn,
-    ManyToOne
+    ManyToOne,
+    Index
 } from 'typeorm';
 
 import { Application } from './Application';
@@ -14,6 +15,7 @@ import { User } from './User';
 import { License } from './License';
 
 @Entity()
+@Index("UQ_active_driver_license", ["driver"], { unique: true, where: "is_active = true" })
 export class InternationalLicense extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;

@@ -40,6 +40,7 @@ export function LicenseHistoryInfo({ person, localLicenses, internationalLicense
             </span>
           </div>
           { 
+            /* TODO: Implement Show License row action */
             intLicenseOpen
             ? <ManageInternationalLicensesTable internationalLicenses={internationalLicenses} />
             : <ManageLocalLicensesTable licenses={localLicenses} />

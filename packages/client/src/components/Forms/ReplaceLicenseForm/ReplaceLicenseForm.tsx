@@ -10,15 +10,11 @@ import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
 import { getApplicationTypeByName } from '../../../api/application/applicationType';
 import { UserSession } from '../../../types/UserSession';
 import { getCurrentUser } from '../../../api/user/user';
-import { LicenseClassDTO } from '@dvld/shared/src/dtos/licenseClass.dto';
 import { ReplacementType } from '@dvld/shared/src/types/license';
-import { getLicenseClassByName } from '../../../api/license/licenseClass';
 
 export default function ReplaceLicenseForm() {
-  // TODO: Replacement actually doesn't require full license payment (licenseClass.class_fees)
 	const [filterValue, setFilterValue] = useState("");
 	const [licenseWithPerson, setLicenseWithPerson] = useState<LicensePersonDTO | undefined>(undefined);
-	const [licenseClass, setLicenseClass] = useState<LicenseClassDTO | undefined>(undefined);
 	const [replacementType, setReplacementType] = useState<ReplacementType>(ReplacementType.Damaged);
 
 	const [replaceDamagedApplicationType, setReplaceDamagedApplicationType] = useState<ApplicationTypeDTO | undefined>(undefined);
@@ -54,7 +50,7 @@ export default function ReplaceLicenseForm() {
 								/>
 							</div>
 							<Button color='primary' icon='link' type='button'
-								onClick={() => searchLicense(filterValue, setLicenseWithPerson, setLicenseClass)}
+								onClick={() => searchLicense(filterValue, setLicenseWithPerson)}
 							/>
 						</div>
 
@@ -76,31 +72,6 @@ export default function ReplaceLicenseForm() {
                           : replaceLostApplicationType?.type_fees
                         }
                       </span>
-										</div>
-									</div>
-
-									<div className={styles.formRow}>
-										<label htmlFor='license_fees'>License Fees:</label>
-										<div className={styles.inputGroup}>
-											<i className="bi bi-cash"></i>
-											<span>{licenseClass?.class_fees}</span>
-										</div>
-									</div>
-
-									<div className={styles.formRow}>
-										<label htmlFor='total_fees'>Total Fees:</label>
-										<div className={styles.inputGroup}>
-											<i className="bi bi-cash"></i>
-											<span>
-												{
-                        Number(
-                          replacementType === ReplacementType.Damaged
-                          ? replaceDamagedApplicationType?.type_fees
-                          : replaceLostApplicationType?.type_fees
-                        )
-                        +
-                        Number(licenseClass?.class_fees)}
-											</span>
 										</div>
 									</div>
 								</div>
@@ -192,7 +163,6 @@ export default function ReplaceLicenseForm() {
 async function searchLicense(
 	filterValue: string,
 	setLicenseWithPerson: React.Dispatch<LicensePersonDTO | undefined>,
-	setLicenseClass: React.Dispatch<LicenseClassDTO | undefined>
 ) {
 	const licenseId = Number(filterValue);
 
@@ -202,8 +172,6 @@ async function searchLicense(
 	}
 
 	const licenseWithPerson: LicensePersonDTO = await getLicenseWithPersonById(licenseId);
-	const licenseClass = await getLicenseClassByName(licenseWithPerson.license.license_system_name);
 
 	setLicenseWithPerson(licenseWithPerson);
-	setLicenseClass(licenseClass);
 }

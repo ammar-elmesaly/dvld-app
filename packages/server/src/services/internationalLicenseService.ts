@@ -4,6 +4,7 @@ import { getApplicationTypeByName } from "./applicationTypeService";
 import { getPersonByDriverId } from "./personService";
 import { getLicenseById } from "./licenseService";
 import { AppError } from "../types/errors";
+import { isExpired } from "../utils/dateUtil";
 
 export async function issueLicense(
     createdByUserId: number,
@@ -15,7 +16,24 @@ export async function issueLicense(
     if (license.license_class.system_name !== 'CLASS_3')
         throw new AppError('License class must be ordinary driving license in order to issue international license', 400);
 
+    const licenseExpirationDate = new Date(license.expiration_date);
+    
+    const licenseExpired = isExpired(licenseExpirationDate);
+    if (licenseExpired)
+        throw new AppError('Cannot issue an international license for an expired local license', 400);
+
+    if (!license.is_active)
+        throw new AppError('Cannot issue an international license for an inactive local license', 400);
+
     const driver = license.driver;
+
+    const activeIntLicenseExists = await InternationalLicense.existsBy({
+        driver,
+        is_active: true
+    });
+    if (!activeIntLicenseExists)
+        throw new AppError('Cannot have more than one active international license for the same driver', 400);
+
     const person = await getPersonByDriverId(driver.id);
 
     const internationalLicenseApplicationId = await newApplication(person.id, 'INTERNATIONAL_LICENSE_SERVICE', createdByUserId);
