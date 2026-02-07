@@ -9,6 +9,8 @@ export const toPersonDTO = (person: Person): PersonDTO => ({
     third_name: person.third_name,
     last_name: person.last_name,
 
+    full_name: person.full_name,
+    
     national_id: person.national_id,
     date_of_birth: person.date_of_birth.toLocaleDateString(),
     gender: person.gender,

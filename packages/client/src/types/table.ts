@@ -51,6 +51,11 @@ export enum TestTypesActionType {
     Edit = 'Edit'
 }
 
+export enum DriversActionType {
+    ShowPersonInfo = 'Show Person Info',
+    ShowLicenseHistory = 'Show Person License History'
+}
+
 export type RowActionDef<RowType, RowActionType> = {
     type: RowActionType;
     handler: (row: RowType) => void;

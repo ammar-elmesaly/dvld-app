@@ -1,3 +1,8 @@
 export interface DriverDTO {
-    id: number;
+    driver_id: number;
+    person_id: number;
+    national_id: string;
+    full_name: string;
+    created_at: string;
+    active_licenses: number;
 }

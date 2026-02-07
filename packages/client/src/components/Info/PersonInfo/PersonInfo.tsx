@@ -15,6 +15,7 @@ export default function PersonInfo({ person }: PersonInfoProps) {
     second_name: '??',
     third_name: '??',
     last_name: '??',
+    full_name: '?? ?? ?? ??',
     national_id: '??',
     date_of_birth: '??',
     gender: Gender.Male,

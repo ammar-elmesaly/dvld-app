@@ -37,6 +37,10 @@ export class Person extends BaseEntity {
     @Column()
     last_name: string;
 
+    get full_name() {
+        return `${this.first_name} ${this.second_name} ${this.third_name} ${this.last_name}`;
+    }
+
     @Column({ unique: true, length: 4 })  // length 4 for development
     national_id: string;
 

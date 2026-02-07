@@ -39,7 +39,8 @@ export function toLicenseWithPersonDTO(license: License): LicensePersonDTO {
             second_name: license.driver.person.second_name,
             third_name: license.driver.person.third_name,
             last_name: license.driver.person.last_name,
-
+            full_name: license.driver.person.full_name,
+            
             national_id: license.driver.person.national_id,
             date_of_birth: license.driver.person.date_of_birth.toLocaleDateString(),
             gender: license.driver.person.gender,

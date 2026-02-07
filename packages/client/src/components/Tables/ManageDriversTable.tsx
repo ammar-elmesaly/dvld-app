@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, TableHTMLAttributes } from "react";
 import Table from "../Table/Table";
 import { RowActionDef } from "../../types/table";
-import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
+import { DriverDTO } from "@dvld/shared/src/dtos/driver.dto";
 
 interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTableElement> {
-  people: PersonDTO[];
+  drivers: DriverDTO[];
   filterBy?: string;
   filterValue?: string;
   openMenuRow: string | null;
@@ -12,8 +12,8 @@ interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTab
   rowActions: RowActionDef<RowType, RowActionType>[];
 }
 
-export default function ManagePeopleTable<RowType, RowActionType>({
-  people,
+export default function ManageDriversTable<RowType, RowActionType>({
+  drivers,
   filterBy = '',
   filterValue = '',
   openMenuRow,
@@ -24,13 +24,13 @@ export default function ManagePeopleTable<RowType, RowActionType>({
 ) {
   return (
     <Table
-    data={people as unknown as Record<string, unknown>[]}
+    data={drivers as unknown as Record<string, unknown>[]}
     filterBy={filterBy}
     filterValue={filterValue}
     rowActions={rowActions}
     openMenuRow={openMenuRow}
     setOpenMenuRow={setOpenMenuRow}
-    ignoreColumns={["personal_photo", "address", "full_name"]}
+    ignoreColumns={[]}
     {...rest}
     />
   );

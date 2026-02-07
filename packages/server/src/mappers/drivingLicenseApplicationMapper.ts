@@ -3,16 +3,12 @@ import { Application } from '../entities/Application';
 import { InternationalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/internationalDrivingLicenseApplication.dto';
 
 export const toLocalDrivingLicenseApplicationDTO = (application: Application, retakeTestFees: number | undefined): LocalDrivingLicenseApplicationDTO => {
-    const { first_name, second_name, third_name, last_name } = application.person;
-    
-    const personFullName = `${first_name} ${second_name} ${third_name} ${last_name}`;
-
     return {
         application_id: application.id,
         applicant_person_id: application.person.id,
         local_driving_license_application_id: application.local_driving_license_application.id,
         national_id: application.person.national_id,
-        full_name: personFullName,
+        full_name: application.person.full_name,
 
         application_date: application.application_date.toDateString(),
         application_fees: application.application_type.type_fees,

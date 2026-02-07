@@ -11,10 +11,7 @@ import DrivingLicenseDashboard from './DrivingLicensesDashboard/DrivingLicenseDa
 import { WithNavLayout } from './withNavLayout';
 import ManageLocalApplications from './ManageLocalApplications/ManageLocalApplications';
 import ManageInternationalApplications from './ManageInternationalApplications/ManageInternationalApplications';
-
-function Drivers() {
-  return <h1>Drivers Page</h1>;
-}
+import ManageDrivers from './ManageDrivers/ManageDrivers';
 
 function App() {
   return (
@@ -26,7 +23,7 @@ function App() {
           <Route element={<WithNavLayout />}>
             <Route path='/applications' element={<ApplicationsDashboard />} />
             <Route path='/people' element={<People />} />
-            <Route path='/drivers' element={<Drivers />} />
+            <Route path='/drivers' element={<ManageDrivers />} />
             <Route path='/users' element={<ManageUsers />} />
             <Route path='/account-settings' element={<AccountSettings />} />
 

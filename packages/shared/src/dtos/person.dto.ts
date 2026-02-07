@@ -8,6 +8,8 @@ export interface PersonDTO {
     third_name: string;
     last_name: string;
 
+    full_name?: string;
+
     national_id: string;
     date_of_birth: string;
     gender: Gender;
