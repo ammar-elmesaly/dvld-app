@@ -1,5 +1,7 @@
 import { RequestHandler } from "express";
 import * as licenseService from "../services/licenseService";
+import * as detainService from "../services/detainLicenseService";
+
 import { toLicenseDTO, toLicenseWithPersonDTO } from "../mappers/licenseMapper";
 import { AppError } from "../types/errors";
 
@@ -42,6 +44,14 @@ export const replaceLicenseHandler: RequestHandler = async (req, res) => {
     );
 
     res.status(201).json(newLicenseId);
+}
+
+export const detainLicenseHandler: RequestHandler = async (req, res) => {
+    const { licenseId, fineFees, createdByUserId } = req.body;
+
+    const detainedLicenseId = await detainService.detainLicense(licenseId, createdByUserId, fineFees);
+
+    res.json(detainedLicenseId);
 }
 
 export const getLicenseByIdHandler: RequestHandler = async (req, res) => {

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import IssueInternationalLicenseForm from '../Forms/IssueInternationalLicenseForm/IssueInternationalLicenseForm';
 import RenewDrivingLicenseForm from '../Forms/RenewDrivingLicenseForm/RenewDrivingLicenseForm';
 import ReplaceLicenseForm from '../Forms/ReplaceLicenseForm/ReplaceLicenseForm';
+import DetainLicenseForm from '../Forms/DetainLicenseForm/DetainLicenseForm';
 
 export default function DrivingLicenseDashboard() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function DrivingLicenseDashboard() {
   const [internationalLicenseOpen, setInternationalLicenseOpen] = useState(false);
   const [renewLicenseOpen, setRenewLicenseOpen] = useState(false);
   const [replaceLicenseOpen, setReplaceLicenseOpen] = useState(false);
+  const [detainLicenseOpen, setDetainLicenseOpen] = useState(false);
 
   return (
     <>
@@ -59,10 +61,26 @@ export default function DrivingLicenseDashboard() {
         </div>
 
         <div className={styles.card}>
-          <h2>Release Detained Driving License</h2>
-          <p></p>
+          <h2>Manage Detained Licenses</h2>
+          <p>Manage detined licenses.</p>
           <div className={styles.controls}>
-            <Button color="info">Release</Button>
+            <Button color="light">Manage</Button>
+          </div>
+        </div>
+
+        <div className={styles.card}>
+          <h2>Detain Licenses</h2>
+          <p>Detain licenses according to violations.</p>
+          <div className={styles.controls}>
+            <Button onClick={() => setDetainLicenseOpen(true)} color="light">Detain</Button>
+          </div>
+        </div>
+
+        <div className={styles.card}>
+          <h2>Release Detained Driving License</h2>
+          <p>Release detained licenses.</p>
+          <div className={styles.controls}>
+            <Button color="light">Release</Button>
           </div>
         </div>
 
@@ -89,6 +107,11 @@ export default function DrivingLicenseDashboard() {
 
     <Overlay open={replaceLicenseOpen} onClose={() => setReplaceLicenseOpen(false)}>
       <ReplaceLicenseForm />
+    </Overlay>
+
+
+    <Overlay open={detainLicenseOpen} onClose={() => setDetainLicenseOpen(false)}>
+      <DetainLicenseForm />
     </Overlay>
     </>
   );

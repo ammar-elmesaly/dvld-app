@@ -14,6 +14,7 @@ import { Test } from './Test';
 import { License } from './License';
 import { Driver } from './Driver';
 import { InternationalLicense } from './InternationalLicense';
+import { DetainedLicense } from './DetainedLicense';
 
 @Entity()
 export class User extends BaseEntity {
@@ -63,6 +64,18 @@ export class User extends BaseEntity {
         driver => driver.user
     )
     drivers: Driver[];
+
+    @OneToMany(
+        () => DetainedLicense,
+        detained_license => detained_license.created_by_user
+    )
+    detained_licenses: DetainedLicense[];
+
+    @OneToMany(
+        () => DetainedLicense,
+        detained_license => detained_license.released_by_user
+    )
+    released_licenses: DetainedLicense[];
     
     @Column({ unique: true })
     username: string;

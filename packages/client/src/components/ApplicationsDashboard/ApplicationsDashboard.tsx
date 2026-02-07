@@ -20,12 +20,6 @@ export default function ApplicationsDashboard() {
         </div>
 
         <div className={styles.card}>
-          <h2>Detain Licenses</h2>
-          <p>Detain or release licenses according to violations.</p>
-          <Button color="primary">Open</Button>
-        </div>
-
-        <div className={styles.card}>
           <h2>Manage Application Types</h2>
           <p>Configure different application types.</p>
           <Button color="primary" onClick={() => navigate('/application-types')}>Open</Button>
@@ -33,7 +27,7 @@ export default function ApplicationsDashboard() {
 
         <div className={styles.card}>
           <h2>Manage Test Types</h2>
-          <p>Create and configure different application categories.</p>
+          <p>Configure different test types.</p>
           <Button color="primary" onClick={() => navigate('/test-types')}>Open</Button>
         </div>
       </div>

@@ -1,0 +1,28 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* space between header/filter/button and table */
+    padding: 20px;
+}
+
+.headerRow {
+    display: flex;
+    justify-content: center;
+}
+
+.h1 i {
+    font-size: 32px;
+}
+
+.refreshAdd {
+    display: flex;
+    gap: 8px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}

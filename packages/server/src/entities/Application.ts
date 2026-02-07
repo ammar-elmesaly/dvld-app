@@ -17,6 +17,7 @@ import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication
 import { TestAppointment } from './TestAppointment';
 import { License } from './License';
 import { InternationalLicense } from './InternationalLicense';
+import { DetainedLicense } from './DetainedLicense';
 @Entity()
 export class Application extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
@@ -72,6 +73,12 @@ export class Application extends BaseEntity {
         intLicense => intLicense.application
     )
     international_license: InternationalLicense;
+
+    @OneToOne(
+        () => DetainedLicense,
+        detained_license => detained_license.release_application
+    )
+    detained_license: DetainedLicense;
 
     @Column({ type: 'numeric' })
     paid_fees: number;

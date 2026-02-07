@@ -14,6 +14,7 @@ export default function DriverLicenseInfo({ licenseWithPerson }: PersonInfoProps
   const personToRender: PersonDTO = licenseWithPerson.person;
   const licenseToRender: LicenseDTO = licenseWithPerson.license;
 
+  console.log(licenseToRender)
   return (
     <section className={styles.form}>
       <div className={styles.personIdRow}>

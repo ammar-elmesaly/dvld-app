@@ -10,7 +10,7 @@ export function toLicenseDTO(license: License): LicenseDTO {
         expiration_date: new Date(license.expiration_date).toLocaleDateString(),
         issue_date: new Date(license.issue_date).toLocaleDateString(),
         notes: license.notes,
-        is_detained: false, // TODO
+        is_detained: license.is_detained,
         issue_reason: license.issue_reason,
         license_class_name: license.license_class.class_name,
         license_system_name: license.license_class.system_name
@@ -26,7 +26,7 @@ export function toLicenseWithPersonDTO(license: License): LicensePersonDTO {
             expiration_date: new Date(license.expiration_date).toLocaleDateString(),
             issue_date: new Date(license.issue_date).toLocaleDateString(),
             notes: license.notes,
-            is_detained: false, // TODO
+            is_detained: license.is_detained,
             issue_reason: license.issue_reason,
             license_class_name: license.license_class.class_name,
             license_system_name: license.license_class.system_name
