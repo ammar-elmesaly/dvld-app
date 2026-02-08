@@ -13,6 +13,12 @@ export async function getPersonById(id: number) {
     return res.json();
 }
 
+export async function getPersonByDriverId(driverId: number) {
+    const res = await apiFetch(`${baseUrl}/person/driverId/${driverId}`);
+
+    return res.json();
+}
+
 export async function getPersonByNationalId(nationalId: number) {
     const res = await apiFetch(`${baseUrl}/person/nid/${nationalId}`);
 

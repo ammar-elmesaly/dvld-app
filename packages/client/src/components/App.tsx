@@ -12,6 +12,7 @@ import { WithNavLayout } from './withNavLayout';
 import ManageLocalApplications from './ManageLocalApplications/ManageLocalApplications';
 import ManageInternationalApplications from './ManageInternationalApplications/ManageInternationalApplications';
 import ManageDrivers from './ManageDrivers/ManageDrivers';
+import ManageDetainedLicenses from './ManageDetainedLicenses/ManageDetainedLicenses';
 
 function App() {
   return (
@@ -28,8 +29,9 @@ function App() {
             <Route path='/account-settings' element={<AccountSettings />} />
 
             {/* Applications Dashboard Items */}
-            <Route path='/local-driving-license-applications' element={<ManageLocalApplications />}></Route>
-            <Route path='/international-driving-license-applications' element={<ManageInternationalApplications />}></Route>
+            <Route path='/local-driving-license-applications' element={<ManageLocalApplications />} />
+            <Route path='/international-driving-license-applications' element={<ManageInternationalApplications />} />
+            <Route path='/detained-licenses' element={<ManageDetainedLicenses />} />
 
             <Route path='/application-types' element={<ManageApplicationTypes />} />
             <Route path='/test-types' element={<ManageTestTypes />} />

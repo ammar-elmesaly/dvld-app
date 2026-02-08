@@ -6,7 +6,8 @@ import {
     OneToOne,
     CreateDateColumn,
     ManyToOne,
-    JoinColumn
+    JoinColumn,
+    VirtualColumn
 } from 'typeorm';
 import { License } from './License';
 import { User } from './User';
@@ -47,4 +48,14 @@ export class Driver extends BaseEntity {
         intLicense => intLicense.driver
     )
     international_license: InternationalLicense;
+
+    @VirtualColumn({
+        query: (alias) => `
+            SELECT COUNT(*)
+            FROM license
+            WHERE driver_id = ${alias}.id
+            AND is_active = true
+        `
+    })
+    active_licenses: number;
 }

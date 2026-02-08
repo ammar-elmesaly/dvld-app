@@ -18,3 +18,15 @@ export async function getAllLicensesWithDriverId(driverId: number) {
 
     return res.json();
 }
+
+export async function getAllDetainedLicenses() {
+    const res = await apiFetch(`${baseUrl}/license/detained/all`);
+
+    return res.json();
+}
+
+export async function getDetainedLicenseWithLicenseId(licenseId: number) {
+    const res = await apiFetch(`${baseUrl}/license/detained/licenseId/${licenseId}`);
+
+    return res.json();
+}

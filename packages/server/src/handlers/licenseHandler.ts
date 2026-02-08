@@ -4,6 +4,7 @@ import * as detainService from "../services/detainLicenseService";
 
 import { toLicenseDTO, toLicenseWithPersonDTO } from "../mappers/licenseMapper";
 import { AppError } from "../types/errors";
+import { toDetainedLicenseDTO } from "../mappers/detainedLicenseMapper";
 
 export const issueLicenseFirstTimeHandler: RequestHandler = async (req, res) => {
     const {
@@ -52,6 +53,29 @@ export const detainLicenseHandler: RequestHandler = async (req, res) => {
     const detainedLicenseId = await detainService.detainLicense(licenseId, createdByUserId, fineFees);
 
     res.json(detainedLicenseId);
+}
+
+export const releaseLicenseHandler: RequestHandler = async (req, res) => {
+    const { licenseId, releasedByUserId } = req.body;
+
+    const releasedLicenseId = await detainService.releaseLicense(licenseId, releasedByUserId);
+
+    res.json(releasedLicenseId);
+}
+
+export const getDetainedLicenseWithLicenseIdHandler: RequestHandler = async (req, res) => {
+    const { licenseId } = req.params;
+
+    const detainedLicense = await detainService.getDetainedLicenseWithLicenseId(Number(licenseId));
+
+    res.json(toDetainedLicenseDTO(detainedLicense));
+}
+
+export const getAllDetainedLicensesHandler: RequestHandler = async (_req, res) => {
+    const detainedLicenses = await detainService.getAllDetainedLicenses();
+    const detainedLicensesMapped = detainedLicenses.map(d => toDetainedLicenseDTO(d));
+    
+    res.json(detainedLicensesMapped);
 }
 
 export const getLicenseByIdHandler: RequestHandler = async (req, res) => {

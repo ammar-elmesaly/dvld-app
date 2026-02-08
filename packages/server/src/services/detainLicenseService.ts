@@ -3,6 +3,7 @@ import { DetainedLicense } from "../entities/DetainedLicense";
 import { License } from "../entities/License";
 import { AppError } from "../types/errors";
 import { UserRepo } from "../repositories/UserRepo";
+import { newApplication } from "./applicationService";
 
 export async function detainLicense(licenseId: number, createdByUserId: number, fineFees: number) {
     const license = await License.findOneBy({ id: licenseId });
@@ -34,4 +35,65 @@ export async function detainLicense(licenseId: number, createdByUserId: number, 
     }).save();
 
     return detainedLicense.id;
+}
+
+export async function releaseLicense(licenseId: number, releasedByUserId: number) {
+    const detainedLicense = await DetainedLicense.findOne({
+        where: {
+            release_date: IsNull(),
+            license: { id: licenseId }
+        },
+        relations: {
+            license: { driver: { person: true } }
+        }
+    });
+    if (!detainedLicense)
+        throw new AppError('Detained License not found', 404);
+
+    const releasedByUser = await UserRepo.findOneBy({ id: releasedByUserId });
+    if (!releasedByUser)
+        throw new AppError('User not found', 404);
+
+    const applicationId = await newApplication(
+        detainedLicense.license.driver.person.id,
+        'RELEASE_DETAINED_SERVICE',
+        releasedByUserId
+    );
+    detainedLicense.release_date = new Date();
+    detainedLicense.released_by_user = releasedByUser;
+    detainedLicense.release_application = { id: applicationId } as any;
+
+    const updatedDetainedLicense = await DetainedLicense.save(detainedLicense);
+
+    return updatedDetainedLicense.license.id;
+}
+
+export async function getDetainedLicenseWithLicenseId(licenseId: number) {
+    const detainedLicense = await DetainedLicense.findOne({
+        where: {
+            release_date: IsNull(),
+            license: { id: licenseId }
+        },
+        relations: {
+            license: {
+                driver: true
+            },
+            release_application: true
+        }
+    });
+    if (!detainedLicense)
+        throw new AppError('Detained License not found', 404);
+
+    return detainedLicense;
+}
+
+export async function getAllDetainedLicenses() {
+    return DetainedLicense.find({
+        relations: {
+            license: {
+                driver: true
+            },
+            release_application: true
+        }
+    })
 }

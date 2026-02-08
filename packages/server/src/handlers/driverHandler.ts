@@ -4,8 +4,7 @@ import { toDriverDTO } from "../mappers/driverMapper";
 
 export const getAllDriversHandler: RequestHandler = async (_req, res) => {
     const drivers = await Driver.find({ relations: {
-        person: true,
-        licenses: true  // TODO: Maybe fix logic with a VirtualColumn?
+        person: true
     }});
 
     const driversMapped = drivers.map(d => toDriverDTO(d));

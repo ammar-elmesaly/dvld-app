@@ -8,6 +8,7 @@ import IssueInternationalLicenseForm from '../Forms/IssueInternationalLicenseFor
 import RenewDrivingLicenseForm from '../Forms/RenewDrivingLicenseForm/RenewDrivingLicenseForm';
 import ReplaceLicenseForm from '../Forms/ReplaceLicenseForm/ReplaceLicenseForm';
 import DetainLicenseForm from '../Forms/DetainLicenseForm/DetainLicenseForm';
+import ReleaseLicenseForm from '../Forms/ReleaseLicenseForm/ReleaseLicenseForm';
 
 export default function DrivingLicenseDashboard() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function DrivingLicenseDashboard() {
   const [renewLicenseOpen, setRenewLicenseOpen] = useState(false);
   const [replaceLicenseOpen, setReplaceLicenseOpen] = useState(false);
   const [detainLicenseOpen, setDetainLicenseOpen] = useState(false);
+  const [releaseLicenseOpen, setReleaseLicenseOpen] = useState(false);
 
   return (
     <>
@@ -64,7 +66,7 @@ export default function DrivingLicenseDashboard() {
           <h2>Manage Detained Licenses</h2>
           <p>Manage detined licenses.</p>
           <div className={styles.controls}>
-            <Button color="light">Manage</Button>
+            <Button color="light" onClick={() => navigate('/detained-licenses')}>Manage</Button>
           </div>
         </div>
 
@@ -80,7 +82,7 @@ export default function DrivingLicenseDashboard() {
           <h2>Release Detained Driving License</h2>
           <p>Release detained licenses.</p>
           <div className={styles.controls}>
-            <Button color="light">Release</Button>
+            <Button color="light" onClick={() => setReleaseLicenseOpen(true)}>Release</Button>
           </div>
         </div>
 
@@ -109,9 +111,12 @@ export default function DrivingLicenseDashboard() {
       <ReplaceLicenseForm />
     </Overlay>
 
-
     <Overlay open={detainLicenseOpen} onClose={() => setDetainLicenseOpen(false)}>
       <DetainLicenseForm />
+    </Overlay>
+
+    <Overlay open={releaseLicenseOpen} onClose={() => setReleaseLicenseOpen(false)}>
+      <ReleaseLicenseForm />
     </Overlay>
     </>
   );
