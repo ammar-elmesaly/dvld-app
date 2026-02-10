@@ -61,7 +61,7 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
         throw new AppError('Test Type not found', 404);
 
     const passedTestCount = ldla.passed_tests;
-    // This checks if applying for a test which passed already or skipping a one (TODO IMPROVE LOGIC)
+    // This checks if applying for a test which passed already or skipping a one (TODO IMPROVE LOGIC next)
     if (testTypeId !== passedTestCount + 1)
         throw new AppError("Can't make a test appointment without passing or already passing other tests.", 400);
     

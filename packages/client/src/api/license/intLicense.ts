@@ -6,3 +6,9 @@ export async function getAllInternationalLicensesWithDriverId(driverId: number) 
 
     return res.json();
 }
+
+export async function getInternationalLicenseById(id: number) {
+    const res = await apiFetch(`${baseUrl}/internationalLicense/${id}`);
+
+    return res.json();
+}

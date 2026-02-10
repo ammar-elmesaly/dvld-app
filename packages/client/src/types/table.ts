@@ -62,6 +62,14 @@ export enum DetainedLicensesActionType {
     ShowLicenseHistory = 'Show Person License History'
 }
 
+export enum LocalLicensesActionType {
+    ShowLicense = 'Show License'
+}
+
+export enum InternationalLicensesActionType {
+    ShowLicense = 'Show License'
+}
+
 export type RowActionDef<RowType, RowActionType> = {
     type: RowActionType;
     handler: (row: RowType) => void;
