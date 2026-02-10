@@ -24,8 +24,8 @@ export default function DriverLicenseInfo({ licenseWithPerson }: PersonInfoProps
       <div className={styles.mainLayout}>
         <div className={styles.fieldsContainer}>
           <div className={styles.splitRow}>
-            <InfoRow label="Class Name:" icon="bi-telephone" value={licenseToRender.license_class_name} />
-            <InfoRow label="Name:" icon="bi-tag" value={personToRender.full_name ?? 'Error'} />
+            <InfoRow label="Class Name:" icon="bi-card-list" value={licenseToRender.license_class_name} />
+            <InfoRow label="Name:" icon="bi-person-fill" value={personToRender.full_name ?? 'Error'} />
           </div>
 
           <div className={styles.splitRow}>
@@ -39,22 +39,22 @@ export default function DriverLicenseInfo({ licenseWithPerson }: PersonInfoProps
           </div>
 
           <div className={styles.splitRow}>
-            <InfoRow label="Gender:" icon="bi-envelope" value={personToRender.gender === 'M' ? 'Male' : 'Female'} />
-            <InfoRow label="Driver ID:" icon="bi-globe" value={licenseToRender.driver_id.toString()} />
+            <InfoRow label="Gender:" icon="bi-gender-ambiguous" value={personToRender.gender === 'M' ? 'Male' : 'Female'} />
+            <InfoRow label="Driver ID:" icon="bi-hash" value={licenseToRender.driver_id.toString()} />
           </div>
 
           <div className={styles.splitRow}>
-            <InfoRow label="Issue Date:" icon="bi-envelope" value={new Date(licenseToRender.issue_date).toDateString()} />
-            <InfoRow label="Expiration Date:" icon="bi-globe" value={new Date(licenseToRender.expiration_date).toDateString()} />
+            <InfoRow label="Issue Date:" icon="bi-calendar-check" value={new Date(licenseToRender.issue_date).toDateString()} />
+            <InfoRow label="Expiration Date:" icon="bi-calendar-x" value={new Date(licenseToRender.expiration_date).toDateString()} />
           </div>
 
           <div className={styles.splitRow}>
-            <InfoRow label="Issue Reason:" icon="bi-envelope" value={licenseToRender.issue_reason} />
-            <InfoRow label="Is Detained:" icon="bi-globe" value={licenseToRender.is_detained ? 'Yes' : 'No'} />
+            <InfoRow label="Issue Reason:" icon="bi-question-circle" value={licenseToRender.issue_reason} />
+            <InfoRow label="Is Detained:" icon="bi-lock-fill" value={licenseToRender.is_detained ? 'Yes' : 'No'} />
           </div>
 
           <div className={styles.splitRow}>
-            <InfoRow label="Notes:" icon="bi-envelope" value={licenseToRender.notes ? licenseToRender.notes : 'No content' } />
+            <InfoRow label="Notes:" icon="bi-journal-text" value={licenseToRender.notes ? licenseToRender.notes : 'No content' } />
           </div>
         </div>
         <div className={styles.imageColumn}>

@@ -114,7 +114,7 @@ export default function ManageInternationalApplications() {
   return (
     <section className={styles.section}>
       <div className={styles.headerRow}>
-        <h1 className={styles.h1}><i className='bi bi-window-dock'></i> Manage Local Driving License Applications</h1>
+        <h1 className={styles.h1}><i className='bi bi-window-dock'></i> Manage International Driving License Applications</h1>
       </div>
       <div className={styles.controls}>
         <Filter

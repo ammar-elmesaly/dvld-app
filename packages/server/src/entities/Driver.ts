@@ -26,7 +26,7 @@ export class Driver extends BaseEntity {
         () => User,
         user => user.drivers,
     )
-    @JoinColumn({ name: 'created_by_user_id '})
+    @JoinColumn({ name: 'created_by_user_id'})
     user: User;
     
     @OneToOne(

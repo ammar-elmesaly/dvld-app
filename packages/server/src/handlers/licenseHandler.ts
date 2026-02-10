@@ -9,16 +9,12 @@ import { toDetainedLicenseDTO } from "../mappers/detainedLicenseMapper";
 export const issueLicenseFirstTimeHandler: RequestHandler = async (req, res) => {
     const {
         createdByUserId,
-        personId,
-        licenseClassId,
         localDrivingLicenseApplicationId,
         notes
     } = req.body;
     
     const newLicenseId = await licenseService.issueLicenseFirstTime(
         createdByUserId,
-        personId,
-        licenseClassId,
         localDrivingLicenseApplicationId,
         notes
     );

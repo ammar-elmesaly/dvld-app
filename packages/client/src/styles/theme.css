@@ -39,57 +39,44 @@
 }
 
 /* Brand / main actions */
-.primary {
+.primary:not(:disabled) {
     background-color: var(--primary-bg);
     color: var(--primary-text);
 }
 
-.secondary {
+.secondary:not(:disabled) {
     background-color: var(--secondary-bg);
     color: var(--secondary-text);
 }
 
 /* Semantic actions */
-.success {
+.success:not(:disabled) {
     background-color: var(--success-bg);
     color: var(--success-text);
 }
 
-.error {
+.error:not(:disabled) {
     background-color: var(--error-bg);
     color: var(--error-text);
 }
 
-.warning {
+.warning:not(:disabled) {
     background-color: var(--warning-bg);
     color: var(--warning-text);
 }
 
-.info {
+.info:not(:disabled) {
     background-color: var(--info-bg);
     color: var(--info-text);
 }
 
 /* Neutral / utility */
-.light {
+.light:not(:disabled) {
     background-color: var(--light-bg);
     color: var(--light-text);
 }
 
-.dark {
+.dark:not(:disabled) {
     background-color: var(--dark-bg);
     color: var(--dark-text);
-}
-
-.muted {
-    background-color: var(--muted-bg);
-    color: var(--muted-text);
-}
-
-/* State-based */
-.disabled {
-    background-color: var(--disabled-bg);
-    color: var(--disabled-text);
-    cursor: not-allowed;
-    opacity: 0.7;
 }

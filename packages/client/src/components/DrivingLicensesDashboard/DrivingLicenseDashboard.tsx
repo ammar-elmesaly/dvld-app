@@ -85,14 +85,6 @@ export default function DrivingLicenseDashboard() {
             <Button color="light" onClick={() => setReleaseLicenseOpen(true)}>Release</Button>
           </div>
         </div>
-
-        <div className={styles.card}>
-          <h2>Retake Test</h2>
-          <p></p>
-          <div className={styles.controls}>
-            <Button color="info">Retake</Button>
-          </div>
-        </div>
       </div>
     </div>
     <Overlay open={localLicenseOpen} onClose={() => setLocalLicenseOpen(false)}>

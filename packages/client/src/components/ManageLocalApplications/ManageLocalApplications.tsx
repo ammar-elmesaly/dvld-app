@@ -111,7 +111,7 @@ export default function ManageLocalApplications() {
     {
       type: ApplicationsActionType.IssueLicense,
       handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.IssueLicense }),
-      // isDisabled: (row) => row.passed_tests !== 3 || row.status === ApplicationStatus.Completed
+      isDisabled: (row) => row.passed_tests !== 3 || row.status === ApplicationStatus.Completed
     },
 
     {
@@ -137,6 +137,7 @@ export default function ManageLocalApplications() {
             dlAppId={activeRowAction.row.local_driving_license_application_id}
             licenseClass={activeRowAction.row.license_class_name}
             passedTests={`${activeRowAction.row.passed_tests}/3`}
+            licenseId={activeRowAction.row.license_id}
           />
           <hr style={{ "margin": "15px 0px" }} />
           <ApplicationBasicInfo personId={activeRowAction.row.applicant_person_id} application={activeRowAction.row} />
@@ -205,9 +206,7 @@ export default function ManageLocalApplications() {
           <ApplicationBasicInfo personId={activeRowAction.row.applicant_person_id} application={activeRowAction.row} />
           <hr style={{ "margin": "15px 0px" }} />
           <IssueDrivingLicenseForm
-          licenseClassId={activeRowAction.row.license_class_id}
-          localDrivingLicenseApplicationId={activeRowAction.row.application_id}
-          personId={activeRowAction.row.applicant_person_id}
+          localDrivingLicenseApplicationId={activeRowAction.row.local_driving_license_application_id}
           handleRefresh={handleRefresh}/>
         </>
       );

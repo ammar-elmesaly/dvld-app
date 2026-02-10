@@ -7,12 +7,10 @@ import styles from "../Forms.module.css";
 import { UserSession } from "../../../types/UserSession";
 
 interface IssueDrivingLicenseProps {
-  personId: number;
-  licenseClassId: number;
   localDrivingLicenseApplicationId: number;
   handleRefresh: () => void;
 }
-export function IssueDrivingLicenseForm({ personId, licenseClassId, localDrivingLicenseApplicationId, handleRefresh }: IssueDrivingLicenseProps) {
+export function IssueDrivingLicenseForm({ localDrivingLicenseApplicationId, handleRefresh }: IssueDrivingLicenseProps) {
   const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
 
   useEffect(() => {
@@ -55,8 +53,6 @@ export function IssueDrivingLicenseForm({ personId, licenseClassId, localDriving
     const payload = {
       ...data,
       createdByUserId: user.userId,
-      personId,
-      licenseClassId,
       localDrivingLicenseApplicationId,
     };
 

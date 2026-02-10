@@ -20,9 +20,9 @@ export class LocalDrivingLicenseApplication extends BaseEntity {
     @OneToOne(
         () => Application,
         application => application.local_driving_license_application,
-        { onDelete: 'CASCADE' }        
+        { onDelete: 'CASCADE', nullable: false }        
     )
-    @JoinColumn({ name: 'application_id '})
+    @JoinColumn({ name: 'application_id'})
     application: Application;
 
     @ManyToOne(
@@ -40,11 +40,11 @@ export class LocalDrivingLicenseApplication extends BaseEntity {
 
     @VirtualColumn({
         query: (alias) => `
-            SELECT COUNT(*) 
+            SELECT COUNT(DISTINCT ta.test_type_id) 
             FROM test t 
             INNER JOIN test_appointment ta ON t.test_appointment_id = ta.id 
             WHERE ta.local_driving_license_application_id = ${alias}.id 
-            AND t.test_status = '1'::test_test_status_enum
+            AND t.test_status = '1'
         `
     })
     passed_tests: number;

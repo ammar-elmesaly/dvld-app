@@ -64,6 +64,6 @@ export class InternationalLicense extends BaseEntity {
         () => User,
         user => user.internationalLicenses
     )
-    @JoinColumn({ name: 'created_by_user_id '})
+    @JoinColumn({ name: 'created_by_user_id'})
     user: User;
 }

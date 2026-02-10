@@ -52,7 +52,7 @@ export class License extends BaseEntity {
         license_class => license_class.licenses,
         { onDelete: 'RESTRICT' }
     )
-    @JoinColumn({ name: 'license_class_id '})
+    @JoinColumn({ name: 'license_class_id' })
     license_class: LicenseClass;
 
     @OneToMany(
@@ -95,6 +95,6 @@ export class License extends BaseEntity {
         () => User,
         user => user.licenses
     )
-    @JoinColumn({ name: 'created_by_user_id '})
+    @JoinColumn({ name: 'created_by_user_id'})
     user: User;
 }

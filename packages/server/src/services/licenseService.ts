@@ -1,7 +1,5 @@
 import { ApplicationStatus } from "@dvld/shared/src/types/application";
 import { License } from "../entities/License";
-import { LicenseClass } from "../entities/LicenseClass";
-import { ApplicationRepo } from "../repositories/ApplicationRepo";
 import { AppError } from "../types/errors";
 
 import { createOrGetDriver } from "./driverService";
@@ -11,49 +9,52 @@ import { newApplication } from "./applicationService";
 import { getPersonByDriverId } from "./personService";
 import { Not } from "typeorm";
 import { isExpired } from "../utils/dateUtil";
+import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseApplication";
+import { ApplicationRepo } from "../repositories/ApplicationRepo";
 
 export async function issueLicenseFirstTime(
     createdByUserId: number,
-    personId: number,
-    licenseClassId: number,
-    localDrivingLicenseApplicationId?: number,
+    localDrivingLicenseApplicationId: number,
     notes?: string,
 ) {
-    // TODO: Fix logic
+    // Find the local driving license application and link it with the new license
+    const ldla = await LocalDrivingLicenseApplication.findOne({
+        where: {
+            id: localDrivingLicenseApplicationId,
+        },
+        relations: {
+            application: { 
+                application_type: true,
+                person: true
+            },
+            license_class: true
+        }
+    }); 
+    if (!ldla)
+        throw new AppError('Application not found', 404);
+
+    if (ldla.passed_tests !== 3)
+        throw new AppError('You have to pass all tests before issuing a license', 404);
+
     // create new driver checks if a user exists
-    const driverId = await createOrGetDriver(createdByUserId, personId);
+    const driverId = await createOrGetDriver(createdByUserId, ldla.application.person.id);
 
     // check if a previous active license with the same class exists
     const activeLicenseExists = await License.exists({
         where: {
             driver: { id: driverId },
-            license_class: { id: licenseClassId },
+            license_class: ldla.license_class,
             is_active: true
         }
     });
     if (activeLicenseExists)
         throw new AppError('Cannot issue a new license while having an active license of the same class', 400);
 
-    // Find the local driving license application and link it with the new license
-    const application = await ApplicationRepo.findOne({
-        where: {
-            id: localDrivingLicenseApplicationId,
-            application_type: { system_name: 'LOCAL_LICENSE_SERVICE' }
-        },
-        relations: {
-            application_type: true
-        }
-    }); 
-    if (!application)
-        throw new AppError('Application not found', 404);
+    ldla.application.last_status_date = new Date();
+    ldla.application.application_status = ApplicationStatus.Completed;
+    await ApplicationRepo.save(ldla.application);  // Update local driving license application
 
-    const licenseClass = await LicenseClass.findOneBy({ id: licenseClassId });
-    if (!licenseClass)
-        throw new AppError('License class not found', 404);
-    
-    application.last_status_date = new Date();
-    application.application_status = ApplicationStatus.Completed;
-    await ApplicationRepo.save(application);  // Update local driving license application
+    const licenseClass = ldla.license_class;
 
     const issueDate = new Date();
     const expirationDate = new Date(issueDate);
@@ -65,7 +66,7 @@ export async function issueLicenseFirstTime(
         paid_fees: licenseClass.class_fees,
         notes,
         driver: { id: driverId },
-        application,
+        application: ldla.application,
         issue_date: issueDate,
         expiration_date: expirationDate,
         user: { id: createdByUserId },
