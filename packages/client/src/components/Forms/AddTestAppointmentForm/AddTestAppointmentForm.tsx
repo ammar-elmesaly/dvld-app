@@ -50,7 +50,7 @@ export default function AddTestAppointmentForm({ ldla, testTypeId, lastTestAppoi
           <h1>New Test Appointment</h1>
         </div>
 
-        <div className={styles.mainLayout}>
+        <div className={styles.mainLayoutColumn}>
           <div className={styles.formRow}>
             <label htmlFor='dl_id'>D.L.App.ID:</label>
             <div className={styles.inputGroup}>

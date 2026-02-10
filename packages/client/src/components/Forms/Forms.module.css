@@ -115,6 +115,13 @@
     gap: 20px;
 }
 
+.mainLayoutColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
 .personInfoRow {
     display: flex;
     align-items: center;

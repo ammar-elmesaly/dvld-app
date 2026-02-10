@@ -39,12 +39,12 @@ export default function TakeTestForm({ ldla, testTypeId, testAppointment, handle
 
   return (
     <>
-      <form method='POST' onSubmit={(e) => onSubmit(e, testAppointment.id, user.userId, handleManageLocalApplicationsRefresh, handleRefresh)} className={styles.takeTestFormForm}>
+      <form method='POST' onSubmit={(e) => onSubmit(e, testAppointment.id, user.userId, handleManageLocalApplicationsRefresh, handleRefresh)} className={styles.form}>
         <div className={styles.headerRow}>
           <h1>Take Test</h1>
         </div>
 
-        <div className={styles.mainLayout}>
+        <div className={styles.mainLayoutColumn}>
           <div className={styles.formRow}>
             <label htmlFor='dl_id'>D.L.App.ID:</label>
             <div className={styles.inputGroup}>
