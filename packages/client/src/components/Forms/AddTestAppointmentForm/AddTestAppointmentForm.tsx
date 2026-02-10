@@ -12,6 +12,7 @@ import { TestAppointmentDTO } from '@dvld/shared/src/dtos/testAppointment.dto';
 import { UserSession } from '../../../types/UserSession';
 import { getCurrentUser } from '../../../api/user/user';
 import { TestResult } from '@dvld/shared/src/types/test';
+import { getTrialNumber } from '../../../api/test/testAppointment';
 
 interface TestAppointmentFormProps {
   ldla: LocalDrivingLicenseApplicationDTO;
@@ -28,6 +29,8 @@ export default function AddTestAppointmentForm({ ldla, testTypeId, lastTestAppoi
   
   const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
   
+  const [trialNumber, setTrialNumber] = useState(0);
+
   useEffect(() => {
     getTestTypeById(testTypeId).then(setTestType)
   }, [testTypeId]);
@@ -35,6 +38,10 @@ export default function AddTestAppointmentForm({ ldla, testTypeId, lastTestAppoi
   useEffect(() => {
     getCurrentUser().then(setUser);
   }, []);
+
+  useEffect(() => {
+    getTrialNumber(ldla.local_driving_license_application_id, testTypeId).then(setTrialNumber);
+  }, [ldla, testTypeId]);
 
   return (
     <>
@@ -71,7 +78,7 @@ export default function AddTestAppointmentForm({ ldla, testTypeId, lastTestAppoi
             <label htmlFor='trial_no'>Trial:</label>
             <div className={styles.inputGroup}>
               <i className="bi bi-arrow-clockwise"></i>
-              <span>0{/* TODO */}</span>
+              <span>{trialNumber}</span>
             </div>
           </div>
 

@@ -8,6 +8,7 @@ import { toInputDate } from '../../../helpers/date';
 import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
 import { getTestTypeById } from '../../../api/test/testType';
 import { TestAppointmentDTO } from '@dvld/shared/src/dtos/testAppointment.dto';
+import { getTrialNumber } from '../../../api/test/testAppointment';
 
 interface TestAppointmentFormProps {
   ldla: LocalDrivingLicenseApplicationDTO;
@@ -21,10 +22,15 @@ export default function EditTestAppointmentForm({ ldla, testTypeId, testAppointm
   const oldDateString = toInputDate(new Date(testAppointment.appointment_date));
   
   const [testType, setTestType] = useState<TestTypeDTO | undefined>(undefined);
+  const [trialNumber, setTrialNumber] = useState(0);
   
   useEffect(() => {
     getTestTypeById(testTypeId).then(setTestType)
   }, [testTypeId]);
+
+  useEffect(() => {
+    getTrialNumber(ldla.local_driving_license_application_id, testTypeId).then(setTrialNumber);
+  }, [ldla, testTypeId]);
 
   return (
     <>
@@ -61,7 +67,7 @@ export default function EditTestAppointmentForm({ ldla, testTypeId, testAppointm
             <label htmlFor='trial_no'>Trial:</label>
             <div className={styles.inputGroup}>
               <i className="bi bi-arrow-clockwise"></i>
-              <span>0{/* TODO */}</span>
+              <span>{trialNumber}</span>
             </div>
           </div>
 

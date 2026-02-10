@@ -112,3 +112,20 @@ export async function updateTestAppointment(testAppointmentId: number, appointme
     
     return newTestAppointment.id;
 }
+
+export async function getTrialNumber(testTypeId: number, localDrivingLicenseApplicationId: number) {
+    const trialNumber = await TestAppointmentRepo.count({
+        where: {
+            test_type: { id: testTypeId },
+            test: {
+                test_status: TestResult.Fail
+            },
+            local_driving_license_application: { id: localDrivingLicenseApplicationId }
+        },
+        relations: {
+            test: true
+        }
+    });
+
+    return trialNumber;
+}

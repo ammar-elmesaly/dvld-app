@@ -32,3 +32,12 @@ export const updateTestAppointmentHandler: RequestHandler = async (req, res) => 
 
     res.json(updatedTestAppointmentId);
 }
+
+export const getTrialNumberHandler: RequestHandler = async (req, res) => {
+    const { testTypeId } = req.query;
+    const { ldlaId } = req.params;
+
+    const trialNumber = await testAppointmentService.getTrialNumber(Number(testTypeId), Number(ldlaId));
+
+    res.json(trialNumber);
+}
