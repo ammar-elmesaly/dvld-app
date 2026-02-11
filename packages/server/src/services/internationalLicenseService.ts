@@ -17,7 +17,7 @@ export async function issueLicense(
         throw new AppError('License class must be ordinary driving license in order to issue international license', 400);
 
     const licenseExpirationDate = new Date(license.expiration_date);
-    
+
     const licenseExpired = isExpired(licenseExpirationDate);
     if (licenseExpired)
         throw new AppError('Cannot issue an international license for an expired local license', 400);
@@ -43,7 +43,7 @@ export async function issueLicense(
     const issueDate = new Date();
     const expirationDate = new Date(issueDate);
     expirationDate.setFullYear(
-        expirationDate.getFullYear() + 1 // 1 year, TODO
+        expirationDate.getFullYear() + applicationType.default_validity_length // 1 year (until now)
     );
 
     const newLicense = await InternationalLicense.create({

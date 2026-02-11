@@ -18,7 +18,8 @@ export class DetainedLicense extends BaseEntity {
 
     @ManyToOne(
         () => License,
-        license => license.detained_licenses  // one license can be detained multiple times
+        license => license.detained_licenses,  // one license can be detained multiple times,
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'license_id' })
     license: License;
@@ -34,7 +35,8 @@ export class DetainedLicense extends BaseEntity {
 
     @ManyToOne(
         () => User,
-        user => user.detained_licenses
+        user => user.detained_licenses,
+        { nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id' })
     created_by_user: User;
@@ -50,7 +52,7 @@ export class DetainedLicense extends BaseEntity {
     @OneToOne(
         () => Application,
         application => application.detained_license,
-        { nullable: true}
+        { nullable: true }
     )
     @JoinColumn({ name: 'release_application_id' })
     release_application: Application;

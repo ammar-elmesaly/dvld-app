@@ -21,7 +21,8 @@ export class TestAppointment extends BaseEntity {
 
     @ManyToOne(
         () => TestType,
-        test_type => test_type.test_appointments
+        test_type => test_type.test_appointments,
+        { onDelete: 'RESTRICT', nullable: false }
     )
     @JoinColumn({ name: 'test_type_id' })
     test_type: TestType;
@@ -29,7 +30,7 @@ export class TestAppointment extends BaseEntity {
     @ManyToOne(
         () => LocalDrivingLicenseApplication,
         ldla => ldla.test_appointments,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'local_driving_license_application_id' })
     local_driving_license_application: LocalDrivingLicenseApplication;

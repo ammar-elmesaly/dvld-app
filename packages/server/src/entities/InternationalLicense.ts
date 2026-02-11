@@ -31,7 +31,7 @@ export class InternationalLicense extends BaseEntity {
     @OneToOne(
         () => Application,
         application => application.international_license,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'application_id' })
     application: Application;
@@ -40,7 +40,7 @@ export class InternationalLicense extends BaseEntity {
     @OneToOne(
         () => Driver,
         driver => driver.international_license,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'driver_id' })
     driver: Driver;
@@ -62,7 +62,8 @@ export class InternationalLicense extends BaseEntity {
 
     @ManyToOne(
         () => User,
-        user => user.internationalLicenses
+        user => user.internationalLicenses,
+        { nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id'})
     user: User;

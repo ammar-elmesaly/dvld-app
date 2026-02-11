@@ -26,7 +26,7 @@ export class Application extends BaseEntity {
     @ManyToOne(
         () => Person,
         person => person.applications,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'person_id' })
     person: Person;
@@ -34,7 +34,7 @@ export class Application extends BaseEntity {
     @ManyToOne(
         () => ApplicationType,
         application_type => application_type.applications,
-        { onDelete: 'RESTRICT' }
+        { onDelete: 'RESTRICT', nullable: false }
     )
     @JoinColumn({ name: 'type_id' })
     application_type: ApplicationType;
@@ -45,7 +45,7 @@ export class Application extends BaseEntity {
     @ManyToOne(
         () => User,
         user => user.applications,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id'})
     created_by_user: User;

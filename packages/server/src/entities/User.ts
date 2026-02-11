@@ -24,7 +24,7 @@ export class User extends BaseEntity {
     @OneToOne(
         () => Person,
         person => person.user,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'person_id' })
     person: Person;

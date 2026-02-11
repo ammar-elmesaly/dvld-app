@@ -10,7 +10,6 @@ export function toInternationalLicenseDTO(license: InternationalLicense): Intern
         expiration_date: new Date(license.expiration_date).toLocaleDateString(),
         issue_date: new Date(license.issue_date).toLocaleDateString(),
         notes: license.notes,
-        is_detained: false, // TODO
         issue_reason: 'Test', // TODO
     }
 }
@@ -24,7 +23,6 @@ export function toInternationalLicenseWithPersonDTO(license: InternationalLicens
             expiration_date: new Date(license.expiration_date).toLocaleDateString(),
             issue_date: new Date(license.issue_date).toLocaleDateString(),
             notes: license.notes,
-            is_detained: false, // TODO
             issue_reason: 'Test', // TODO
         },
 

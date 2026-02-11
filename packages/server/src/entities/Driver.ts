@@ -25,6 +25,7 @@ export class Driver extends BaseEntity {
     @ManyToOne(
         () => User,
         user => user.drivers,
+        { nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id'})
     user: User;
@@ -32,7 +33,7 @@ export class Driver extends BaseEntity {
     @OneToOne(
         () => Person,
         person => person.driver,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'person_id' })
     person: Person;

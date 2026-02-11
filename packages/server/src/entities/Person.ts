@@ -62,7 +62,7 @@ export class Person extends BaseEntity {
     @ManyToOne(
         () => Country,
         country => country.persons,
-        { onDelete: 'RESTRICT' }
+        { onDelete: 'RESTRICT', nullable: false }
     )
     @JoinColumn({ name: 'country_id' })
     national_country: Country;

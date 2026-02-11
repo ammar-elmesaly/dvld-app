@@ -34,7 +34,7 @@ export class License extends BaseEntity {
     @OneToOne(
         () => Application,
         application => application.license,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'application_id' })
     application: Application;
@@ -42,7 +42,7 @@ export class License extends BaseEntity {
     @ManyToOne(
         () => Driver,
         driver => driver.licenses,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'driver_id'})
     driver: Driver;
@@ -50,7 +50,7 @@ export class License extends BaseEntity {
     @ManyToOne(
         () => LicenseClass,
         license_class => license_class.licenses,
-        { onDelete: 'RESTRICT' }
+        { onDelete: 'RESTRICT', nullable: false }
     )
     @JoinColumn({ name: 'license_class_id' })
     license_class: LicenseClass;
@@ -93,7 +93,8 @@ export class License extends BaseEntity {
 
     @ManyToOne(
         () => User,
-        user => user.licenses
+        user => user.licenses,
+        { nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id'})
     user: User;

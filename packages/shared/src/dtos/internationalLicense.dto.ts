@@ -6,5 +6,4 @@ export interface InternationalLicenseDTO {
     issue_date: string;
     issue_reason: string;
     notes?: string;
-    is_detained: boolean;
 }

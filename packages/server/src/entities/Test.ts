@@ -19,7 +19,7 @@ export class Test extends BaseEntity {
     @OneToOne(
         () => TestAppointment,
         test_appointment => test_appointment.test,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: "test_appointment_id" })
     test_appointment: TestAppointment
@@ -33,7 +33,7 @@ export class Test extends BaseEntity {
     @ManyToOne(
         () => User,
         user => user.tests,
-        { onDelete: 'CASCADE' }
+        { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id' })
     user: User;

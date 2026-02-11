@@ -22,7 +22,7 @@ export class LocalDrivingLicenseApplication extends BaseEntity {
         application => application.local_driving_license_application,
         { onDelete: 'CASCADE', nullable: false }        
     )
-    @JoinColumn({ name: 'application_id'})
+    @JoinColumn({ name: 'application_id' })
     application: Application;
 
     @ManyToOne(

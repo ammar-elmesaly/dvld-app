@@ -11,6 +11,7 @@ import { Not } from "typeorm";
 import { isExpired } from "../utils/dateUtil";
 import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseApplication";
 import { ApplicationRepo } from "../repositories/ApplicationRepo";
+import { TestRepo } from "../repositories/TestRepo";
 
 export async function issueLicenseFirstTime(
     createdByUserId: number,
@@ -33,7 +34,9 @@ export async function issueLicenseFirstTime(
     if (!ldla)
         throw new AppError('Application not found', 404);
 
-    if (ldla.passed_tests !== 3)
+    const testCount = await TestRepo.count();
+
+    if (ldla.passed_tests !== testCount)
         throw new AppError('You have to pass all tests before issuing a license', 404);
 
     // create new driver checks if a user exists

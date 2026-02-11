@@ -21,6 +21,9 @@ export class ApplicationType extends BaseEntity {
     @Column({ type: 'numeric' })
     type_fees: number;
 
+    @Column({ type: 'smallint', nullable: true })
+    default_validity_length: number;
+
     @OneToMany(
         () => Application,
         application => application.application_type
