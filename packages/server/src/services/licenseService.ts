@@ -11,7 +11,7 @@ import { Not } from "typeorm";
 import { isExpired } from "../utils/dateUtil";
 import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseApplication";
 import { ApplicationRepo } from "../repositories/ApplicationRepo";
-import { TestRepo } from "../repositories/TestRepo";
+import { TestType } from "../entities/TestType";
 
 export async function issueLicenseFirstTime(
     createdByUserId: number,
@@ -34,9 +34,9 @@ export async function issueLicenseFirstTime(
     if (!ldla)
         throw new AppError('Application not found', 404);
 
-    const testCount = await TestRepo.count();
+    const testTypesCount = await TestType.count();
 
-    if (ldla.passed_tests !== testCount)
+    if (ldla.passed_tests !== testTypesCount)
         throw new AppError('You have to pass all tests before issuing a license', 404);
 
     // create new driver checks if a user exists
@@ -46,7 +46,7 @@ export async function issueLicenseFirstTime(
     const activeLicenseExists = await License.exists({
         where: {
             driver: { id: driverId },
-            license_class: ldla.license_class,
+            license_class: { id: ldla.license_class.id },
             is_active: true
         }
     });
@@ -104,7 +104,7 @@ export async function renewLicense(createdByUserId: number, licenseId: number, n
         where: {
             id: Not(oldLicense.id),
             driver: { id: driverId },
-            license_class: oldLicense.license_class,
+            license_class: { id: oldLicense.license_class.id },
             is_active: true
         }
     });

@@ -15,7 +15,7 @@ export async function detainLicense(licenseId: number, createdByUserId: number, 
     
     const licenseAlreadyDetained = await DetainedLicense.exists({
         where: {
-            license,
+            license: { id: license.id },
             release_date: IsNull()
         }
     });

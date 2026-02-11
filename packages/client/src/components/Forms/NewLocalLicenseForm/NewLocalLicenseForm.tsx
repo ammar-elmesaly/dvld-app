@@ -71,7 +71,7 @@ export default function NewLocalLicenseForm() {
           </div>
         </div>
 
-        <div className={styles.licenseLayout} style={{display: next ? 'flex': 'none'}}>
+        <div className={styles.mainLayoutColumn} style={{display: next ? 'flex': 'none'}}>
           <div className={styles.formRow}>
             <label htmlFor='date'>Application Date:</label>
             <div className={styles.inputGroup}>

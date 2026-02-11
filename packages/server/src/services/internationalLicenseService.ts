@@ -28,10 +28,10 @@ export async function issueLicense(
     const driver = license.driver;
 
     const activeIntLicenseExists = await InternationalLicense.existsBy({
-        driver,
+        driver: { id: driver.id },
         is_active: true
     });
-    if (!activeIntLicenseExists)
+    if (activeIntLicenseExists)
         throw new AppError('Cannot have more than one active international license for the same driver', 400);
 
     const person = await getPersonByDriverId(driver.id);

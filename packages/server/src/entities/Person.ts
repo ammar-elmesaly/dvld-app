@@ -6,7 +6,8 @@ import {
     OneToOne,
     JoinColumn,
     ManyToOne,
-    OneToMany
+    OneToMany,
+    Unique
 } from 'typeorm';
 import { User } from './User';
 import { Country } from './Country';
@@ -14,6 +15,7 @@ import { Application } from './Application';
 import { Gender } from '@dvld/shared/src/types/person';
 import { Driver } from './Driver';
 
+@Unique('UQ_full_name', ['first_name', 'second_name', 'third_name', 'last_name'])
 @Entity()
 export class Person extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
@@ -53,10 +55,10 @@ export class Person extends BaseEntity {
     @Column()
     address: string;
 
-    @Column({ length: 11 })
+    @Column({ length: 11, unique: true })
     phone_number: string;
 
-    @Column()
+    @Column({ unique: true})
     email: string;
 
     @ManyToOne(
