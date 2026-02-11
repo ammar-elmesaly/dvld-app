@@ -21,6 +21,8 @@ import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInf
 import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense';
 import { LicenseDTO } from '@dvld/shared/src/dtos/license.dto';
 import { InternationalLicenseDTO } from '@dvld/shared/src/dtos/internationalLicense.dto';
+import { getAllTestTypes } from '../../api/test/testType';
+import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
 
 export default function ManageLocalApplications() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
@@ -38,6 +40,12 @@ export default function ManageLocalApplications() {
 
   const [localLicenses, setLocalLicenses] = useState<LicenseDTO[] | undefined>();
   const [intLicenses, setIntLicenses] = useState<InternationalLicenseDTO[] | undefined>();
+
+  const [testTypes, setTestTypes] = useState<TestTypeDTO[]>([]);
+  
+  useEffect(() => {
+    getAllTestTypes().then(setTestTypes);
+  }, []);
 
   const handleRefresh = () => {
     setRefreshKey(prev => prev + 1);
@@ -93,25 +101,25 @@ export default function ManageLocalApplications() {
     {
       type: ApplicationsActionType.Vision,
       handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.Vision }),
-      isDisabled: (row) => row.passed_tests !== 0
+      isDisabled: (row) => testTypes[row.passed_tests]?.system_name !== 'VISION_TEST'
     },
     
     {
       type: ApplicationsActionType.Written,
       handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.Written }),
-      isDisabled: (row) => row.passed_tests !== 1
+      isDisabled: (row) => testTypes[row.passed_tests]?.system_name !== 'WRITTEN_TEST'
     },
 
     {
       type: ApplicationsActionType.Street,
       handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.Street }),
-      isDisabled: (row) => row.passed_tests !== 2
+      isDisabled: (row) => testTypes[row.passed_tests]?.system_name !== 'PRACTICAL_TEST'
     },
 
     {
       type: ApplicationsActionType.IssueLicense,
       handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.IssueLicense }),
-      isDisabled: (row) => row.passed_tests !== 3 || row.status === ApplicationStatus.Completed
+      isDisabled: (row) => row.passed_tests !== testTypes.length || row.status === ApplicationStatus.Completed
     },
 
     {
@@ -130,21 +138,24 @@ export default function ManageLocalApplications() {
   let selectedAction: React.ReactNode = null;
 
   switch (activeRowAction?.type) {
-    case ApplicationsActionType.View:
+    case ApplicationsActionType.View: {
+      const localDrivingLicenseApplication = activeRowAction.row;
+
       selectedAction = (
         <>
           <DrivingLicenseInfo
-            dlAppId={activeRowAction.row.local_driving_license_application_id}
-            licenseClass={activeRowAction.row.license_class_name}
-            passedTests={`${activeRowAction.row.passed_tests}/3`}
-            licenseId={activeRowAction.row.license_id}
+            dlAppId={localDrivingLicenseApplication.local_driving_license_application_id}
+            licenseClass={localDrivingLicenseApplication.license_class_name}
+            passedTests={`${localDrivingLicenseApplication.passed_tests}/${testTypes.length}`}
+            licenseId={localDrivingLicenseApplication.license_id}
           />
           <hr style={{ "margin": "15px 0px" }} />
-          <ApplicationBasicInfo personId={activeRowAction.row.applicant_person_id} application={activeRowAction.row} />
+          <ApplicationBasicInfo personId={localDrivingLicenseApplication.applicant_person_id} application={localDrivingLicenseApplication} />
           <hr style={{ "margin": "15px 0px" }} />
         </>
       );
       break;
+    }
 
     case ApplicationsActionType.NewApp: {
       selectedAction = (
@@ -177,40 +188,46 @@ export default function ManageLocalApplications() {
 
     {
       const localDrivingLicenseApplication = activeRowAction.row;
+      const passedTests = localDrivingLicenseApplication.passed_tests;
 
       selectedAction = (
         <>
           <DrivingLicenseInfo
             dlAppId={localDrivingLicenseApplication.local_driving_license_application_id}
             licenseClass={localDrivingLicenseApplication.license_class_name}
-            passedTests={`${localDrivingLicenseApplication.passed_tests}/3`}
+            // This passedTests is a string, which tracks progress (passedTests) out of (testTypes.length) total tests,
+            // so if passedTests = 0, then 0/3, if passedTests = 1, then 1/3, and so on
+            passedTests={`${passedTests}/${testTypes.length}`}
           />
           <hr style={{ "margin": "15px 0px" }} />
           <ApplicationBasicInfo personId={localDrivingLicenseApplication.applicant_person_id} application={localDrivingLicenseApplication} />
           <hr style={{ "margin": "15px 0px" }} />
-          <ManageTestAppointments handleManageLocalApplicationsRefresh={handleRefresh} localDrivingLicenseApplication={localDrivingLicenseApplication} passedTests={localDrivingLicenseApplication.passed_tests}/>
+          <ManageTestAppointments nextTest={testTypes[passedTests]} handleManageLocalApplicationsRefresh={handleRefresh} localDrivingLicenseApplication={localDrivingLicenseApplication} />
         </>
       );
       break;
     }
 
-    case ApplicationsActionType.IssueLicense:
+    case ApplicationsActionType.IssueLicense: {
+      const localDrivingLicenseApplication = activeRowAction.row;
+
       selectedAction = (
         <>
           <DrivingLicenseInfo
-            dlAppId={activeRowAction.row.local_driving_license_application_id}
-            licenseClass={activeRowAction.row.license_class_name}
-            passedTests={`${activeRowAction.row.passed_tests}/3`}
+            dlAppId={localDrivingLicenseApplication.local_driving_license_application_id}
+            licenseClass={localDrivingLicenseApplication.license_class_name}
+            passedTests={`${localDrivingLicenseApplication.passed_tests}/${testTypes.length}`}
           />
           <hr style={{ "margin": "15px 0px" }} />
-          <ApplicationBasicInfo personId={activeRowAction.row.applicant_person_id} application={activeRowAction.row} />
+          <ApplicationBasicInfo personId={localDrivingLicenseApplication.applicant_person_id} application={localDrivingLicenseApplication} />
           <hr style={{ "margin": "15px 0px" }} />
           <IssueDrivingLicenseForm
-          localDrivingLicenseApplicationId={activeRowAction.row.local_driving_license_application_id}
+          localDrivingLicenseApplicationId={localDrivingLicenseApplication.local_driving_license_application_id}
           handleRefresh={handleRefresh}/>
         </>
       );
       break;
+    }
 
     case ApplicationsActionType.ShowLicense: {
       selectedAction = (

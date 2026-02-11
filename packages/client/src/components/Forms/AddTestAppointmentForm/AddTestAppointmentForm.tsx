@@ -6,7 +6,6 @@ import { apiFetch } from '../../../api/apiFetch';
 import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/localDrivingLicenseApplication.dto';
 import { toInputDate } from '../../../helpers/date';
 import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
-import { getTestTypeById } from '../../../api/test/testType';
 import { RetakeTestInfo } from '../../Info/RetakeTestInfo/RetakeTestInfo';
 import { TestAppointmentDTO } from '@dvld/shared/src/dtos/testAppointment.dto';
 import { UserSession } from '../../../types/UserSession';
@@ -16,32 +15,27 @@ import { getTrialNumber } from '../../../api/test/testAppointment';
 
 interface TestAppointmentFormProps {
   ldla: LocalDrivingLicenseApplicationDTO;
-  testTypeId: number;
+  testType: TestTypeDTO;
   lastTestAppointment?: TestAppointmentDTO;
   handleRefresh: () => void;
 }
 
-export default function AddTestAppointmentForm({ ldla, testTypeId, lastTestAppointment, handleRefresh }: TestAppointmentFormProps) {
+export default function AddTestAppointmentForm({ ldla, testType, lastTestAppointment, handleRefresh }: TestAppointmentFormProps) {
   // Minimum date you can select is today (now), you can't make an appointment in the past
   // obviously :)
   const minDateString = toInputDate(new Date());
-  const [testType, setTestType] = useState<TestTypeDTO | undefined>(undefined);
   
   const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
   
   const [trialNumber, setTrialNumber] = useState(0);
 
   useEffect(() => {
-    getTestTypeById(testTypeId).then(setTestType)
-  }, [testTypeId]);
-
-  useEffect(() => {
     getCurrentUser().then(setUser);
   }, []);
 
   useEffect(() => {
-    getTrialNumber(ldla.local_driving_license_application_id, testTypeId).then(setTrialNumber);
-  }, [ldla, testTypeId]);
+    getTrialNumber(ldla.local_driving_license_application_id, testType.id).then(setTrialNumber);
+  }, [ldla, testType]);
 
   return (
     <>

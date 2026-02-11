@@ -1,7 +1,11 @@
 import { TestType } from "../entities/TestType";
 
 export function getAllTestTypes() {
-    return TestType.find();
+    return TestType.find({
+        order: {
+            sequence_order: 'ASC'
+        }
+    });
 }
 
 export function getTestTypeById(testTypeId: number) {

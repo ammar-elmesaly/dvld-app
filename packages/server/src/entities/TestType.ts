@@ -12,6 +12,9 @@ export class TestType extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
+    @Column({ unique: true })
+    sequence_order: number;
+
     @Column()
     system_name: string;
 

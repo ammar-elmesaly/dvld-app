@@ -6,31 +6,25 @@ import { apiFetch } from '../../../api/apiFetch';
 import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/localDrivingLicenseApplication.dto';
 import { toInputDate } from '../../../helpers/date';
 import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
-import { getTestTypeById } from '../../../api/test/testType';
 import { TestAppointmentDTO } from '@dvld/shared/src/dtos/testAppointment.dto';
 import { getTrialNumber } from '../../../api/test/testAppointment';
 
 interface TestAppointmentFormProps {
   ldla: LocalDrivingLicenseApplicationDTO;
-  testTypeId: number;
+  testType: TestTypeDTO;
   testAppointment: TestAppointmentDTO;
   handleRefresh: () => void;
 }
 
-export default function EditTestAppointmentForm({ ldla, testTypeId, testAppointment, handleRefresh }: TestAppointmentFormProps) {
+export default function EditTestAppointmentForm({ ldla, testType, testAppointment, handleRefresh }: TestAppointmentFormProps) {
   const minDateString = toInputDate(new Date());
   const oldDateString = toInputDate(new Date(testAppointment.appointment_date));
   
-  const [testType, setTestType] = useState<TestTypeDTO | undefined>(undefined);
   const [trialNumber, setTrialNumber] = useState(0);
-  
-  useEffect(() => {
-    getTestTypeById(testTypeId).then(setTestType)
-  }, [testTypeId]);
 
   useEffect(() => {
-    getTrialNumber(ldla.local_driving_license_application_id, testTypeId).then(setTrialNumber);
-  }, [ldla, testTypeId]);
+    getTrialNumber(ldla.local_driving_license_application_id, testType.id).then(setTrialNumber);
+  }, [ldla, testType]);
 
   return (
     <>

@@ -49,21 +49,17 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
         } else if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Fail) {
             // If an applicant fails a test, and wants to retake it, we make a retake test application
             // and assign it to the testAppointment
-
             retakeTestApplicationId = await newApplication(ldla.application.person.id, 'RETAKE_TEST_SERVICE', createdByUserId);
         } else if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Success) {
             throw new AppError("New appointments are unavailable for tests with an existing passing status.", 400);
         }
     }
-    
-    const testType = await TestType.findOneBy({ id: testTypeId });
-    if (!testType)
-        throw new AppError('Test Type not found', 404);
 
     const passedTestCount = ldla.passed_tests;
-    // This checks if applying for a test which passed already or skipping a one (TODO IMPROVE LOGIC next)
-    if (testTypeId !== passedTestCount + 1)
-        throw new AppError("Can't make a test appointment without passing or already passing other tests.", 400);
+    
+    const testType = await TestType.findOneBy({ sequence_order: passedTestCount + 1 });
+    if (!testType)
+        throw new AppError('Test Type not found', 404)
     
     const createdByUser = await User.findOneBy({ id: createdByUserId });
     if (!createdByUser)

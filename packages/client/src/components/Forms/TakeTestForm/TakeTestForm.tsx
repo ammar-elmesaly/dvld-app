@@ -5,7 +5,6 @@ import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';
 import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/localDrivingLicenseApplication.dto';
 import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
-import { getTestTypeById } from '../../../api/test/testType';
 import { TestAppointmentDTO } from '@dvld/shared/src/dtos/testAppointment.dto';
 import { UserSession } from '../../../types/UserSession';
 import { getCurrentUser } from '../../../api/user/user';
@@ -13,29 +12,23 @@ import { getTrialNumber } from '../../../api/test/testAppointment';
 
 interface TestAppointmentFormProps {
   ldla: LocalDrivingLicenseApplicationDTO;
-  testTypeId: number;
+  testType: TestTypeDTO;
   testAppointment: TestAppointmentDTO;
   handleRefresh: () => void;
   handleManageLocalApplicationsRefresh: () => void;
 }
 
-export default function TakeTestForm({ ldla, testTypeId, testAppointment, handleManageLocalApplicationsRefresh, handleRefresh }: TestAppointmentFormProps) {
-  const [testType, setTestType] = useState<TestTypeDTO | undefined>(undefined);
-  
+export default function TakeTestForm({ ldla, testType, testAppointment, handleManageLocalApplicationsRefresh, handleRefresh }: TestAppointmentFormProps) {  
   const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
   const [trialNumber, setTrialNumber] = useState(0);
-
-  useEffect(() => {
-    getTestTypeById(testTypeId).then(setTestType)
-  }, [testTypeId]);
 
   useEffect(() => {
     getCurrentUser().then(setUser);
   }, []);
 
   useEffect(() => {
-    getTrialNumber(ldla.local_driving_license_application_id, testTypeId).then(setTrialNumber);
-  }, [ldla, testTypeId]);
+    getTrialNumber(ldla.local_driving_license_application_id, testType.id).then(setTrialNumber);
+  }, [ldla, testType]);
 
   return (
     <>
