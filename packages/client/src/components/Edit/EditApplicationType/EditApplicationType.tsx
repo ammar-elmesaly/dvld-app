@@ -29,6 +29,17 @@ export function EditApplicationType({ applicationType }: EditApplicationTypeProp
           </div>
         </div>
 
+        {
+          applicationType.default_validity_length &&
+          <div className={styles.formRow}>
+            <label htmlFor='default_validity_length'>Default Validity Length (years):</label>
+            <div className={styles.inputGroup}>
+              <i className="bi bi-calendar"></i>
+              <input name="default_validity_length" defaultValue={applicationType.default_validity_length} type="number" min={1} step={1} max={10} required />
+            </div>
+          </div>
+        }
+
       </div>
       <div className={styles.controls} >
         <Button
