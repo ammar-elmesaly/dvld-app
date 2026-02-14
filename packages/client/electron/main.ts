@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -19,10 +19,15 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, 
 let win: BrowserWindow | null;
 
 function createWindow() {
+    const isDev = !app.isPackaged;
+
     win = new BrowserWindow({
         // icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
         webPreferences: {
             preload: path.join(__dirname, 'preload.mjs'),
+            devTools: isDev, // Only enable DevTools if in development mode
+            nodeIntegration: false,
+            contextIsolation: true,
         },
         minWidth: 1024,
         minHeight: 768
@@ -32,6 +37,11 @@ function createWindow() {
     win.webContents.on('did-finish-load', () => {
         win?.webContents.send('main-process-message', (new Date).toLocaleString())
     });
+    
+    win.setMenuBarVisibility(false);
+
+    if (!isDev)
+        Menu.setApplicationMenu(null); 
 
     if (VITE_DEV_SERVER_URL) {
         win.loadURL(VITE_DEV_SERVER_URL);
