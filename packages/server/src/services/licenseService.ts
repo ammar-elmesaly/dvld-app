@@ -126,7 +126,7 @@ export async function renewLicense(createdByUserId: number, licenseId: number, n
 
         // Create new Renew License Application
         const person = await getPersonByDriverId(driverId);
-        const applicationId = await newApplication(person.id, 'RENEW_LICENSE_SERVICE', createdByUserId);
+        const applicationId = await newApplication(person.id, 'RENEW_LICENSE_SERVICE', createdByUserId, manager);
 
         // Create New License
         const issueDate = new Date();
@@ -191,7 +191,7 @@ export async function replaceLicense(
         const appTypeName = appTypeMap[replacementType];
         if (!appTypeName) throw new AppError('Unexpected error', 500);
 
-        const applicationId = await newApplication(person.id, appTypeName, createdByUserId);
+        const applicationId = await newApplication(person.id, appTypeName, createdByUserId, manager);
 
         oldLicense.is_active = false;
         await manager.save(oldLicense);  // Deactivate old license

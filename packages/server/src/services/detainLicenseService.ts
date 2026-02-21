@@ -58,7 +58,8 @@ export async function releaseLicense(licenseId: number, releasedByUserId: number
         const applicationId = await newApplication(
             detainedLicense.license.driver.person.id,
             'RELEASE_DETAINED_SERVICE',
-            releasedByUserId
+            releasedByUserId,
+            manager
         );
         detainedLicense.release_date = new Date();
         detainedLicense.released_by_user = releasedByUser;

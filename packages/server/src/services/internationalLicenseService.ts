@@ -52,7 +52,7 @@ export async function issueLicense(
         if (activeIntLicenseExists)
             throw new AppError('Cannot have more than one active international license for the same driver', 400);
     
-        const internationalLicenseApplicationId = await newApplication(license.driver.person.id, 'INTERNATIONAL_LICENSE_SERVICE', createdByUserId);
+        const internationalLicenseApplicationId = await newApplication(license.driver.person.id, 'INTERNATIONAL_LICENSE_SERVICE', createdByUserId, manager);
     
         const newLicense = manager.create(InternationalLicense, {
             paid_fees: applicationType.type_fees,

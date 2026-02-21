@@ -6,7 +6,8 @@ import { PersonRepo } from "../repositories/PersonRepo";
 import { ApplicationType } from "../entities/ApplicationType";
 import { UserRepo } from "../repositories/UserRepo";
 import { ApplicationStatus } from "@dvld/shared/src/types/application";
-import { Not } from "typeorm";
+import { EntityManager, Not } from "typeorm";
+import { Application } from "../entities/Application";
 
 export function getAllApplications() {
     return ApplicationRepo.find();
@@ -20,7 +21,7 @@ export function getAllInternationalDrivingLicenseApplications() {
     return ApplicationRepo.getAllInternationalDrivingLicenseApplications();
 }
 
-export async function newApplication(personId: number, applicationTypeSystemName: string, createdByUserId: number) {
+export async function newApplication(personId: number, applicationTypeSystemName: string, createdByUserId: number, manager?: EntityManager) {
     // TODO: Add entity transaction manager as a parameter
     const [person, applicationType, createdByUser] = await Promise.all([
         PersonRepo.findOneBy({ id: personId }),
@@ -37,16 +38,20 @@ export async function newApplication(personId: number, applicationTypeSystemName
     ? ApplicationStatus.New
     : ApplicationStatus.Completed;
 
-    const newApplication = await ApplicationRepo.create({
+    const repo = manager ? manager.getRepository(Application) : ApplicationRepo;
+
+    const newApplication = repo.create({
         person,
         application_type: applicationType,
         created_by_user: createdByUser,
         last_status_date: new Date(),
         application_status: initialStatus,
         paid_fees: applicationType.type_fees
-    }).save();
+    });
 
-    return newApplication.id;
+    const newApplicationSaved = await repo.save(newApplication);
+
+    return newApplicationSaved.id;
 }
 
 export async function newLocalDrivingLicenseApp(licenseClassId: number, personId: number, createdByUserId: number) {
@@ -70,7 +75,7 @@ export async function newLocalDrivingLicenseApp(licenseClassId: number, personId
     if (!licenseClass) throw new AppError('License Class not found', 404);
 
     return await ApplicationRepo.manager.transaction(async (transactionalEntityManager) => {
-        const applicationId = await newApplication(personId, 'LOCAL_LICENSE_SERVICE', createdByUserId);
+        const applicationId = await newApplication(personId, 'LOCAL_LICENSE_SERVICE', createdByUserId, transactionalEntityManager);
         
         const newLdlApp = transactionalEntityManager.create(LocalDrivingLicenseApplication, {
             application: { id: applicationId },
