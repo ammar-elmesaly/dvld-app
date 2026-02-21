@@ -17,7 +17,7 @@ export class LicenseClass extends BaseEntity {
     class_name: string;
 
     @Column()
-    system_name: string;
+    system_name: string; // TODO make it an enum
 
     @Column()
     class_description: string;

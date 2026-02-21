@@ -21,19 +21,18 @@ export function getAllInternationalDrivingLicenseApplications() {
 }
 
 export async function newApplication(personId: number, applicationTypeSystemName: string, createdByUserId: number) {
-    const person = await PersonRepo.findOneBy({ id: personId });
-    if (!person)
-        throw new AppError('Person not found', 404);
+    // TODO: Add entity transaction manager as a parameter
+    const [person, applicationType, createdByUser] = await Promise.all([
+        PersonRepo.findOneBy({ id: personId }),
+        ApplicationType.findOneBy({ system_name: applicationTypeSystemName }),
+        UserRepo.findOneBy({ id: createdByUserId })
+    ]);
 
-    const applicationType = await ApplicationType.findOneBy({ system_name: applicationTypeSystemName });
-    if (!applicationType)
-        throw new AppError('Application Type not found', 404);
+    if (!person) throw new AppError('Person not found', 404);
+    if (!applicationType) throw new AppError('Application Type not found', 404);
+    if (!createdByUser) throw new AppError('User not found', 404);  
 
-    const createdByUser = await UserRepo.findOneBy({ id: createdByUserId });
-    if (!createdByUser)
-        throw new AppError('User not found', 404);
-
-    const applicationStatus =
+    const initialStatus =
     applicationType.system_name === 'LOCAL_LICENSE_SERVICE'
     ? ApplicationStatus.New
     : ApplicationStatus.Completed;
@@ -43,7 +42,7 @@ export async function newApplication(personId: number, applicationTypeSystemName
         application_type: applicationType,
         created_by_user: createdByUser,
         last_status_date: new Date(),
-        application_status: applicationStatus,
+        application_status: initialStatus,
         paid_fees: applicationType.type_fees
     }).save();
 
@@ -51,33 +50,34 @@ export async function newApplication(personId: number, applicationTypeSystemName
 }
 
 export async function newLocalDrivingLicenseApp(licenseClassId: number, personId: number, createdByUserId: number) {
-    const appExists = await ApplicationRepo.exists({
-        where: {
-            application_status: Not(ApplicationStatus.Cancelled),
-            person: { id: personId },
-            local_driving_license_application: {
-                license_class: { id: licenseClassId }
+    const [appExists, licenseClass] = await Promise.all([
+        ApplicationRepo.exists({
+            where: {
+                application_status: Not(ApplicationStatus.Cancelled),
+                person: { id: personId },
+                local_driving_license_application: {
+                    license_class: { id: licenseClassId }
+                }
+            },
+            relations: {
+                local_driving_license_application: true
             }
-        },
-        relations: {
-            local_driving_license_application: true
-        }
+        }),
+        LicenseClass.findOneBy({ id: licenseClassId })
+    ]);
+
+    if (appExists) throw new AppError("You can't have more than one license application within the same class.", 400);
+    if (!licenseClass) throw new AppError('License Class not found', 404);
+
+    return await ApplicationRepo.manager.transaction(async (transactionalEntityManager) => {
+        const applicationId = await newApplication(personId, 'LOCAL_LICENSE_SERVICE', createdByUserId);
+        
+        const newLdlApp = transactionalEntityManager.create(LocalDrivingLicenseApplication, {
+            application: { id: applicationId },
+            license_class: licenseClass
+        });
+
+        const saved = await transactionalEntityManager.save(newLdlApp);
+        return saved.id;
     });
-
-    if (appExists)
-        throw new AppError("You can't have more than one license application within the same class.", 400);
-
-    const applicationId = await newApplication(personId, 'LOCAL_LICENSE_SERVICE', createdByUserId);
-    const application = await ApplicationRepo.findOneBy({ id: applicationId });
-    
-    const licenseClass = await LicenseClass.findOneBy({ id: licenseClassId });
-    if (!licenseClass)
-        throw new AppError('License Class not found', 404);
-
-    const newLocalDrivingLicenseApp = await LocalDrivingLicenseApplication.create({
-        application: application!,
-        license_class: licenseClass
-    }).save();
-
-    return newLocalDrivingLicenseApp.id;
 }

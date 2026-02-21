@@ -4,28 +4,28 @@ import { License } from "../entities/License";
 import { AppError } from "../types/errors";
 import { UserRepo } from "../repositories/UserRepo";
 import { newApplication } from "./applicationService";
+import { DetainedLicenseRepo } from "../repositories/DetainLicenseRepo";
 
 export async function detainLicense(licenseId: number, createdByUserId: number, fineFees: number) {
-    const license = await License.findOneBy({ id: licenseId });
-    if (!license)
-        throw new AppError('License not found', 404);
+    const [license, createdByUser] = await Promise.all([
+        License.findOne({
+            where: {
+                id: licenseId
+            },
+            relations: {
+                detained_licenses: true
+            }
+        }),
+        UserRepo.findOneBy({ id: createdByUserId })        
+    ]);
 
-    if (!license.is_active)
-        throw new AppError('Cannot detain an inactive license', 404);
+    if (!license) throw new AppError('License not found', 404);
+    if (!license.is_active) throw new AppError('Cannot detain an inactive license', 404);
     
-    const licenseAlreadyDetained = await DetainedLicense.exists({
-        where: {
-            license: { id: license.id },
-            release_date: IsNull()
-        }
-    });
+    const licenseAlreadyDetained = license.detained_licenses.some(dl => dl.release_date === null);
+    if (licenseAlreadyDetained) throw new AppError('Cannot detain this license, it is already detained', 400);
 
-    if (licenseAlreadyDetained)
-        throw new AppError('Cannot detain this license, it is already detained', 400);
-
-    const createdByUser = await UserRepo.findOneBy({ id: createdByUserId });
-    if (!createdByUser)
-        throw new AppError('User not found', 404);
+    if (!createdByUser) throw new AppError('User not found', 404);
 
     const detainedLicense = await DetainedLicense.create({
         license,
@@ -38,34 +38,36 @@ export async function detainLicense(licenseId: number, createdByUserId: number, 
 }
 
 export async function releaseLicense(licenseId: number, releasedByUserId: number) {
-    const detainedLicense = await DetainedLicense.findOne({
-        where: {
-            release_date: IsNull(),
-            license: { id: licenseId }
-        },
-        relations: {
-            license: { driver: { person: true } }
-        }
-    });
-    if (!detainedLicense)
-        throw new AppError('Detained License not found', 404);
-
     const releasedByUser = await UserRepo.findOneBy({ id: releasedByUserId });
     if (!releasedByUser)
         throw new AppError('User not found', 404);
 
-    const applicationId = await newApplication(
-        detainedLicense.license.driver.person.id,
-        'RELEASE_DETAINED_SERVICE',
-        releasedByUserId
-    );
-    detainedLicense.release_date = new Date();
-    detainedLicense.released_by_user = releasedByUser;
-    detainedLicense.release_application = { id: applicationId } as any;
+    return DetainedLicenseRepo.manager.transaction(async (manager) => {
+        const detainedLicense = await manager.findOne(DetainedLicense, {
+            where: {
+                release_date: IsNull(),
+                license: { id: licenseId }
+            },
+            relations: {
+                license: { driver: { person: true } }
+            }
+        });
+        if (!detainedLicense)
+            throw new AppError('Detained License not found', 404);
 
-    const updatedDetainedLicense = await DetainedLicense.save(detainedLicense);
+        const applicationId = await newApplication(
+            detainedLicense.license.driver.person.id,
+            'RELEASE_DETAINED_SERVICE',
+            releasedByUserId
+        );
+        detainedLicense.release_date = new Date();
+        detainedLicense.released_by_user = releasedByUser;
+        detainedLicense.release_application = { id: applicationId } as any;  // Bare minimum that typeorm needs is an object with just id
 
-    return updatedDetainedLicense.license.id;
+        const updatedDetainedLicense = await manager.save(detainedLicense);
+
+        return updatedDetainedLicense.license.id;
+    });
 }
 
 export async function getDetainedLicenseWithLicenseId(licenseId: number) {

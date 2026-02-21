@@ -17,30 +17,28 @@ export async function getTestAppointments(localDrivingLicenseApplicationId: numb
 }
 
 export async function createTestAppointment(testTypeId: number, localDrivingLicenseApplicationId: number, appointmentDate: Date, createdByUserId: number) {
-    const lastAppointment = await TestAppointmentRepo.findOne({
-        where: {
-            local_driving_license_application: { id: localDrivingLicenseApplicationId },
-            test_type: { id: testTypeId }
-        },
-        relations: {
-            local_driving_license_application: true,
-            test: true,
-            test_type: true
-        },
-        order: {
-            created_at: 'DESC'
-        },
-    });
-    
-    const ldla = await LocalDrivingLicenseApplication.findOne({
-        where: { id: localDrivingLicenseApplicationId},
-        relations: { application: { person: true } }
-    });
+    const [createdByUser, lastAppointment, ldla] = await Promise.all([
+        User.findOneBy({ id: createdByUserId }),
 
-    if (!ldla)
-        throw new AppError('Local driving license application not found', 404);
+        TestAppointmentRepo.findOne({
+            where: {
+                local_driving_license_application: { id: localDrivingLicenseApplicationId },
+                test_type: { id: testTypeId }
+            },
+            relations: { test: true },
+            order: { created_at: 'DESC' }
+        }),
 
-    let retakeTestApplicationId;
+        LocalDrivingLicenseApplication.findOne({
+            where: { id: localDrivingLicenseApplicationId},
+            relations: { application: { person: true } }
+        })
+    ]);
+
+    if (!createdByUser) throw new AppError('User not found', 404);
+    if (!ldla) throw new AppError('Local driving license application not found', 404);
+
+    let retakeTestApplicationId: number | undefined;
 
     if (lastAppointment) {
         if (!lastAppointment.is_locked) {
@@ -60,25 +58,19 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
     const testType = await TestType.findOneBy({ sequence_order: passedTestCount + 1 });
     if (!testType)
         throw new AppError('Test Type not found', 404)
-    
-    const createdByUser = await User.findOneBy({ id: createdByUserId });
-    if (!createdByUser)
-        throw new AppError('User not found', 404);
 
-    const retakeTestApplicationType = await getApplicationTypeByName('RETAKE_TEST_SERVICE');
+    let totalFees = Number(testType.type_fees);
 
-    const testFees = Number(testType.type_fees);
-    const retakeTestFees =
-        retakeTestApplicationId
-        ? Number(retakeTestApplicationType?.type_fees)
-        : 0;
+    if (retakeTestApplicationId) {
+        const retakeType = await getApplicationTypeByName('RETAKE_TEST_SERVICE');
+        totalFees += Number(retakeType?.type_fees || 0);
+    }
 
-    const totalPaidFees = testFees + retakeTestFees;
     const testAppointment = await TestAppointmentRepo.create({
         test_type: testType,
         local_driving_license_application: { id: ldla.id },
         is_locked: false,
-        paid_fees: totalPaidFees,
+        paid_fees: totalFees,
         appointment_date: appointmentDate,
         user: createdByUser,
         retake_test_application: retakeTestApplicationId 

@@ -13,7 +13,7 @@ export class ApplicationType extends BaseEntity {
     id: number;
 
     @Column()
-    system_name: string;
+    system_name: string;  // TODO make it an enum
 
     @Column()
     type_name: string;

@@ -16,7 +16,7 @@ export class TestType extends BaseEntity {
     sequence_order: number;
 
     @Column()
-    system_name: string;
+    system_name: string; // TODO make it an enum
 
     @Column()
     type_name: string;
