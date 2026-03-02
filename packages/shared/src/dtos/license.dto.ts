@@ -1,4 +1,5 @@
 import { IssueReason } from "../types/license";
+import { LicenseClassSystemName } from "./licenseClass.dto";
 
 export interface LicenseDTO {
     id: number;
@@ -10,5 +11,5 @@ export interface LicenseDTO {
     notes?: string;
     is_detained: boolean;
     license_class_name: string;
-    license_system_name: string; // TODO make it an enum
+    license_system_name: LicenseClassSystemName;
 }

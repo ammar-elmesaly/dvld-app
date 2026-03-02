@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
 import { License } from './License';
+import { LicenseClassSystemName } from '@dvld/shared/src/dtos/licenseClass.dto';
 
 @Entity()
 export class LicenseClass extends BaseEntity {
@@ -16,8 +17,8 @@ export class LicenseClass extends BaseEntity {
     @Column()
     class_name: string;
 
-    @Column()
-    system_name: string; // TODO make it an enum
+    @Column({ type: 'enum', enum: LicenseClassSystemName })
+    system_name: LicenseClassSystemName;
 
     @Column()
     class_description: string;

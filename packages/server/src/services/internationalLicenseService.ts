@@ -5,6 +5,8 @@ import { AppError } from "../types/errors";
 import { isExpired } from "../utils/dateUtil";
 import { UserRepo } from "../repositories/UserRepo";
 import { LicenseRepo } from "../repositories/LicenseRepo";
+import { LicenseClassSystemName } from "@dvld/shared/src/dtos/licenseClass.dto";
+import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
 
 export async function issueLicense(
     createdByUserId: number,
@@ -26,7 +28,7 @@ export async function issueLicense(
     if (!license) throw new AppError('License not found', 404);
     if (!createdByUser) throw new AppError('User not found', 404);
 
-    if (license.license_class.system_name !== 'CLASS_3')
+    if (license.license_class.system_name !== LicenseClassSystemName.Ordinary)
         throw new AppError('License class must be ordinary driving license in order to issue international license', 400);
 
     if (isExpired(license.expiration_date))
@@ -35,7 +37,7 @@ export async function issueLicense(
     if (!license.is_active)
         throw new AppError('Cannot issue an international license for an inactive local license', 400);
 
-    const applicationType = await getApplicationTypeByName('INTERNATIONAL_LICENSE_SERVICE');
+    const applicationType = await getApplicationTypeByName(ApplicationTypeSystemName.InternationalLicenseService);
     
     const issueDate = new Date();
     const expirationDate = new Date(issueDate);
@@ -52,7 +54,7 @@ export async function issueLicense(
         if (activeIntLicenseExists)
             throw new AppError('Cannot have more than one active international license for the same driver', 400);
     
-        const internationalLicenseApplicationId = await newApplication(license.driver.person.id, 'INTERNATIONAL_LICENSE_SERVICE', createdByUserId, manager);
+        const internationalLicenseApplicationId = await newApplication(license.driver.person.id, ApplicationTypeSystemName.InternationalLicenseService, createdByUserId, manager);
     
         const newLicense = manager.create(InternationalLicense, {
             paid_fees: applicationType.type_fees,

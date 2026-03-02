@@ -7,13 +7,15 @@ import {
 } from 'typeorm';
 import { Application } from './Application';
 
+import { ApplicationTypeSystemName } from '@dvld/shared/src/dtos/applicationType.dto';
+
 @Entity()
 export class ApplicationType extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column()
-    system_name: string;  // TODO make it an enum
+    @Column({ type: 'enum', enum: ApplicationTypeSystemName })
+    system_name: ApplicationTypeSystemName;
 
     @Column()
     type_name: string;

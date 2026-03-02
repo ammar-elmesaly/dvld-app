@@ -8,6 +8,7 @@ import { UserRepo } from "../repositories/UserRepo";
 import { ApplicationStatus } from "@dvld/shared/src/types/application";
 import { EntityManager, Not } from "typeorm";
 import { Application } from "../entities/Application";
+import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
 
 export function getAllApplications() {
     return ApplicationRepo.find();
@@ -21,8 +22,7 @@ export function getAllInternationalDrivingLicenseApplications() {
     return ApplicationRepo.getAllInternationalDrivingLicenseApplications();
 }
 
-export async function newApplication(personId: number, applicationTypeSystemName: string, createdByUserId: number, manager?: EntityManager) {
-    // TODO: Add entity transaction manager as a parameter
+export async function newApplication(personId: number, applicationTypeSystemName: ApplicationTypeSystemName, createdByUserId: number, manager?: EntityManager) {
     const [person, applicationType, createdByUser] = await Promise.all([
         PersonRepo.findOneBy({ id: personId }),
         ApplicationType.findOneBy({ system_name: applicationTypeSystemName }),
@@ -34,7 +34,7 @@ export async function newApplication(personId: number, applicationTypeSystemName
     if (!createdByUser) throw new AppError('User not found', 404);  
 
     const initialStatus =
-    applicationType.system_name === 'LOCAL_LICENSE_SERVICE'
+    applicationType.system_name === ApplicationTypeSystemName.LocalLicenseService
     ? ApplicationStatus.New
     : ApplicationStatus.Completed;
 
@@ -75,7 +75,7 @@ export async function newLocalDrivingLicenseApp(licenseClassId: number, personId
     if (!licenseClass) throw new AppError('License Class not found', 404);
 
     return await ApplicationRepo.manager.transaction(async (transactionalEntityManager) => {
-        const applicationId = await newApplication(personId, 'LOCAL_LICENSE_SERVICE', createdByUserId, transactionalEntityManager);
+        const applicationId = await newApplication(personId, ApplicationTypeSystemName.LocalLicenseService, createdByUserId, transactionalEntityManager);
         
         const newLdlApp = transactionalEntityManager.create(LocalDrivingLicenseApplication, {
             application: { id: applicationId },

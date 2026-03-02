@@ -6,6 +6,7 @@ import {
     OneToMany,
 } from 'typeorm';
 import { TestAppointment } from './TestAppointment';
+import { TestTypeSystemName } from '@dvld/shared/src/dtos/testType.dto';
 
 @Entity()
 export class TestType extends BaseEntity {
@@ -15,8 +16,8 @@ export class TestType extends BaseEntity {
     @Column({ unique: true })
     sequence_order: number;
 
-    @Column()
-    system_name: string; // TODO make it an enum
+    @Column({ type: 'enum', enum: TestTypeSystemName })
+    system_name: TestTypeSystemName;
 
     @Column()
     type_name: string;

@@ -22,7 +22,7 @@ import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLi
 import { LicenseDTO } from '@dvld/shared/src/dtos/license.dto';
 import { InternationalLicenseDTO } from '@dvld/shared/src/dtos/internationalLicense.dto';
 import { getAllTestTypes } from '../../api/test/testType';
-import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
+import { TestTypeDTO, TestTypeSystemName } from '@dvld/shared/src/dtos/testType.dto';
 
 export default function ManageLocalApplications() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
@@ -101,19 +101,19 @@ export default function ManageLocalApplications() {
     {
       type: ApplicationsActionType.Vision,
       handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.Vision }),
-      isDisabled: (row) => testTypes[row.passed_tests]?.system_name !== 'VISION_TEST'
+      isDisabled: (row) => testTypes[row.passed_tests]?.system_name !== TestTypeSystemName.Vision
     },
     
     {
       type: ApplicationsActionType.Written,
       handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.Written }),
-      isDisabled: (row) => testTypes[row.passed_tests]?.system_name !== 'WRITTEN_TEST'
+      isDisabled: (row) => testTypes[row.passed_tests]?.system_name !== TestTypeSystemName.Written
     },
 
     {
       type: ApplicationsActionType.Street,
       handler: (row) => setActiveRowAction({ row, type: ApplicationsActionType.Street }),
-      isDisabled: (row) => testTypes[row.passed_tests]?.system_name !== 'PRACTICAL_TEST'
+      isDisabled: (row) => testTypes[row.passed_tests]?.system_name !== TestTypeSystemName.Practical
     },
 
     {

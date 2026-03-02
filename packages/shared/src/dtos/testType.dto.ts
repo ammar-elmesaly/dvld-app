@@ -4,5 +4,11 @@ export interface TestTypeDTO {
     type_name: string;
     type_description: string;
     type_fees: number;
-    system_name: string; // TODO make it an enum
+    system_name: TestTypeSystemName;
+}
+
+export enum TestTypeSystemName {
+    Vision = 'VISION_TEST',
+    Written = 'WRITTEN_TEST',
+    Practical = 'PRACTICAL_TEST'
 }
