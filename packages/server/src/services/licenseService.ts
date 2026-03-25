@@ -13,6 +13,7 @@ import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseA
 import { ApplicationRepo } from "../repositories/ApplicationRepo";
 import { TestType } from "../entities/TestType";
 import { LicenseRepo } from "../repositories/LicenseRepo";
+import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
 
 export async function issueLicenseFirstTime(
     createdByUserId: number,
@@ -126,7 +127,7 @@ export async function renewLicense(createdByUserId: number, licenseId: number, n
 
         // Create new Renew License Application
         const person = await getPersonByDriverId(driverId);
-        const applicationId = await newApplication(person.id, 'RENEW_LICENSE_SERVICE', createdByUserId, manager);
+        const applicationId = await newApplication(person.id, ApplicationTypeSystemName.RenewLicenseService, createdByUserId, manager);
 
         // Create New License
         const issueDate = new Date();
@@ -184,8 +185,8 @@ export async function replaceLicense(
         const person = await getPersonByDriverId(driverId);
 
         const appTypeMap = {
-            [ReplacementType.Damaged]: 'REPLACE_DAMAGED_SERVICE',
-            [ReplacementType.Lost]: 'REPLACE_LOST_SERVICE'
+            [ReplacementType.Damaged]: ApplicationTypeSystemName.ReplaceDamagedService,
+            [ReplacementType.Lost]: ApplicationTypeSystemName.ReplaceLostService
         };
 
         const appTypeName = appTypeMap[replacementType];

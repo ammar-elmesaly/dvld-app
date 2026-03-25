@@ -7,7 +7,7 @@ import { getDetainedLicenseWithLicenseId, getLicenseWithPersonById } from '../..
 import DriverLicenseInfo from '../../Info/DriverLicenseInfo/DriverLicenseInfo';
 
 import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
-import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
+import { ApplicationTypeDTO, ApplicationTypeSystemName } from '@dvld/shared/src/dtos/applicationType.dto';
 import { DetainedLicenseDTO } from "@dvld/shared/src/dtos/detainedLicense.dto";
 
 import { getApplicationTypeByName } from '../../../api/application/applicationType';
@@ -27,7 +27,7 @@ export default function ReleaseLicenseForm({ handleRefresh }: ReleaseLicenseForm
   const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
 
   useEffect(() => {
-    getApplicationTypeByName('RELEASE_DETAINED_SERVICE').then(setReleaseApplicationType);
+    getApplicationTypeByName(ApplicationTypeSystemName.ReleaseDetainedService).then(setReleaseApplicationType);
   }, []);
 
   useEffect(() => {

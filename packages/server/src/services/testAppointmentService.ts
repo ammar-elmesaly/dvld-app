@@ -8,6 +8,7 @@ import { newApplication } from "./applicationService";
 import { getApplicationTypeByName } from "./applicationTypeService";
 import { TestRepo } from "../repositories/TestRepo";
 import { TestAppointment } from "../entities/TestAppointment";
+import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
 
 
 export async function getTestAppointments(localDrivingLicenseApplicationId: number) {
@@ -36,7 +37,7 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
             relations: { application: { person: true } }
         }),
 
-        getApplicationTypeByName('RETAKE_TEST_SERVICE')
+        getApplicationTypeByName(ApplicationTypeSystemName.RetakeTestService)
     ]);
 
     if (!createdByUser) throw new AppError('User not found', 404);
@@ -58,7 +59,7 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
             } else if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Fail) {
                 // If an applicant fails a test, and wants to retake it, we make a retake test application
                 // and assign it to the testAppointment
-                retakeTestApplicationId = await newApplication(ldla.application.person.id, 'RETAKE_TEST_SERVICE', createdByUserId, manager);
+                retakeTestApplicationId = await newApplication(ldla.application.person.id, ApplicationTypeSystemName.RetakeTestService, createdByUserId, manager);
             } else if (lastAppointment.test && lastAppointment.test.test_status === TestResult.Success) {
                 throw new AppError("New appointments are unavailable for tests with an existing passing status.", 400);
             }

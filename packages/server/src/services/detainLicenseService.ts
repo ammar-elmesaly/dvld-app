@@ -5,6 +5,7 @@ import { AppError } from "../types/errors";
 import { UserRepo } from "../repositories/UserRepo";
 import { newApplication } from "./applicationService";
 import { DetainedLicenseRepo } from "../repositories/DetainLicenseRepo";
+import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
 
 export async function detainLicense(licenseId: number, createdByUserId: number, fineFees: number) {
     const [license, createdByUser] = await Promise.all([
@@ -57,7 +58,7 @@ export async function releaseLicense(licenseId: number, releasedByUserId: number
 
         const applicationId = await newApplication(
             detainedLicense.license.driver.person.id,
-            'RELEASE_DETAINED_SERVICE',
+            ApplicationTypeSystemName.ReleaseDetainedService,
             releasedByUserId,
             manager
         );

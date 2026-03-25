@@ -58,8 +58,8 @@ export class Person extends BaseEntity {
     @Column({ length: 11, unique: true })
     phone_number: string;
 
-    @Column({ unique: true})
-    email: string;
+    @Column({ unique: true, nullable: true })
+    email?: string;
 
     @ManyToOne(
         () => Country,

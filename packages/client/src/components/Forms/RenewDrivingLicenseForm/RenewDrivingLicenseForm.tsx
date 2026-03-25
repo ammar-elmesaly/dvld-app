@@ -6,7 +6,7 @@ import { apiFetch } from '../../../api/apiFetch';
 import { getLicenseWithPersonById } from '../../../api/license/license';
 import DriverLicenseInfo from '../../Info/DriverLicenseInfo/DriverLicenseInfo';
 import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
-import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
+import { ApplicationTypeDTO, ApplicationTypeSystemName } from '@dvld/shared/src/dtos/applicationType.dto';
 import { getApplicationTypeByName } from '../../../api/application/applicationType';
 import { UserSession } from '../../../types/UserSession';
 import { getCurrentUser } from '../../../api/user/user';
@@ -23,7 +23,7 @@ export default function RenewDrivingLicenseForm() {
   const [user, setUser] = useState<UserSession>({ username: "", userId: 0 });
 
   useEffect(() => {
-    getApplicationTypeByName('RENEW_LICENSE_SERVICE').then(setRenewApplicationType);
+    getApplicationTypeByName(ApplicationTypeSystemName.RenewLicenseService).then(setRenewApplicationType);
   }, []);
 
   useEffect(() => {

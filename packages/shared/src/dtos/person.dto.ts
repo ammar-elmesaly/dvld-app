@@ -16,7 +16,7 @@ export interface PersonDTO {
 
     address: string;
     phone_number: string;
-    email: string;
+    email?: string;
 
     national_country: string;
 

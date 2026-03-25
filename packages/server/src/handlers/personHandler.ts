@@ -63,7 +63,7 @@ export const createPersonHandler: RequestHandler = async (req, res) => {
         gender,
         address,
         phoneNumber,
-        email,
+        email === '' ? null : email,
         nationalCountryId,
         file ? file.filename : undefined
     );
