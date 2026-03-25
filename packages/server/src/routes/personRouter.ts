@@ -1,7 +1,7 @@
 import express from 'express';
-import { getAllPersonsHandler, createPersonHandler, getPersonByIdHandler, getPersonByNationalIdHandler, getPersonByDriverIdHandler } from '../handlers/personHandler';
+import { getAllPersonsHandler, createPersonHandler, getPersonByIdHandler, getPersonByNationalIdHandler, getPersonByDriverIdHandler, editPersonByIdHandler } from '../handlers/personHandler';
 import validate from "../middleware/validators/validate";
-import { validatePersonId, validateNewPerson, validatePersonNationalId } from '../middleware/validators/person';
+import { validatePersonId, validateNewPerson, validatePersonNationalId, validateEditPerson } from '../middleware/validators/person';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -30,5 +30,8 @@ router.get('/driverId/:driverId', requireAuth, getPersonByDriverIdHandler);
 
 // POST /person/new
 router.post('/new', requireAuth, upload.single("personalImage"), validateNewPerson, validate, createPersonHandler);
+
+// PUT /person/edit
+router.put('/edit', requireAuth, upload.single("personalImage"), validateEditPerson, validate, editPersonByIdHandler);
 
 export default router;

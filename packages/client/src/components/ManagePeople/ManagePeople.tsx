@@ -10,6 +10,7 @@ import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
 import { RowActionDef, ActiveRowAction, PeopleActionType } from '../../types/table';
 import PersonInformation from '../Info/PersonInfo/PersonInfo';
 import { getAllPersons } from '../../api/person/person';
+import EditPerson from '../Edit/EditPerson/EditPerson';
 
 export default function People() {
   const [filterBy, setFilterBy] = useState("");
@@ -20,6 +21,15 @@ export default function People() {
   // This sets which row action is active, which could be
   // View, Delete, Call, etc..
   const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<PersonDTO, PeopleActionType>>(null);
+
+  const [refreshKey, setRefreshKey] = useState(0);
+  const handleRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
+  useEffect(() => {
+      getAllPersons().then(setPeople);
+  }, [refreshKey]);
 
   const rowActions: RowActionDef<PersonDTO, PeopleActionType>[] = [
     {
@@ -77,7 +87,7 @@ export default function People() {
 
     case PeopleActionType.Edit:
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <EditPerson person={activeRowAction.row} handleRefresh={handleRefresh} />
       );
       break;
     
@@ -101,15 +111,6 @@ export default function People() {
   }
 
   const [persons, setPeople] = useState<PersonDTO[]>([]);
-
-  const [refreshKey, setRefreshKey] = useState(0);
-  const handleRefresh = () => {
-    setRefreshKey(prev => prev + 1);
-  };
-
-  useEffect(() => {
-      getAllPersons().then(setPeople);
-  }, [refreshKey]);
 
   return (
     <section className={styles.section}>

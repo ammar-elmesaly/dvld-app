@@ -33,6 +33,46 @@ export const getPersonByNationalIdHandler: RequestHandler = async (req, res) => 
     res.json(toPersonDTO(person));
 }
 
+export const editPersonByIdHandler: RequestHandler = async (req, res) => {
+    const file = req.file;
+
+    if (file && !file.mimetype.startsWith('image/'))
+        throw new AppError('Invalid image type', 400);
+    
+    const {
+        personId,
+        firstName,
+        secondName,
+        thirdName,
+        lastName,
+        nationalId,
+        dateOfBirth,
+        gender,
+        address,
+        phoneNumber,
+        email,
+        nationalCountryId,
+    } = req.body;
+
+    const updatedPersonId = await personService.editPersonById(
+        personId,
+        firstName,
+        secondName,
+        thirdName,
+        lastName,
+        nationalId,
+        dateOfBirth,
+        gender,
+        address,
+        phoneNumber,
+        email === '' ? null : email,
+        nationalCountryId,
+        file ? file.filename : undefined
+    );
+
+    res.json(updatedPersonId);
+}
+
 export const createPersonHandler: RequestHandler = async (req, res) => {
     const file = req.file;
 

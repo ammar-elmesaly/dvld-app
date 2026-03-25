@@ -25,9 +25,3 @@ export async function getPersonByNationalId(nationalId: number) {
 
     return res.json();
 }
-
-export async function editPersonById(personId: number, person: PersonDTO) {
-    const res = await apiFetch(`${baseUrl}/person/nid/${personId}`);
-
-    return res.json()
-}

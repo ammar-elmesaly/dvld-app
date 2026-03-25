@@ -54,3 +54,57 @@ export const validateNewPerson = [
         .optional({ values: 'falsy' })
         .isEmail().withMessage('Email must be a valid email address')
 ];
+
+export const validateEditPerson = [
+    body('personId')
+        .exists()
+        .withMessage('personId is required.')
+        .isInt( { min: 1 })
+        .withMessage('personId must be a positive integer.'),
+
+    body('firstName')
+        .optional()
+        .isAlpha().withMessage('First name must contain only letters')
+        .isLength({ min: 2, max: 15 }).withMessage('First name must be between 2 and 15 characters'),
+
+    body('secondName')
+        .optional()
+        .isAlpha().withMessage('Second name must contain only letters')
+        .isLength({ min: 2, max: 15 }).withMessage('Second name must be between 2 and 15 characters'),
+
+    body('thirdName')
+        .optional()
+        .isAlpha().withMessage('Third name must contain only letters')
+        .isLength({ min: 2, max: 15 }).withMessage('Third name must be between 2 and 15 characters'),
+
+    body('lastName')
+        .optional()
+        .isAlpha().withMessage('Last name must contain only letters')
+        .isLength({ min: 2, max: 15 }).withMessage('Last name must be between 2 and 15 characters'),
+
+    body('nationalId')
+        .optional()
+        .isNumeric().withMessage('National ID must contain only numbers')
+        .isLength({ min: 4, max: 4 }).withMessage('National ID must be exactly 4 digits'),
+
+    body('dateOfBirth')
+        .optional()
+        .isDate().withMessage('Date of birth must be a valid date'),
+
+    body('gender')
+        .optional()
+        .isIn(Object.values(Gender)).withMessage(`Gender must be one of: ${Object.values(Gender).join(', ')}`),
+
+    body('address')
+        .optional({ values: 'falsy' })
+        .isLength({ min: 20, max: 100 }).withMessage('Address must be between 20 and 100 characters'),
+
+    body('phoneNumber')
+        .optional()
+        .isNumeric().withMessage('Phone number must contain only numbers')
+        .isLength({ min: 11, max: 11 }).withMessage('Phone number must be exactly 11 digits'),
+
+    body('email')
+        .optional({ values: 'falsy' })
+        .isEmail().withMessage('Email must be a valid email address')
+];

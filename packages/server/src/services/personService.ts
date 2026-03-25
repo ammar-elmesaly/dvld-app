@@ -104,3 +104,48 @@ export const addNewPerson = async (
 
     return newPerson.id;
 }
+
+export const editPersonById = async (
+    personId: number,
+    firstName: string,
+    secondName: string,
+    thirdName: string,
+    lastName: string,
+    nationalId: string,
+    dateOfBirth: string,
+    gender: Gender,
+    address: string,
+    phoneNumber: string,
+    email: string,
+    nationalCountryId: number,
+    personalPhoto?: string,
+) => {
+    const person = await PersonRepo.findOneBy({ id: personId });
+    if (!person)
+        throw new AppError('Person not found', 404);
+
+    if (nationalCountryId) {
+        const country = await CountryRepo.findOneBy({ id: nationalCountryId });
+        if (!country)
+            throw new AppError('Country not found', 404);
+
+        person.national_country = country;
+    }
+
+    Object.assign(person, {
+        first_name: firstName,
+        second_name: secondName,
+        third_name: thirdName,
+        last_name: lastName,
+        national_id: nationalId,
+        date_of_birth: dateOfBirth,
+        gender: gender,
+        address: address,
+        phone_number: phoneNumber,
+        email: email,
+        personal_photo: personalPhoto
+    });
+
+    const savedPerson = await person.save();
+    return savedPerson.id;
+}

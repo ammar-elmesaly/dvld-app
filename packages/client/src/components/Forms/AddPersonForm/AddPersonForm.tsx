@@ -17,10 +17,25 @@ export default function AddPersonForm() {
   // Person has to be from 18 to 100 years old.
 
   const [countries, setCountries] = useState<CountryDTO[]>([]);
-
+  
   useEffect(() => {
     getAllCountries().then(setCountries);
   }, []);
+
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Create a temporary URL for the selected file
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+
+      // Clean up memory when component unmounts or file changes
+      return () => URL.revokeObjectURL(url);
+    }
+  };
+  
 
   return (
     <form onSubmit={onSubmit} method='POST' encType='multipart/form-data' className={styles.form}>
@@ -139,10 +154,19 @@ export default function AddPersonForm() {
         {/* Profile Image Column */}
         <div className={styles.imageColumn}>
           <div className={styles.imageBox}>
-            <img src='../../assets/palestine.jpeg' alt='person photo'></img>
+            <img 
+              src={previewUrl || '../../assets/palestine.jpeg'} 
+              alt='person photo' 
+            />
           </div>
           <div className={styles.imageLinkContainer}>
-            <input name="personalImage" type="file" className={styles.imageLink} accept='.jpg,.png'></input>
+            <input 
+              name="personalImage" 
+              type="file" 
+              className={styles.imageLink} 
+              accept='.jpg,.png'
+              onChange={handleImageChange}
+            />
           </div>
         </div>
       </div>
