@@ -1,6 +1,5 @@
 import { baseUrl } from "../urls";
 import { apiFetch } from "../apiFetch";
-import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
 
 export async function getAllPersons() {
     const res = await apiFetch(`${baseUrl}/person/all`);
@@ -9,7 +8,7 @@ export async function getAllPersons() {
 }
 
 export async function getPersonById(id: number) {
-    const res = await apiFetch(`${baseUrl}/person/id/${id}`);
+    const res = await apiFetch(`${baseUrl}/person/${id}`);
 
     return res.json();
 }

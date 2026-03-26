@@ -1,9 +1,9 @@
 import { RequestHandler } from "express";
-import { getAllApplicationTypes, getApplicationTypeByName } from "../services/applicationTypeService";
+import * as applicationTypeService from "../services/applicationTypeService";
 import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
 
 export const getAllApplicationTypesHandler: RequestHandler = async (_req, res) => {
-    const applicationTypes = await getAllApplicationTypes();
+    const applicationTypes = await applicationTypeService.getAllApplicationTypes();
 
     res.json(applicationTypes);
 }
@@ -11,7 +11,19 @@ export const getAllApplicationTypesHandler: RequestHandler = async (_req, res) =
 export const getApplicationTypeByNameHandler: RequestHandler = async (req, res) => {
     const { systemName } = req.params;
 
-    const applicationType = await getApplicationTypeByName(systemName as ApplicationTypeSystemName);
+    const applicationType = await applicationTypeService.getApplicationTypeByName(systemName as ApplicationTypeSystemName);
 
     res.json(applicationType);
+}
+
+export const editApplicationTypeByIdHandler: RequestHandler = async (req, res) => {
+    const { applicationTypeId } = req.params;
+
+    const { typeName, typeFees, defaultValidityLength } = req.body;
+
+    console.log({ applicationTypeId, typeName, typeFees, defaultValidityLength });
+
+    const updateApplicationTypeId = await applicationTypeService.editApplicationTypeById(applicationTypeId as unknown as number, typeName, typeFees, defaultValidityLength);
+
+    res.json(updateApplicationTypeId);
 }

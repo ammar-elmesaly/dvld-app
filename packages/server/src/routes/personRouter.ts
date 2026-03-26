@@ -19,8 +19,8 @@ const router = express.Router();
 // GET /person/all
 router.get('/all', requireAuth, getAllPersonsHandler);
 
-// GET /person/id/:personId
-router.get('/id/:personId', requireAuth, validatePersonId, validate, getPersonByIdHandler);
+// GET /person/:personId
+router.get('/:personId', requireAuth, validatePersonId, validate, getPersonByIdHandler);
 
 // GET /person/nid/:nationalId
 router.get('/nid/:nationalId', requireAuth, validatePersonNationalId, validate, getPersonByNationalIdHandler);
@@ -32,9 +32,9 @@ router.get('/driverId/:driverId', requireAuth, getPersonByDriverIdHandler);
 router.post('/new', requireAuth, upload.single("personalImage"), validateNewPerson, validate, createPersonHandler);
 
 // PUT /person/edit
-router.put('/edit', requireAuth, upload.single("personalImage"), validateEditPerson, validate, editPersonByIdHandler);
+router.put('/edit/:personId', requireAuth, upload.single("personalImage"), validateEditPerson, validate, editPersonByIdHandler);
 
-// DELETE /person/delete/id/:personId
-router.delete('/delete/id/:personId', requireAuth, deletePersonByIdHandler);
+// DELETE /person/delete/:personId
+router.delete('/delete/:personId', requireAuth, deletePersonByIdHandler);
 
 export default router;

@@ -1,14 +1,17 @@
+import { apiFetch } from "../../../api/apiFetch";
+import { baseUrl } from "../../../api/urls";
 import { Button } from "../../Button/Button";
 import styles from "../../Forms/Forms.module.css";
 import { TestTypeDTO } from "@dvld/shared/src/dtos/testType.dto";
 
 interface EditTestTypeProps {
   testType: TestTypeDTO;
+  handleRefresh: () => void;
 }
 
-export function EditTestType({ testType }: EditTestTypeProps) {
+export function EditTestType({ testType, handleRefresh }: EditTestTypeProps) {
   return (
-    <form method="POST" onSubmit={onSubmit} className={styles.form}>
+    <form method="POST" onSubmit={(e) => onSubmit(e, testType.id, handleRefresh)} className={styles.form}>
       <div className={styles.mainLayoutColumn}>
         <div className={styles.headerRow}>
           <h1>Edit Test Type</h1>
@@ -17,7 +20,7 @@ export function EditTestType({ testType }: EditTestTypeProps) {
           <label htmlFor='type_name'>Type Name:</label>
           <div className={styles.inputGroup}>
             <i className="bi bi-tag"></i>
-            <input name="type_name" defaultValue={testType.type_name} type="text" required />
+            <input name="typeName" defaultValue={testType.type_name} type="text" required />
           </div>
         </div>
 
@@ -25,7 +28,7 @@ export function EditTestType({ testType }: EditTestTypeProps) {
           <label htmlFor='type_description'>Type Description:</label>
           <div className={styles.inputGroup}>
             <i className="bi bi-text-paragraph"></i>
-            <textarea name="type_description" defaultValue={testType.type_description} className={styles.textArea} required />
+            <textarea name="typeDescription" defaultValue={testType.type_description} className={styles.textArea} required />
           </div>
         </div>
 
@@ -33,7 +36,7 @@ export function EditTestType({ testType }: EditTestTypeProps) {
           <label htmlFor='type_fees'>Type Fees:</label>
           <div className={styles.inputGroup}>
             <i className="bi bi-coin"></i>
-            <input name="type_fees" defaultValue={testType.type_fees} type="text" required />
+            <input name="typeFees" defaultValue={testType.type_fees} type="text" required />
           </div>
         </div>
 
@@ -51,12 +54,27 @@ export function EditTestType({ testType }: EditTestTypeProps) {
   )
 }
 
-async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+const onSubmit = async (e: React.FormEvent<HTMLFormElement>, testTypeId: number, handleRefresh: () => void) => {
   e.preventDefault();
 
-  const formData = new FormData(e.currentTarget);
+  const confirm = window.confirm('Are you sure to update this test type?');
+  if (!confirm)
+    return;
   
-  for (const [key, value] of formData) {
-    console.log(`${key}: ${value}`);
-  }
-}
+  const formData = new FormData(e.currentTarget);
+
+  const data = Object.fromEntries(formData.entries());
+
+  const res = await apiFetch(`${baseUrl}/testType/edit/${testTypeId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+    body: JSON.stringify(data)
+  });
+
+  const updatedTestTypeId = await res.json();
+
+  alert(`Test type with id: ${updatedTestTypeId} updated successfully.`);
+  handleRefresh();
+};

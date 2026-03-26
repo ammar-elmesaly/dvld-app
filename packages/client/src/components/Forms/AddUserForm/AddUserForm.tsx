@@ -10,7 +10,11 @@ import { useState } from 'react';
 import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';
 
-export default function AddUserForm() {
+interface AddUserPops {
+  handleRefresh: () => void;
+}
+
+export default function AddUserForm({ handleRefresh }: AddUserPops) {
   const [filterBy, setFilterBy] = useState("");
   const [filterValue, setFilterValue] = useState("");
 
@@ -20,7 +24,7 @@ export default function AddUserForm() {
 
   return (
     <>
-      <form method='POST' onSubmit={onSubmit} className={styles.form}>
+      <form method='POST' onSubmit={(e) => onSubmit(e, handleRefresh)} className={styles.form}>
         <div className={styles.headerRow}>
           <h1>Add New User</h1>
         </div>
@@ -154,7 +158,7 @@ async function searchPerson(
   }
 }
 
-async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+async function onSubmit(e: React.FormEvent<HTMLFormElement>, handleRefresh: () => void) {
   e.preventDefault();
 
   const formData = new FormData(e.currentTarget);
@@ -177,11 +181,11 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload),
-    credentials: 'include'
+    body: JSON.stringify(payload)
   });
 
   const userId = await res.json();
 
   alert(`User registered successfully with id: ${userId}.`);
+  handleRefresh();
 }

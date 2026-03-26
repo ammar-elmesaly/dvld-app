@@ -133,8 +133,7 @@ export default function AddTestAppointmentForm({ ldla, testType, lastTestAppoint
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload),
-      credentials: 'include'
+      body: JSON.stringify(payload)
     });
 
     const testAppointmentId = await res.json();

@@ -189,8 +189,7 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>, handleRefresh?: () 
 
   const res = await apiFetch(`${baseUrl}/person/new`, {
     method: 'POST',
-    body: formData,
-    credentials: 'include'
+    body: formData
   });
 
   const personId = await res.json();

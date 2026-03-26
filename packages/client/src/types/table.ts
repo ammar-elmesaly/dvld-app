@@ -12,8 +12,6 @@ export enum UserActionType {
     NewUser = 'Add a new User',
     Edit = 'Edit',
     Delete = 'Delete',
-    Email = 'Send Email',
-    Call = 'Phone Call'
 }
 
 export enum ApplicationsActionType {

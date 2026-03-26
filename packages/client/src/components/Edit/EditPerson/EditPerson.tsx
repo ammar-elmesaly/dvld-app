@@ -186,8 +186,7 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>, personId: number, h
 
 	const res = await apiFetch(`${baseUrl}/person/edit`, {
 		method: 'PUT',
-		body: formData,
-		credentials: 'include'
+		body: formData
 	});
 
 	const updatedPersonId = await res.json();

@@ -31,9 +31,8 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>, personId: number, h
 
 	if (!confirm) return;
 
-	const res = await apiFetch(`${baseUrl}/person/delete/id/${personId}`, {
-		method: 'DELETE',
-		credentials: 'include'
+	const res = await apiFetch(`${baseUrl}/person/delete/${personId}`, {
+		method: 'DELETE'
 	});
 
 	const deletedPersonId = await res.json();

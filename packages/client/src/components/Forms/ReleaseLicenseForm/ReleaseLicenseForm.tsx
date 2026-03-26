@@ -131,8 +131,7 @@ export default function ReleaseLicenseForm({ handleRefresh }: ReleaseLicenseForm
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload),
-      credentials: 'include'
+      body: JSON.stringify(payload)
     });
 
     const licenseId = await res.json();

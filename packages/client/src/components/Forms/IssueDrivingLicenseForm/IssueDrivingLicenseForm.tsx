@@ -61,8 +61,7 @@ export function IssueDrivingLicenseForm({ localDrivingLicenseApplicationId, hand
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload),
-      credentials: 'include'
+      body: JSON.stringify(payload)
     });
 
     const drivingLicenseId = await res.json();

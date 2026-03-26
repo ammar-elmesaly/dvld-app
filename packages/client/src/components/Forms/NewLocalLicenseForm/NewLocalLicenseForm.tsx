@@ -230,8 +230,7 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>, userId: number, per
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload),
-    credentials: 'include'
+    body: JSON.stringify(payload)
   });
 
   const applicationId = await res.json();

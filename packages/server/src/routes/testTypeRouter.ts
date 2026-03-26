@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllTestTypesHandler, getTestTypeById, getTestTypeByName } from '../handlers/testTypeHandler';
+import { editTestTypeByIdHandler, getAllTestTypesHandler, getTestTypeByIdHandler, getTestTypeByNameHandler } from '../handlers/testTypeHandler';
 import { requireAuth } from '../middleware/validators/auth';
 
 const router = express.Router();
@@ -8,10 +8,12 @@ const router = express.Router();
 router.get('/all', requireAuth, getAllTestTypesHandler);
 
 // GET /testType/:testTypeId
-router.get('/:testTypeId', requireAuth, getTestTypeById);
+router.get('/:testTypeId', requireAuth, getTestTypeByIdHandler);
 
 // GET /testType/name/:systemName
-router.get('/name/:systemName', requireAuth, getTestTypeByName);
+router.get('/name/:systemName', requireAuth, getTestTypeByNameHandler);
 
+// PUT /testType/edit/:testTypeId
+router.put('/edit/:testTypeId', requireAuth, editTestTypeByIdHandler);
 
 export default router;

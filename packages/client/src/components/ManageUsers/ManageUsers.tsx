@@ -21,6 +21,16 @@ export default function ManageUsers() {
   // View, Delete, Call, etc..
   const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<UserDTO, UserActionType>>(null);
 
+  const [users, setUsers] = useState<UserDTO[]>([]);
+
+  const [refreshKey, setRefreshKey] = useState(0);
+  const handleRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+  useEffect(() => {
+      getAllUsers().then(setUsers);
+  }, [refreshKey]);
+
   const rowActions: RowActionDef<UserDTO, UserActionType>[] = [
     {
       type: UserActionType.View,
@@ -41,17 +51,7 @@ export default function ManageUsers() {
     {
       type: UserActionType.Delete,
       handler: (row) => setActiveRowAction({ row, type: UserActionType.Delete })
-    },
-
-    {
-      type: UserActionType.Email,
-      handler: (row) => setActiveRowAction({ row, type: UserActionType.Email })
-    },
-
-    {
-      type: UserActionType.Call,
-      handler: (row) => setActiveRowAction({ row, type: UserActionType.Call })
-    },
+    }
   ];
 
 
@@ -68,7 +68,7 @@ export default function ManageUsers() {
     
     case UserActionType.NewUser:
       selectedAction = (
-        <AddUserForm />
+        <AddUserForm handleRefresh={handleRefresh} />
       );
       break;
 
@@ -83,30 +83,7 @@ export default function ManageUsers() {
         <h1 className='stub'>STUB!</h1>
       );
       break;
-    
-    case UserActionType.Email:
-      selectedAction = (
-        <h1 className='stub'>STUB!</h1>
-      );
-      break;
-
-    case UserActionType.Call:
-      selectedAction = (
-        <h1 className='stub'>STUB!</h1>
-      );
-      break;
   }
-
-  const [users, setUsers] = useState<UserDTO[]>([]);
-
-  const [refreshKey, setRefreshKey] = useState(0);
-  const handleRefresh = () => {
-    setRefreshKey(prev => prev + 1);
-  };
-
-  useEffect(() => {
-      getAllUsers().then(setUsers);
-  }, [refreshKey]);
 
   return (
     <section className={styles.section}>
@@ -130,7 +107,7 @@ export default function ManageUsers() {
           <Button color='success' iconLeft="person-fill-add" onClick={() => setAddUserOpen(true)}>Add a user</Button>
         </div>
         <Overlay open={addUserOpen} onClose={() => setAddUserOpen(false)}>
-          <AddUserForm />
+          <AddUserForm handleRefresh={handleRefresh} />
         </Overlay>
 
         { activeRowAction &&

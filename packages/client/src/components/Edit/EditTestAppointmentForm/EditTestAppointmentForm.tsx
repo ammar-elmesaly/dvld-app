@@ -110,7 +110,6 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>, testAppointmentId: 
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
-    credentials: 'include'
   });
 
   const updatedTestAppointmentId = await res.json();

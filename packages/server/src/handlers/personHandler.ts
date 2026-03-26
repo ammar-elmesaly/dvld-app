@@ -39,8 +39,9 @@ export const editPersonByIdHandler: RequestHandler = async (req, res) => {
     if (file && !file.mimetype.startsWith('image/'))
         throw new AppError('Invalid image type', 400);
     
+    const { personId } = req.params;
+
     const {
-        personId,
         firstName,
         secondName,
         thirdName,
@@ -55,7 +56,7 @@ export const editPersonByIdHandler: RequestHandler = async (req, res) => {
     } = req.body;
 
     const updatedPersonId = await personService.editPersonById(
-        personId,
+        personId as unknown as number,
         firstName,
         secondName,
         thirdName,

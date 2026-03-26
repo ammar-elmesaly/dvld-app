@@ -8,7 +8,7 @@ export const getAllTestTypesHandler: RequestHandler = async (_req, res) => {
     res.json(testType);
 }
 
-export const getTestTypeById: RequestHandler = async (req, res) => {
+export const getTestTypeByIdHandler: RequestHandler = async (req, res) => {
     const { testTypeId } = req.params;
 
     const testType = await testTypeService.getTestTypeById(Number(testTypeId));
@@ -16,10 +16,20 @@ export const getTestTypeById: RequestHandler = async (req, res) => {
     res.json(testType);
 }
 
-export const getTestTypeByName: RequestHandler = async (req, res) => {
+export const getTestTypeByNameHandler: RequestHandler = async (req, res) => {
     const { systemName } = req.params;
 
     const testType = await testTypeService.getTestTypeByName(systemName as TestTypeSystemName);
     
     res.json(testType);
+}
+
+export const editTestTypeByIdHandler: RequestHandler = async (req, res) => {
+    const { testTypeId } = req.params;
+
+    const { typeName, typeDescription, typeFees } = req.body;
+
+    const updatedTestTypeId = await testTypeService.editTestTypeById(testTypeId as unknown as number, typeName, typeDescription, typeFees);
+
+    res.json(updatedTestTypeId);
 }

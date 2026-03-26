@@ -103,8 +103,7 @@ export default function DetainLicenseForm({ handleRefresh }: DetainLicenseFormPr
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload),
-      credentials: 'include'
+      body: JSON.stringify(payload)
     });
 
     const detainedLicenseId = await res.json();

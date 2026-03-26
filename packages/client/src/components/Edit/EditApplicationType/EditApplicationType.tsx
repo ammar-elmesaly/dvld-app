@@ -1,14 +1,17 @@
+import { apiFetch } from "../../../api/apiFetch";
+import { baseUrl } from "../../../api/urls";
 import { Button } from "../../Button/Button";
 import styles from "../../Forms/Forms.module.css";
 import { ApplicationTypeDTO } from "@dvld/shared/src/dtos/applicationType.dto";
 
 interface EditApplicationTypeProps {
   applicationType: ApplicationTypeDTO;
+  handleRefresh: () => void;
 }
 
-export function EditApplicationType({ applicationType }: EditApplicationTypeProps) {
+export function EditApplicationType({ applicationType, handleRefresh }: EditApplicationTypeProps) {
   return (
-    <form method="POST" onSubmit={onSubmit} className={styles.form}>
+    <form method="POST" onSubmit={(e) => onSubmit(e, applicationType.id, handleRefresh)} className={styles.form}>
       <div className={styles.mainLayoutColumn}>
         <div className={styles.headerRow}>
           <h1>Edit Application Type</h1>
@@ -17,7 +20,7 @@ export function EditApplicationType({ applicationType }: EditApplicationTypeProp
           <label htmlFor='type_name'>Type Name:</label>
           <div className={styles.inputGroup}>
             <i className="bi bi-tag"></i>
-            <input name="type_name" defaultValue={applicationType.type_name} type="text" required />
+            <input name="typeName" defaultValue={applicationType.type_name} type="text" required />
           </div>
         </div>
 
@@ -25,7 +28,7 @@ export function EditApplicationType({ applicationType }: EditApplicationTypeProp
           <label htmlFor='type_fees'>Type Fees:</label>
           <div className={styles.inputGroup}>
             <i className="bi bi-coin"></i>
-            <input name="type_fees" defaultValue={applicationType.type_fees} type="text" required />
+            <input name="typeFees" defaultValue={applicationType.type_fees} type="text" required />
           </div>
         </div>
 
@@ -35,7 +38,7 @@ export function EditApplicationType({ applicationType }: EditApplicationTypeProp
             <label htmlFor='default_validity_length'>Default Validity Length (years):</label>
             <div className={styles.inputGroup}>
               <i className="bi bi-calendar"></i>
-              <input name="default_validity_length" defaultValue={applicationType.default_validity_length} type="number" min={1} step={1} max={10} required />
+              <input name="defaultValidityLength" defaultValue={applicationType.default_validity_length} type="number" min={1} step={1} max={10} required />
             </div>
           </div>
         }
@@ -54,12 +57,26 @@ export function EditApplicationType({ applicationType }: EditApplicationTypeProp
   )
 }
 
-async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+const onSubmit = async (e: React.FormEvent<HTMLFormElement>, applicationTypeId: number, handleRefresh: () => void) => {
   e.preventDefault();
 
-  const formData = new FormData(e.currentTarget);
+  const confirm = window.confirm('Are you sure to update this application type?');
+  if (!confirm) return;
   
-  for (const [key, value] of formData) {
-    console.log(`${key}: ${value}`);
-  }
-}
+  const formData = new FormData(e.currentTarget);
+
+  const data = Object.fromEntries(formData.entries());
+
+  const res = await apiFetch(`${baseUrl}/applicationType/edit/${applicationTypeId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+    body: JSON.stringify(data)
+  });
+
+  const updatedApplicationTypeId = await res.json();
+
+  alert(`Application type with id: ${updatedApplicationTypeId} updated successfully.`);
+  handleRefresh();
+};

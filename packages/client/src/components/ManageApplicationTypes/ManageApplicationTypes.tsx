@@ -11,26 +11,7 @@ import Button from '../Button/Button';
 
 export default function ManageApplicationTypes() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
-
   const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<ApplicationTypeDTO, ApplicationTypesActionType>>(null);
-
-  const rowActions: RowActionDef<ApplicationTypeDTO, ApplicationTypesActionType>[] = [
-    {
-      type: ApplicationTypesActionType.Edit,
-      handler: (row) => setActiveRowAction({ row, type: ApplicationTypesActionType.Edit })
-    }
-  ];
-
-
-  let selectedAction: React.ReactNode = null;
-
-  switch (activeRowAction?.type) {
-    case ApplicationTypesActionType.Edit:
-      selectedAction = (
-        <EditApplicationType applicationType={activeRowAction.row} />
-      );
-      break;
-  }
 
   const [applicationTypes, setApplicationTypes] = useState<ApplicationTypeDTO[]>([]);
 
@@ -42,6 +23,23 @@ export default function ManageApplicationTypes() {
   useEffect(() => {
       getAllApplicationTypes().then(setApplicationTypes);
   }, [refreshKey]);
+
+  const rowActions: RowActionDef<ApplicationTypeDTO, ApplicationTypesActionType>[] = [
+    {
+      type: ApplicationTypesActionType.Edit,
+      handler: (row) => setActiveRowAction({ row, type: ApplicationTypesActionType.Edit })
+    }
+  ];
+
+  let selectedAction: React.ReactNode = null;
+
+  switch (activeRowAction?.type) {
+    case ApplicationTypesActionType.Edit:
+      selectedAction = (
+        <EditApplicationType applicationType={activeRowAction.row} handleRefresh={handleRefresh} />
+      );
+      break;
+  }
 
   return (
     <section className={styles.section}>

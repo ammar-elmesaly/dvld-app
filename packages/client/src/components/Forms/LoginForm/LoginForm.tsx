@@ -32,7 +32,7 @@ function LoginForm() {
         <label>Username:</label>
         <div className={styles.inputGroup}>
           <i className="bi bi-person" />
-          <input name="username" defaultValue="ammar1" type="text" required />
+          <input name="username" defaultValue="ammar" type="text" required />
         </div>
       </div>
 

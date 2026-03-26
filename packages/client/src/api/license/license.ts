@@ -2,13 +2,13 @@ import { baseUrl } from "../urls";
 import { apiFetch } from "../apiFetch";
 
 export async function getLicenseById(licenseId: number) {
-    const res = await apiFetch(`${baseUrl}/license/id/${licenseId}`);
+    const res = await apiFetch(`${baseUrl}/license/${licenseId}`);
 
     return res.json();
 }
 
 export async function getLicenseWithPersonById(licenseId: number) {
-    const res = await apiFetch(`${baseUrl}/license/id/${licenseId}?include=person`);
+    const res = await apiFetch(`${baseUrl}/license/${licenseId}?include=person`);
 
     return res.json();
 }

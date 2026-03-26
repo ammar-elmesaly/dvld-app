@@ -11,8 +11,18 @@ import Button from '../Button/Button';
 
 export default function ManageTestTypes() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);
-
   const [ activeRowAction, setActiveRowAction ] = useState<ActiveRowAction<TestTypeDTO, TestTypesActionType>>(null);
+  const [testTypes, setTestTypes] = useState<TestTypeDTO[]>([]);
+
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
+  useEffect(() => {
+      getAllTestTypes().then(setTestTypes);
+  }, [refreshKey]);
 
   const rowActions: RowActionDef<TestTypeDTO, TestTypesActionType>[] = [
     {
@@ -27,21 +37,10 @@ export default function ManageTestTypes() {
   switch (activeRowAction?.type) {
     case TestTypesActionType.Edit:
       selectedAction = (
-        <EditTestType testType={activeRowAction.row} />
+        <EditTestType testType={activeRowAction.row} handleRefresh={handleRefresh} />
       );
       break;
   }
-
-  const [testTypes, setTestTypes] = useState<TestTypeDTO[]>([]);
-
-  const [refreshKey, setRefreshKey] = useState(0);
-  const handleRefresh = () => {
-    setRefreshKey(prev => prev + 1);
-  };
-
-  useEffect(() => {
-      getAllTestTypes().then(setTestTypes);
-  }, [refreshKey]);
 
   return (
     <section className={styles.section}>

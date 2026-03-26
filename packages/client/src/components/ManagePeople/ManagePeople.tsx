@@ -12,6 +12,8 @@ import PersonInformation from '../Info/PersonInfo/PersonInfo';
 import { getAllPersons } from '../../api/person/person';
 import EditPerson from '../Edit/EditPerson/EditPerson';
 import DeletePersonForm from '../Delete/DeletePersonForm';
+import SendEmail from '../Forms/SendEmail/SendEmail';
+import PhoneCall from '../Forms/PhoneCall/PhoneCall';
 
 export default function People() {
   const [filterBy, setFilterBy] = useState("");
@@ -56,7 +58,8 @@ export default function People() {
 
     {
       type: PeopleActionType.Email,
-      handler: (row) => setActiveRowAction({ row, type: PeopleActionType.Email })
+      handler: (row) => setActiveRowAction({ row, type: PeopleActionType.Email }),
+      isDisabled: (row) => !row.email
     },
 
     {
@@ -100,13 +103,13 @@ export default function People() {
     
     case PeopleActionType.Email:
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <SendEmail email={activeRowAction.row.email} />
       );
       break;
 
     case PeopleActionType.Call:
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <PhoneCall phone={activeRowAction.row.phone_number} />
       );
       break;
   }

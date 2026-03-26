@@ -24,8 +24,8 @@ router.get('/detained/licenseId/:licenseId', requireAuth, getDetainedLicenseWith
 // GET /license/detained/all
 router.get('/detained/all', requireAuth, getAllDetainedLicensesHandler);
 
-// GET /license/id/:licenseId
-router.get('/id/:licenseId', requireAuth, getLicenseByIdHandler);
+// GET /license/:licenseId
+router.get('/:licenseId', requireAuth, getLicenseByIdHandler);
 
 // GET /license/all/driverId/:driverId
 router.get('/all/driverId/:driverId', requireAuth, getAllLicensesByDriverIdHandler);
