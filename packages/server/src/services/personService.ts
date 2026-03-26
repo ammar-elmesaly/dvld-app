@@ -149,3 +149,12 @@ export const editPersonById = async (
     const savedPerson = await person.save();
     return savedPerson.id;
 }
+
+export const deletePersonById = async (personId: number) => {
+    const deletedPerson = await getPersonById(personId);
+
+    const id = deletedPerson.id;
+    await deletedPerson.remove();
+    
+    return id;
+}

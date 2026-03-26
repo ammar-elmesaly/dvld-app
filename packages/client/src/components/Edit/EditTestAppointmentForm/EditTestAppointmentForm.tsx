@@ -1,5 +1,5 @@
 import Button from '../../Button/Button';
-import styles from './EditTestAppointmentForm.module.css';
+import styles from '../../Forms/Forms.module.css';
 import { useEffect, useState } from 'react';
 import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';
@@ -33,7 +33,7 @@ export default function EditTestAppointmentForm({ ldla, testType, testAppointmen
           <h1>Edit Test Appointment</h1>
         </div>
 
-        <div className={styles.mainLayout}>
+        <div className={styles.mainLayoutColumn}>
           <div className={styles.formRow}>
             <label htmlFor='dl_id'>D.L.App.ID:</label>
             <div className={styles.inputGroup}>

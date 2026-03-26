@@ -8,7 +8,11 @@ import { CountryDTO } from "@dvld/shared/src/dtos/country.dto";
 
 import { useState, useEffect } from 'react';
 
-export default function AddPersonForm() {
+interface AddPersonFormProps {
+  handleRefresh?: () => void;
+}
+
+export default function AddPersonForm({ handleRefresh }: AddPersonFormProps) {
   const minBirthdate = yearsAgo(100);
   const maxBirthdate = yearsAgo(18);
 
@@ -38,7 +42,7 @@ export default function AddPersonForm() {
   
 
   return (
-    <form onSubmit={onSubmit} method='POST' encType='multipart/form-data' className={styles.form}>
+    <form onSubmit={(e) => onSubmit(e, handleRefresh)} method='POST' encType='multipart/form-data' className={styles.form}>
       <div className={styles.headerRow}>
         <h1>Add New Person</h1>
       </div>
@@ -178,7 +182,7 @@ export default function AddPersonForm() {
   );
 }
 
-const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+const onSubmit = async (e: React.FormEvent<HTMLFormElement>, handleRefresh?: () => void) => {
   e.preventDefault();
 
   const formData = new FormData(e.currentTarget);
@@ -191,5 +195,7 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
   const personId = await res.json();
 
-  alert(`Person registered successfully with id: ${personId}.`)
+  alert(`Person registered successfully with id: ${personId}.`);
+  if (handleRefresh)
+    handleRefresh();
 }

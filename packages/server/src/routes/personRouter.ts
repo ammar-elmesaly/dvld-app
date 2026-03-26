@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllPersonsHandler, createPersonHandler, getPersonByIdHandler, getPersonByNationalIdHandler, getPersonByDriverIdHandler, editPersonByIdHandler } from '../handlers/personHandler';
+import { getAllPersonsHandler, createPersonHandler, getPersonByIdHandler, getPersonByNationalIdHandler, getPersonByDriverIdHandler, editPersonByIdHandler, deletePersonByIdHandler } from '../handlers/personHandler';
 import validate from "../middleware/validators/validate";
 import { validatePersonId, validateNewPerson, validatePersonNationalId, validateEditPerson } from '../middleware/validators/person';
 import multer from 'multer';
@@ -33,5 +33,8 @@ router.post('/new', requireAuth, upload.single("personalImage"), validateNewPers
 
 // PUT /person/edit
 router.put('/edit', requireAuth, upload.single("personalImage"), validateEditPerson, validate, editPersonByIdHandler);
+
+// DELETE /person/delete/id/:personId
+router.delete('/delete/id/:personId', requireAuth, deletePersonByIdHandler);
 
 export default router;

@@ -110,3 +110,11 @@ export const createPersonHandler: RequestHandler = async (req, res) => {
 
     res.status(201).json(personId);
 };
+
+export const deletePersonByIdHandler: RequestHandler = async (req, res) => {
+    const { personId } = req.params;
+
+    const deletedPersonId = await personService.deletePersonById(personId as unknown as number);
+
+    res.json(deletedPersonId);
+}

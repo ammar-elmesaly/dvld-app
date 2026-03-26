@@ -11,6 +11,7 @@ import { RowActionDef, ActiveRowAction, PeopleActionType } from '../../types/tab
 import PersonInformation from '../Info/PersonInfo/PersonInfo';
 import { getAllPersons } from '../../api/person/person';
 import EditPerson from '../Edit/EditPerson/EditPerson';
+import DeletePersonForm from '../Delete/DeletePersonForm';
 
 export default function People() {
   const [filterBy, setFilterBy] = useState("");
@@ -81,7 +82,7 @@ export default function People() {
     
     case PeopleActionType.NewPerson:
       selectedAction = (
-        <AddPersonForm />
+        <AddPersonForm handleRefresh={handleRefresh} />
       );
       break;
 
@@ -93,7 +94,7 @@ export default function People() {
     
     case PeopleActionType.Delete:
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <DeletePersonForm person={activeRowAction.row} handleRefresh={handleRefresh} />
       );
       break;
     
@@ -135,7 +136,7 @@ export default function People() {
           <Button color='success' iconLeft="person-fill-add" onClick={() => setAddPersonOpen(true)}>Add a person</Button>
         </div>
         <Overlay open={addPersonOpen} onClose={() => setAddPersonOpen(false)}>
-          <AddPersonForm />
+          <AddPersonForm handleRefresh={handleRefresh} />
         </Overlay>
 
         { activeRowAction &&

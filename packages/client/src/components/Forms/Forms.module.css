@@ -115,6 +115,10 @@
     gap: 20px;
 }
 
+.loginInfoLayout {
+    flex-direction: column;  
+}
+
 .mainLayoutColumn {
     display: flex;
     flex-direction: column;

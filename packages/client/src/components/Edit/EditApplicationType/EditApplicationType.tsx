@@ -1,5 +1,5 @@
 import { Button } from "../../Button/Button";
-import styles from "./EditApplicationType.module.css";
+import styles from "../../Forms/Forms.module.css";
 import { ApplicationTypeDTO } from "@dvld/shared/src/dtos/applicationType.dto";
 
 interface EditApplicationTypeProps {
@@ -8,8 +8,8 @@ interface EditApplicationTypeProps {
 
 export function EditApplicationType({ applicationType }: EditApplicationTypeProps) {
   return (
-    <form method="POST" onSubmit={onSubmit}>
-      <div className={styles.editLayout}>
+    <form method="POST" onSubmit={onSubmit} className={styles.form}>
+      <div className={styles.mainLayoutColumn}>
         <div className={styles.headerRow}>
           <h1>Edit Application Type</h1>
         </div>

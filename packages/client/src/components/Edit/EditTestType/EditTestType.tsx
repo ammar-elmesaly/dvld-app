@@ -1,5 +1,5 @@
 import { Button } from "../../Button/Button";
-import styles from "./EditTestType.module.css";
+import styles from "../../Forms/Forms.module.css";
 import { TestTypeDTO } from "@dvld/shared/src/dtos/testType.dto";
 
 interface EditTestTypeProps {
@@ -8,8 +8,8 @@ interface EditTestTypeProps {
 
 export function EditTestType({ testType }: EditTestTypeProps) {
   return (
-    <form method="POST" onSubmit={onSubmit}>
-      <div className={styles.editLayout}>
+    <form method="POST" onSubmit={onSubmit} className={styles.form}>
+      <div className={styles.mainLayoutColumn}>
         <div className={styles.headerRow}>
           <h1>Edit Test Type</h1>
         </div>
@@ -25,7 +25,7 @@ export function EditTestType({ testType }: EditTestTypeProps) {
           <label htmlFor='type_description'>Type Description:</label>
           <div className={styles.inputGroup}>
             <i className="bi bi-text-paragraph"></i>
-            <textarea name="type_description" defaultValue={testType.type_description} className={styles.descriptionTextArea} required />
+            <textarea name="type_description" defaultValue={testType.type_description} className={styles.textArea} required />
           </div>
         </div>
 
