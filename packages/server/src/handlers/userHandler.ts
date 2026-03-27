@@ -17,3 +17,21 @@ export const createNewUserHandler: RequestHandler = async (req, res) => {
     res.status(201).json(userId);
 
 }
+
+export const editUserByIdHandler: RequestHandler = async (req, res) => {
+    const { userId } = req.params;
+    const { isActive } = req.body;
+
+    const updatedUserId = await userService.editUserById(userId as unknown as number, isActive);
+
+    res.json(updatedUserId);
+};
+
+export const deleteUserByIdHandler: RequestHandler = async (req, res) => {
+    const currentUserId = req.session.userId;
+    const { userId } = req.params;
+
+    const deletedUserId = await userService.deleteUserById(userId as unknown as number, currentUserId!);
+
+    res.json(deletedUserId);
+}

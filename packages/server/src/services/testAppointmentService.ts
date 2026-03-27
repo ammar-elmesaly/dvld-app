@@ -2,13 +2,13 @@ import { TestResult } from "@dvld/shared/src/types/test";
 import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseApplication";
 import { TestAppointmentRepo } from "../repositories/TestAppointmentRepo";
 import { TestType } from "../entities/TestType";
-import { User } from "../entities/User";
 import { AppError } from "../types/errors";
 import { newApplication } from "./applicationService";
 import { getApplicationTypeByName } from "./applicationTypeService";
 import { TestRepo } from "../repositories/TestRepo";
 import { TestAppointment } from "../entities/TestAppointment";
 import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { getUserById } from "./userService";
 
 
 export async function getTestAppointments(localDrivingLicenseApplicationId: number) {
@@ -21,7 +21,7 @@ export async function getTestAppointments(localDrivingLicenseApplicationId: numb
 
 export async function createTestAppointment(testTypeId: number, localDrivingLicenseApplicationId: number, appointmentDate: Date, createdByUserId: number) {
     const [createdByUser, lastAppointment, ldla, retakeType] = await Promise.all([
-        User.findOneBy({ id: createdByUserId }),
+        getUserById(createdByUserId),
 
         TestAppointmentRepo.findOne({
             where: {
@@ -40,7 +40,6 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
         getApplicationTypeByName(ApplicationTypeSystemName.RetakeTestService)
     ]);
 
-    if (!createdByUser) throw new AppError('User not found', 404);
     if (!ldla) throw new AppError('Local driving license application not found', 404);
 
     const passedTestCount = ldla.passed_tests;

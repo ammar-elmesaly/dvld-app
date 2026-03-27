@@ -11,9 +11,6 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     
     const user = await getUserByName(username);
 
-    if (!user)
-        throw new AppError('Invalid Credentials', 400);
-
     const ok = await compare(password, user.password);
 
     if (!ok)

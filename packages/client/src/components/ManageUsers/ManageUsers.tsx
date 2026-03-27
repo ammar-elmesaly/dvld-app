@@ -10,6 +10,8 @@ import { UserDTO } from '@dvld/shared/src/dtos/user.dto';
 import { RowActionDef, ActiveRowAction, UserActionType } from '../../types/table';
 import UserInfo from '../Info/UserInfo/UserInfo';
 import { getAllUsers } from '../../api/user/user';
+import DeleteUserForm from '../Delete/DeleteUserForm';
+import EditUser from '../Edit/EditUser/EditUser';
 
 export default function ManageUsers() {
   const [filterBy, setFilterBy] = useState("");
@@ -74,13 +76,13 @@ export default function ManageUsers() {
 
     case UserActionType.Edit:
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <EditUser user={activeRowAction.row} handleRefresh={handleRefresh} />
       );
       break;
     
     case UserActionType.Delete:
       selectedAction = (
-        <h1 className='stub'>STUB!</h1>
+        <DeleteUserForm user={activeRowAction.row} handleRefresh={handleRefresh} />
       );
       break;
   }

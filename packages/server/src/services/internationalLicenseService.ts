@@ -3,10 +3,10 @@ import { newApplication } from "./applicationService";
 import { getApplicationTypeByName } from "./applicationTypeService";
 import { AppError } from "../types/errors";
 import { isExpired } from "../utils/dateUtil";
-import { UserRepo } from "../repositories/UserRepo";
 import { LicenseRepo } from "../repositories/LicenseRepo";
 import { LicenseClassSystemName } from "@dvld/shared/src/dtos/licenseClass.dto";
 import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { getUserById } from "./userService";
 
 export async function issueLicense(
     createdByUserId: number,
@@ -22,11 +22,10 @@ export async function issueLicense(
                 license_class: true
             }
         }),
-        UserRepo.findOneBy({ id: createdByUserId }),
+        getUserById(createdByUserId)
     ]);
 
     if (!license) throw new AppError('License not found', 404);
-    if (!createdByUser) throw new AppError('User not found', 404);
 
     if (license.license_class.system_name !== LicenseClassSystemName.Ordinary)
         throw new AppError('License class must be ordinary driving license in order to issue international license', 400);

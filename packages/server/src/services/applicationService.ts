@@ -4,11 +4,11 @@ import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseA
 import { AppError } from "../types/errors";
 import { PersonRepo } from "../repositories/PersonRepo";
 import { ApplicationType } from "../entities/ApplicationType";
-import { UserRepo } from "../repositories/UserRepo";
 import { ApplicationStatus } from "@dvld/shared/src/types/application";
 import { EntityManager, Not } from "typeorm";
 import { Application } from "../entities/Application";
 import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { getUserById } from "./userService";
 
 export function getAllApplications() {
     return ApplicationRepo.find();
@@ -26,12 +26,11 @@ export async function newApplication(personId: number, applicationTypeSystemName
     const [person, applicationType, createdByUser] = await Promise.all([
         PersonRepo.findOneBy({ id: personId }),
         ApplicationType.findOneBy({ system_name: applicationTypeSystemName }),
-        UserRepo.findOneBy({ id: createdByUserId })
+        getUserById(createdByUserId)
     ]);
 
     if (!person) throw new AppError('Person not found', 404);
     if (!applicationType) throw new AppError('Application Type not found', 404);
-    if (!createdByUser) throw new AppError('User not found', 404);  
 
     const initialStatus =
     applicationType.system_name === ApplicationTypeSystemName.LocalLicenseService

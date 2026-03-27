@@ -1,8 +1,8 @@
 import { TestResult } from "@dvld/shared/src/types/test";
 import { TestAppointmentRepo } from "../repositories/TestAppointmentRepo";
 import { AppError } from "../types/errors";
-import { UserRepo } from "../repositories/UserRepo";
 import { Test } from "../entities/Test";
+import { getUserById } from "./userService";
 
 export async function createNewTest(
     testAppointmentId: number,
@@ -11,15 +11,12 @@ export async function createNewTest(
     testNotes: string
 ) {
     const [user, testAppointment] = await Promise.all([
-        UserRepo.findOneBy({ id: createdByUserId }),
+        getUserById(createdByUserId),
         TestAppointmentRepo.findOne({
             where: { id: testAppointmentId },
             relations: { test: true }
         })
     ]);
-
-    if (!user)
-        throw new AppError('User not found', 404);
 
     if (!testAppointment)
         throw new AppError('Test appointment not found', 404);

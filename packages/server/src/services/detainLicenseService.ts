@@ -2,10 +2,10 @@ import { IsNull } from "typeorm";
 import { DetainedLicense } from "../entities/DetainedLicense";
 import { License } from "../entities/License";
 import { AppError } from "../types/errors";
-import { UserRepo } from "../repositories/UserRepo";
 import { newApplication } from "./applicationService";
 import { DetainedLicenseRepo } from "../repositories/DetainLicenseRepo";
 import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { getUserById } from "./userService";
 
 export async function detainLicense(licenseId: number, createdByUserId: number, fineFees: number) {
     const [license, createdByUser] = await Promise.all([
@@ -16,8 +16,8 @@ export async function detainLicense(licenseId: number, createdByUserId: number, 
             relations: {
                 detained_licenses: true
             }
-        }),
-        UserRepo.findOneBy({ id: createdByUserId })        
+        }),      
+        getUserById(createdByUserId)
     ]);
 
     if (!license) throw new AppError('License not found', 404);
@@ -25,8 +25,6 @@ export async function detainLicense(licenseId: number, createdByUserId: number, 
     
     const licenseAlreadyDetained = license.detained_licenses.some(dl => dl.release_date === null);
     if (licenseAlreadyDetained) throw new AppError('Cannot detain this license, it is already detained', 400);
-
-    if (!createdByUser) throw new AppError('User not found', 404);
 
     const detainedLicense = await DetainedLicense.create({
         license,
@@ -39,9 +37,7 @@ export async function detainLicense(licenseId: number, createdByUserId: number, 
 }
 
 export async function releaseLicense(licenseId: number, releasedByUserId: number) {
-    const releasedByUser = await UserRepo.findOneBy({ id: releasedByUserId });
-    if (!releasedByUser)
-        throw new AppError('User not found', 404);
+    const releasedByUser = await getUserById(releasedByUserId);
 
     return DetainedLicenseRepo.manager.transaction(async (manager) => {
         const detainedLicense = await manager.findOne(DetainedLicense, {
