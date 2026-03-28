@@ -1,7 +1,7 @@
 import express from 'express';
 import { getAllPersonsHandler, createPersonHandler, getPersonByIdHandler, getPersonByNationalIdHandler, getPersonByDriverIdHandler, editPersonByIdHandler, deletePersonByIdHandler } from '../handlers/personHandler';
 import validate from "../middleware/validators/validate";
-import { validatePersonId, validateNewPerson, validatePersonNationalId, validateEditPerson } from '../middleware/validators/person';
+import { validatePersonId, validateNewPerson, validatePersonNationalId, validateEditPerson, validateDriverId } from '../middleware/validators/person';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -26,7 +26,7 @@ router.get('/:personId', requireAuth, validatePersonId, validate, getPersonByIdH
 router.get('/nid/:nationalId', requireAuth, validatePersonNationalId, validate, getPersonByNationalIdHandler);
 
 // GET /person/driverId/:driverId
-router.get('/driverId/:driverId', requireAuth, getPersonByDriverIdHandler);
+router.get('/driverId/:driverId', requireAuth, validateDriverId, validate, getPersonByDriverIdHandler);
 
 // POST /person/new
 router.post('/new', requireAuth, upload.single("personalImage"), validateNewPerson, validate, createPersonHandler);
@@ -35,6 +35,6 @@ router.post('/new', requireAuth, upload.single("personalImage"), validateNewPers
 router.put('/edit/:personId', requireAuth, upload.single("personalImage"), validateEditPerson, validate, editPersonByIdHandler);
 
 // DELETE /person/delete/:personId
-router.delete('/delete/:personId', requireAuth, deletePersonByIdHandler);
+router.delete('/delete/:personId', requireAuth, validatePersonId, validate, deletePersonByIdHandler);
 
 export default router;

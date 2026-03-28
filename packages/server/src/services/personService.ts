@@ -120,9 +120,7 @@ export const editPersonById = async (
     nationalCountryId: number,
     personalPhoto?: string,
 ) => {
-    const person = await PersonRepo.findOneBy({ id: personId });
-    if (!person)
-        throw new AppError('Person not found', 404);
+    const person = await getPersonById(personId);
 
     if (nationalCountryId) {
         const country = await CountryRepo.findOneBy({ id: nationalCountryId });

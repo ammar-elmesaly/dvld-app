@@ -1,6 +1,8 @@
 import express from 'express';
 import { getAllApplicationsHandler, getLocalDrivingLicenseApplicationsHandler, newLocalDrivingLicenseHandler, newApplicationHandler, getInternationalDrivingLicenseApplicationsHandler } from '../handlers/applicationHandler';
 import { requireAuth } from '../middleware/validators/auth';
+import validate from '../middleware/validators/validate';
+import { validateNewApplication, validateNewLocalDrivingLicenseApplication } from '../middleware/validators/application';
 
 const router = express.Router();
 
@@ -14,8 +16,8 @@ router.get('/all/local', requireAuth, getLocalDrivingLicenseApplicationsHandler)
 router.get('/all/international', requireAuth, getInternationalDrivingLicenseApplicationsHandler);
 
 // POST /application/new
-router.post('/new', requireAuth, newApplicationHandler);
+router.post('/new', requireAuth, validateNewApplication, validate, newApplicationHandler);
 
 // POST /application/new/local
-router.post('/new/local', requireAuth, newLocalDrivingLicenseHandler);
+router.post('/new/local', requireAuth, validateNewLocalDrivingLicenseApplication, validate, newLocalDrivingLicenseHandler);
 export default router;

@@ -1,10 +1,18 @@
 import { body, param } from "express-validator";
 import { Gender } from "@dvld/shared/src/types/person";
+import { AppError } from "../../types/errors";
+import { isValidPersonAge } from "../../utils/dateUtil";
 
 // Validate personId in params
 export const validatePersonId = [
     param('personId')
-        .isNumeric().withMessage('Please enter a valid numeric personId')
+        .isInt({ min: 1 }).withMessage('Please enter a valid positive numeric personId')
+];
+
+// Validate driverId in params
+export const validateDriverId = [
+    param('driverId')
+        .isInt({ min: 1 }).withMessage('Please enter a valid positive numeric driverId')
 ];
 
 // Validate nationalId in params
@@ -37,7 +45,13 @@ export const validateNewPerson = [
         .isLength({ min: 4, max: 4 }).withMessage('National ID must be exactly 4 digits'),
 
     body('dateOfBirth')
-        .isDate().withMessage('Date of birth must be a valid date'),
+        .isDate().withMessage('Date of birth must be a valid date')
+        .custom((value) => {
+            const inputDate = new Date(value);
+            if (!isValidPersonAge(inputDate))
+                throw new AppError('Person has to be at least 18 years old and at most 100 years old.', 400);
+            return true;
+        }), 
 
     body('gender')
         .isIn(Object.values(Gender)).withMessage(`Gender must be one of: ${Object.values(Gender).join(', ')}`),
@@ -52,14 +66,15 @@ export const validateNewPerson = [
 
     body('email')
         .optional({ values: 'falsy' })
-        .isEmail().withMessage('Email must be a valid email address')
+        .isEmail().withMessage('Email must be a valid email address'),
+
+    body('nationalCountryId')
+        .isInt({ min: 1 }).withMessage('nationalCountryId must be a positive integer')
 ];
 
 export const validateEditPerson = [
-    body('personId')
-        .exists()
-        .withMessage('personId is required.')
-        .isInt( { min: 1 })
+    param('personId')
+        .isInt({ min: 1 })
         .withMessage('personId must be a positive integer.'),
 
     body('firstName')
@@ -89,7 +104,13 @@ export const validateEditPerson = [
 
     body('dateOfBirth')
         .optional()
-        .isDate().withMessage('Date of birth must be a valid date'),
+        .isDate().withMessage('Date of birth must be a valid date')
+        .custom((value) => {
+            const inputDate = new Date(value);
+            if (!isValidPersonAge(inputDate))
+                throw new AppError('Person has to be at least 18 years old and at most 100 years old.', 400);
+            return true;
+        }), 
 
     body('gender')
         .optional()
@@ -106,5 +127,9 @@ export const validateEditPerson = [
 
     body('email')
         .optional({ values: 'falsy' })
-        .isEmail().withMessage('Email must be a valid email address')
+        .isEmail().withMessage('Email must be a valid email address'),
+
+    body('nationalCountryId')
+        .optional({ values: 'falsy' })
+        .isInt({ min: 1 }).withMessage('nationalCountryId must be a positive integer')
 ];

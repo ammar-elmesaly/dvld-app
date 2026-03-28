@@ -7,7 +7,7 @@ export const getCurrentUser: RequestHandler = async (_req, res) => {
     }); TODO */
 
     res.json({
-        userId: 1,
-        username: "ammar1"
+        userId: 15,
+        username: "ammar"
     })
 }

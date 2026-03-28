@@ -1,6 +1,6 @@
 import express from 'express';
 import { editApplicationTypeByIdHandler, getAllApplicationTypesHandler, getApplicationTypeByNameHandler } from '../handlers/applicationTypeHandler';
-import { validateApplicationType } from '../middleware/validators/applicationType';
+import { validateApplicationType, validateApplicationTypeId, validateEditApplicationType } from '../middleware/validators/applicationType';
 import { requireAuth } from '../middleware/validators/auth';
 import validate from '../middleware/validators/validate';
 
@@ -13,6 +13,6 @@ router.get('/all', requireAuth, getAllApplicationTypesHandler);
 router.get('/name/:systemName', requireAuth, validateApplicationType, validate, getApplicationTypeByNameHandler)
 
 // PUT /applicationType/edit/:applicationTypeId
-router.put('/edit/:applicationTypeId', requireAuth, editApplicationTypeByIdHandler);
+router.put('/edit/:applicationTypeId', requireAuth, validateApplicationTypeId, validateEditApplicationType, validate, editApplicationTypeByIdHandler);
 
 export default router;

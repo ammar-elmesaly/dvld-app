@@ -2,7 +2,7 @@
 import { LicenseClassSystemName } from "@dvld/shared/src/dtos/licenseClass.dto";
 import { param } from "express-validator";
 
-export const validateApplicationType = [
+export const validateLicenseClassType = [
     param('systemName')
         .exists()
         .trim()
