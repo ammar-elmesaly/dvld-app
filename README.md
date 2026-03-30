@@ -35,9 +35,11 @@ DB_USERNAME=your_db_user
 DB_PASSWORD=your_db_password
 DB_NAME=dvld
 SESSION_SECRET=your_session_secret
+NODE_ENV='development' | 'production'
+CORS_ORIGIN='http://localhost:5173'
 ```
 
-The server uses `typeorm` with `synchronize: true`, so it will auto-create tables on startup.
+The server uses `typeorm` with `synchronize: true` (in development mode), so it will auto-create tables on startup.
 
 ## Install Dependencies
 

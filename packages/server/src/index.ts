@@ -30,14 +30,14 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
     }
 }));
 
 // Allow CORS for frontend
 app.use(cors({
-    origin: 'http://localhost:5173', // frontend
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173', // frontend
     credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }));
