@@ -1,5 +1,5 @@
 
-import { LicenseClassSystemName } from "@dvld/shared/src/dtos/licenseClass.dto";
+import { LicenseClassSystemName } from '@dvld/shared';
 import { param } from "express-validator";
 
 export const validateLicenseClassType = [

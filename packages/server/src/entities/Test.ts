@@ -8,7 +8,7 @@ import {
     ManyToOne
 } from 'typeorm';
 import { TestAppointment } from './TestAppointment';
-import { TestResult } from "@dvld/shared/src/types/test";
+import { TestResult } from '@dvld/shared';
 import { User } from './User';
 
 @Entity()

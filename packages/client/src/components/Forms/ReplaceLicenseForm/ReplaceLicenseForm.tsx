@@ -5,12 +5,12 @@ import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';
 import { getLicenseWithPersonById } from '../../../api/license/license';
 import DriverLicenseInfo from '../../Info/DriverLicenseInfo/DriverLicenseInfo';
-import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
-import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
+import { LicensePersonDTO } from '@dvld/shared';
+import { ApplicationTypeDTO } from '@dvld/shared';
 import { getApplicationTypeByName } from '../../../api/application/applicationType';
 import { UserSession } from '../../../types/UserSession';
 import { getCurrentUser } from '../../../api/user/user';
-import { ReplacementType } from '@dvld/shared/src/types/license';
+import { ReplacementType } from '@dvld/shared';
 
 export default function ReplaceLicenseForm() {
 	const [filterValue, setFilterValue] = useState("");

@@ -2,7 +2,7 @@ import { apiFetch } from "../../../api/apiFetch";
 import { baseUrl } from "../../../api/urls";
 import { Button } from "../../Button/Button";
 import styles from "../../Forms/Forms.module.css";
-import { TestTypeDTO } from "@dvld/shared/src/dtos/testType.dto";
+import { TestTypeDTO } from '@dvld/shared';
 
 interface EditTestTypeProps {
   testType: TestTypeDTO;

@@ -6,9 +6,9 @@ import { apiFetch } from '../../../api/apiFetch';
 import { getDetainedLicenseWithLicenseId, getLicenseWithPersonById } from '../../../api/license/license';
 import DriverLicenseInfo from '../../Info/DriverLicenseInfo/DriverLicenseInfo';
 
-import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
-import { ApplicationTypeDTO, ApplicationTypeSystemName } from '@dvld/shared/src/dtos/applicationType.dto';
-import { DetainedLicenseDTO } from "@dvld/shared/src/dtos/detainedLicense.dto";
+import { LicensePersonDTO } from '@dvld/shared';
+import { ApplicationTypeDTO, ApplicationTypeSystemName } from '@dvld/shared';
+import { DetainedLicenseDTO } from '@dvld/shared';
 
 import { getApplicationTypeByName } from '../../../api/application/applicationType';
 import { UserSession } from '../../../types/UserSession';

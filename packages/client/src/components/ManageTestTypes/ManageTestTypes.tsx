@@ -3,7 +3,7 @@ import styles from './ManageTestTypes.module.css';
 import Overlay from '../Overlay/Overlay';
 
 import ManageTestTypesTable from '../Tables/ManageTestTypesTable';
-import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
+import { TestTypeDTO } from '@dvld/shared';
 import { RowActionDef, ActiveRowAction, TestTypesActionType } from '../../types/table';
 import { getAllTestTypes } from '../../api/test/testType';
 import { EditTestType } from '../Edit/EditTestType/EditTestType';

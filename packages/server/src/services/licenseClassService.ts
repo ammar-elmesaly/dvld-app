@@ -1,4 +1,4 @@
-import { LicenseClassSystemName } from "@dvld/shared/src/dtos/licenseClass.dto";
+import { LicenseClassSystemName } from '@dvld/shared';
 import { LicenseClass } from "../entities/LicenseClass";
 
 export function getAllLicenseClasses() {

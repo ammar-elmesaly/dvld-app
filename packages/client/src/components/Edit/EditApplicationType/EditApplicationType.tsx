@@ -2,7 +2,7 @@ import { apiFetch } from "../../../api/apiFetch";
 import { baseUrl } from "../../../api/urls";
 import { Button } from "../../Button/Button";
 import styles from "../../Forms/Forms.module.css";
-import { ApplicationTypeDTO } from "@dvld/shared/src/dtos/applicationType.dto";
+import { ApplicationTypeDTO } from '@dvld/shared';
 
 interface EditApplicationTypeProps {
   applicationType: ApplicationTypeDTO;

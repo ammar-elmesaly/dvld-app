@@ -1,4 +1,4 @@
-import { TestResult } from "@dvld/shared/src/types/test";
+import { TestResult } from '@dvld/shared';
 import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseApplication";
 import { TestAppointmentRepo } from "../repositories/TestAppointmentRepo";
 import { TestType } from "../entities/TestType";
@@ -7,7 +7,7 @@ import { newApplication } from "./applicationService";
 import { getApplicationTypeByName } from "./applicationTypeService";
 import { TestRepo } from "../repositories/TestRepo";
 import { TestAppointment } from "../entities/TestAppointment";
-import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { ApplicationTypeSystemName } from '@dvld/shared';
 import { getUserById } from "./userService";
 
 

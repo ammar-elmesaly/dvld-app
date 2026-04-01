@@ -1,6 +1,7 @@
 import { uploadUrl } from "../../../api/urls";
-import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
-import { Gender } from "@dvld/shared/src/types/person";
+import { PersonDTO } from '@dvld/shared';
+import { Gender} from '@dvld/shared';
+
 interface PersonInfoProps {
   person?: PersonDTO;
 }
@@ -57,7 +58,7 @@ export default function PersonInfo({ person }: PersonInfoProps) {
           </div>
 
           <div className={styles.splitRow}>
-            <InfoRow label="Email:" icon="bi-envelope" value={personToRender.email} />
+            <InfoRow label="Email:" icon="bi-envelope" value={personToRender.email ?? 'No value'} />
             <InfoRow label="Country:" icon="bi-globe" value={personToRender.national_country} />
           </div>
 

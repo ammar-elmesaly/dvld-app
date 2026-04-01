@@ -4,7 +4,7 @@ import Button from "../../Button/Button";
 import Overlay from "../../Overlay/Overlay";
 import DriverLicenseInfo from "../DriverLicenseInfo/DriverLicenseInfo";
 import styles from "./DrivingLicenseInfo.module.css";
-import { LicensePersonDTO } from "@dvld/shared/src/dtos/licensePerson.dto";
+import { LicensePersonDTO } from '@dvld/shared';
 import { getLicenseWithPersonById } from "../../../api/license/license";
 
 interface DrivingLicenseInfoProps {

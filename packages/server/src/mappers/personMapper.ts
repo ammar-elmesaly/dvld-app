@@ -1,4 +1,4 @@
-import { PersonDTO } from '@dvld/shared/src/dtos/person.dto';
+import { PersonDTO } from '@dvld/shared';
 import { Person } from '../entities/Person';
 
 export const toPersonDTO = (person: Person): PersonDTO => ({

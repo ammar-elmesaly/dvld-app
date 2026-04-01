@@ -1,6 +1,6 @@
 import { uploadUrl } from "../../../api/urls";
-import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
-import { LicensePersonDTO } from "@dvld/shared/src/dtos/licensePerson.dto";
+import { PersonDTO } from '@dvld/shared';
+import { LicensePersonDTO } from '@dvld/shared';
 
 interface PersonInfoProps {
   licenseWithPerson: LicensePersonDTO;
@@ -8,7 +8,7 @@ interface PersonInfoProps {
 
 import styles from '../../Forms/Forms.module.css';
 import { InfoRow } from "../../../helpers/info";
-import { LicenseDTO } from "@dvld/shared/src/dtos/license.dto";
+import { LicenseDTO } from '@dvld/shared';
 
 export default function DriverLicenseInfo({ licenseWithPerson }: PersonInfoProps) {
   const personToRender: PersonDTO = licenseWithPerson.person;

@@ -3,10 +3,10 @@ import styles from '../../Forms/Forms.module.css';
 import { useEffect, useState } from 'react';
 import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';
-import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/localDrivingLicenseApplication.dto';
+import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared';
 import { toInputDate } from '../../../helpers/date';
-import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
-import { TestAppointmentDTO } from '@dvld/shared/src/dtos/testAppointment.dto';
+import { TestTypeDTO } from '@dvld/shared';
+import { TestAppointmentDTO } from '@dvld/shared';
 import { getTrialNumber } from '../../../api/test/testAppointment';
 
 interface TestAppointmentFormProps {

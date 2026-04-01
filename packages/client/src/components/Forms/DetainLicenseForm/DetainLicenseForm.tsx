@@ -3,7 +3,7 @@ import styles from '../Forms.module.css';
 import { useEffect, useState } from 'react';
 import { getLicenseWithPersonById } from '../../../api/license/license';
 import DriverLicenseInfo from '../../Info/DriverLicenseInfo/DriverLicenseInfo';
-import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
+import { LicensePersonDTO } from '@dvld/shared';
 import { apiFetch } from '../../../api/apiFetch';
 import { baseUrl } from '../../../api/urls';
 import { getCurrentUser } from '../../../api/user/user';

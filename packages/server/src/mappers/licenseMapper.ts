@@ -1,6 +1,6 @@
 import { License } from "../entities/License";
-import { LicenseDTO } from "@dvld/shared/src/dtos/license.dto";
-import { LicensePersonDTO } from "@dvld/shared/src/dtos/licensePerson.dto";
+import { LicenseDTO } from '@dvld/shared';
+import { LicensePersonDTO } from '@dvld/shared';
 
 export function toLicenseDTO(license: License): LicenseDTO {
     return {

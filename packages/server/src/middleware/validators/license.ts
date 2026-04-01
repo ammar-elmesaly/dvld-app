@@ -1,5 +1,5 @@
 import { body, param } from 'express-validator';
-import { ReplacementType } from '@dvld/shared/src/types/license';
+import { ReplacementType } from '@dvld/shared';
 
 export const validateLicenseId = [
     param('licenseId')

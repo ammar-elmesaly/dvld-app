@@ -1,4 +1,4 @@
-import { TestAppointmentDTO } from '@dvld/shared/src/dtos/testAppointment.dto';
+import { TestAppointmentDTO } from '@dvld/shared';
 import { TestAppointment } from '../entities/TestAppointment';
 
 export const toTestAppointmentDTO = (testAppointment: TestAppointment): TestAppointmentDTO => {

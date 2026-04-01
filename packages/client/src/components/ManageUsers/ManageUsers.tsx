@@ -6,7 +6,7 @@ import Overlay from '../Overlay/Overlay';
 import AddUserForm from '../Forms/AddUserForm/AddUserForm';
 import ManageUsersTable from '../Tables/ManageUsersTable';
 
-import { UserDTO } from '@dvld/shared/src/dtos/user.dto';
+import { UserDTO } from '@dvld/shared';
 import { RowActionDef, ActiveRowAction, UserActionType } from '../../types/table';
 import UserInfo from '../Info/UserInfo/UserInfo';
 import { getAllUsers } from '../../api/user/user';

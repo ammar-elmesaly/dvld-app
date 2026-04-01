@@ -1,4 +1,4 @@
-import { PersonDTO } from '@dvld/shared/src/dtos/person.dto';
+import { PersonDTO } from '@dvld/shared';
 import { getPersonById, getPersonByNationalId } from '../../../api/person/person';
 import AddPersonForm from '../AddPersonForm/AddPersonForm';
 import Button from '../../Button/Button';

@@ -1,4 +1,4 @@
-import { PersonDTO } from '@dvld/shared/src/dtos/person.dto';
+import { PersonDTO } from '@dvld/shared';
 import { apiFetch } from '../../api/apiFetch';
 import { baseUrl } from '../../api/urls';
 import Button from '../Button/Button';

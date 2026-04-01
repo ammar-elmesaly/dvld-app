@@ -1,4 +1,4 @@
-import { PersonDTO } from '@dvld/shared/src/dtos/person.dto';
+import { PersonDTO } from '@dvld/shared';
 import { getPersonById, getPersonByNationalId } from '../../../api/person/person';
 import AddPersonForm from '../AddPersonForm/AddPersonForm';
 import Button from '../../Button/Button';
@@ -9,8 +9,8 @@ import styles from '../Forms.module.css';
 import { useEffect, useState } from 'react';
 import { baseUrl } from '../../../api/urls';
 import { getAllApplicationTypes } from '../../../api/application/applicationType';
-import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
-import { LicenseClassDTO } from "@dvld/shared/src/dtos/licenseClass.dto";
+import { ApplicationTypeDTO } from '@dvld/shared';
+import { LicenseClassDTO } from '@dvld/shared';
 import { getAllLicenseClasses } from '../../../api/license/licenseClass';
 import { apiFetch } from '../../../api/apiFetch';
 import { UserSession } from '../../../types/UserSession';

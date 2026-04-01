@@ -1,11 +1,11 @@
-import { ApplicationDTO } from "@dvld/shared/src/dtos/application.dto";
+import { ApplicationDTO } from '@dvld/shared';
 import { InfoRow } from "../../../helpers/info";
 import styles from "./ApplicationBasicInfo.module.css";
 import Button from "../../Button/Button";
 import { useEffect, useState } from "react";
 import Overlay from "../../Overlay/Overlay";
 import PersonInfo from "../PersonInfo/PersonInfo";
-import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
+import { PersonDTO } from '@dvld/shared';
 import { getPersonById } from "../../../api/person/person";
 
 interface ApplicationBasicInfoProps {

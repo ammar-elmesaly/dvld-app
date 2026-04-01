@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import * as applicationTypeService from "../services/applicationTypeService";
-import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { ApplicationTypeSystemName } from '@dvld/shared';
 
 export const getAllApplicationTypesHandler: RequestHandler = async (_req, res) => {
     const applicationTypes = await applicationTypeService.getAllApplicationTypes();

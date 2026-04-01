@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { getAllLicenseClasses, getLicenseClassByName } from "../services/licenseClassService";
-import { LicenseClassSystemName } from "@dvld/shared/src/dtos/licenseClass.dto";
+import { LicenseClassSystemName } from '@dvld/shared';
 
 export const getAllLicenseClassesHandler: RequestHandler = async (_req, res) => {
     const countries = await getAllLicenseClasses();

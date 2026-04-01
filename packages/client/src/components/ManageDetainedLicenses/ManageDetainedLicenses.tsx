@@ -4,10 +4,10 @@ import Button from '../Button/Button';
 import Filter from '../Filter/Filter';
 import Overlay from '../Overlay/Overlay';
 import ManageDetainedLicensesTable from '../Tables/ManageDetainedLicensesTable';
-import { LicenseDTO } from "@dvld/shared/src/dtos/license.dto";
-import { DetainedLicenseDTO } from "@dvld/shared/src/dtos/detainedLicense.dto";
-import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
-import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
+import { LicenseDTO } from '@dvld/shared';
+import { DetainedLicenseDTO } from '@dvld/shared';
+import { PersonDTO } from '@dvld/shared';
+import { LicensePersonDTO } from '@dvld/shared';
 import { RowActionDef, ActiveRowAction, DetainedLicensesActionType } from '../../types/table';
 import PersonInformation from '../Info/PersonInfo/PersonInfo';
 import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo';
@@ -17,7 +17,7 @@ import ReleaseLicenseForm from '../Forms/ReleaseLicenseForm/ReleaseLicenseForm';
 import { getAllDetainedLicenses, getLicenseWithPersonById, getAllLicensesWithDriverId } from '../../api/license/license';
 import { getPersonByDriverId } from '../../api/person/person';
 import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense';
-import { InternationalLicenseDTO } from '@dvld/shared/src/dtos/internationalLicense.dto';
+import { InternationalLicenseDTO } from '@dvld/shared';
 
 export default function ManageDetainedLicenses() {
   const [filterBy, setFilterBy] = useState("");

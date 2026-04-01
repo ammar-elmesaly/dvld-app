@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
 import { License } from './License';
-import { LicenseClassSystemName } from '@dvld/shared/src/dtos/licenseClass.dto';
+import { LicenseClassSystemName } from '@dvld/shared';
 
 @Entity()
 export class LicenseClass extends BaseEntity {

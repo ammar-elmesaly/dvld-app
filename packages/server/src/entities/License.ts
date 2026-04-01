@@ -16,7 +16,7 @@ import { Driver } from './Driver';
 import { LicenseClass } from './LicenseClass';
 import { User } from './User';
 import { InternationalLicense } from './InternationalLicense';
-import { IssueReason } from '@dvld/shared/src/types/license';
+import { IssueReason } from '@dvld/shared';
 import { DetainedLicense } from './DetainedLicense';
 
 @Index(["driver", "license_class"], { unique: true, where: '"is_active" = true' })

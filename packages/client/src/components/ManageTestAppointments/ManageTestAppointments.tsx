@@ -3,15 +3,15 @@ import styles from './ManageTestAppointments.module.css';
 import Overlay from '../Overlay/Overlay';
 
 import { RowActionDef, ActiveRowAction, TestAppoitnmentsActionType } from '../../types/table';
-import { TestAppointmentDTO } from '@dvld/shared/src/dtos/testAppointment.dto';
+import { TestAppointmentDTO } from '@dvld/shared';
 import ManageTestAppointmentsTable from '../Tables/ManageAppointmentsTable';
 import { getAllTestAppointments } from '../../api/test/testAppointment';
 import Button from '../Button/Button';
 import AddTestAppointmentForm from '../Forms/AddTestAppointmentForm/AddTestAppointmentForm';
-import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/localDrivingLicenseApplication.dto';
+import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared';
 import EditTestAppointmentForm from '../Edit/EditTestAppointmentForm/EditTestAppointmentForm';
 import TakeTestForm from '../Forms/TakeTestForm/TakeTestForm';
-import { TestTypeDTO } from '@dvld/shared/src/dtos/testType.dto';
+import { TestTypeDTO } from '@dvld/shared';
 
 interface ManageTestAppointmentsProps {
   localDrivingLicenseApplication: LocalDrivingLicenseApplicationDTO;

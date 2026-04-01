@@ -4,7 +4,7 @@ import { baseUrl } from '../../../api/urls';
 import { toInputDate, yearsAgo } from '../../../helpers/date';
 import Button from '../../Button/Button';
 import styles from '../Forms.module.css';
-import { CountryDTO } from "@dvld/shared/src/dtos/country.dto";
+import { CountryDTO } from '@dvld/shared';
 
 import { useState, useEffect } from 'react';
 

@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { Gender } from "@dvld/shared/src/types/person";
+import { Gender } from '@dvld/shared';
 import { AppError } from "../../types/errors";
 import { isValidPersonAge } from "../../utils/dateUtil";
 

@@ -4,8 +4,8 @@ import { getApplicationTypeByName } from "./applicationTypeService";
 import { AppError } from "../types/errors";
 import { isExpired } from "../utils/dateUtil";
 import { LicenseRepo } from "../repositories/LicenseRepo";
-import { LicenseClassSystemName } from "@dvld/shared/src/dtos/licenseClass.dto";
-import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { LicenseClassSystemName } from '@dvld/shared';
+import { ApplicationTypeSystemName } from '@dvld/shared';
 import { getUserById } from "./userService";
 
 export async function issueLicense(

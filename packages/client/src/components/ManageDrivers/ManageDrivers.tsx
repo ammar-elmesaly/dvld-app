@@ -4,10 +4,10 @@ import Button from '../Button/Button';
 import Filter from '../Filter/Filter';
 import Overlay from '../Overlay/Overlay';
 import ManageDriversTable from '../Tables/ManageDriversTable';
-import { DriverDTO } from "@dvld/shared/src/dtos/driver.dto";
-import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
-import { LicenseDTO } from "@dvld/shared/src/dtos/license.dto";
-import { InternationalLicenseDTO } from "@dvld/shared/src/dtos/internationalLicense.dto";
+import { DriverDTO } from '@dvld/shared';
+import { PersonDTO } from '@dvld/shared';
+import { LicenseDTO } from '@dvld/shared';
+import { InternationalLicenseDTO } from '@dvld/shared';
 
 import { RowActionDef, ActiveRowAction, DriversActionType } from '../../types/table';
 import PersonInformation from '../Info/PersonInfo/PersonInfo';

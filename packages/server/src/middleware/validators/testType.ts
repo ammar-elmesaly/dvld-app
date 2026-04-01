@@ -1,5 +1,5 @@
 
-import { TestTypeSystemName } from "@dvld/shared/src/dtos/testType.dto";
+import { TestTypeSystemName } from '@dvld/shared';
 import { body, param } from "express-validator";
 
 export const validateTestTypeSystemName = [

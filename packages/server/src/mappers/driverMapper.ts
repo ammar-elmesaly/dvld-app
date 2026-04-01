@@ -1,5 +1,5 @@
 import { Driver } from "../entities/Driver";
-import { DriverDTO } from "@dvld/shared/src/dtos/driver.dto";
+import { DriverDTO } from '@dvld/shared';
 
 export function toDriverDTO(driver: Driver): DriverDTO {    
     return {

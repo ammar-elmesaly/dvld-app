@@ -1,4 +1,4 @@
-import { TestTypeSystemName } from "@dvld/shared/src/dtos/testType.dto";
+import { TestTypeSystemName } from '@dvld/shared';
 import { TestType } from "../entities/TestType";
 import { AppError } from "../types/errors";
 

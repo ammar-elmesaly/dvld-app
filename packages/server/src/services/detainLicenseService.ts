@@ -4,7 +4,7 @@ import { License } from "../entities/License";
 import { AppError } from "../types/errors";
 import { newApplication } from "./applicationService";
 import { DetainedLicenseRepo } from "../repositories/DetainLicenseRepo";
-import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { ApplicationTypeSystemName } from '@dvld/shared';
 import { getUserById } from "./userService";
 
 export async function detainLicense(licenseId: number, createdByUserId: number, fineFees: number) {

@@ -5,7 +5,7 @@ import Filter from '../Filter/Filter';
 import Overlay from '../Overlay/Overlay';
 import AddPersonForm from '../Forms/AddPersonForm/AddPersonForm';
 import ManagePeopleTable from '../Tables/ManagePeopleTable';
-import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
+import { PersonDTO } from '@dvld/shared';
 
 import { RowActionDef, ActiveRowAction, PeopleActionType } from '../../types/table';
 import PersonInformation from '../Info/PersonInfo/PersonInfo';

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './ManageInternationalApplications.module.css';
 import Overlay from '../Overlay/Overlay';
 
-import { InternationalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/internationalDrivingLicenseApplication.dto';
+import { InternationalDrivingLicenseApplicationDTO } from '@dvld/shared';
 import { RowActionDef, ActiveRowAction, InternationalApplicationsActionType } from '../../types/table';
 import { getAllInternationalDrivingLicenseApplications } from '../../api/application/application';
 import Button from '../Button/Button';
@@ -10,12 +10,12 @@ import Filter from '../Filter/Filter';
 import IssueInternationalLicenseForm from '../Forms/IssueInternationalLicenseForm/IssueInternationalLicenseForm';
 import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo';
 import { getAllLicensesWithDriverId, getLicenseWithPersonById } from '../../api/license/license';
-import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
+import { LicensePersonDTO } from '@dvld/shared';
 import ManageInternationalApplicationsTable from '../Tables/ManageInternationalApplicationsTable';
 import PersonInfo from '../Info/PersonInfo/PersonInfo';
 import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo';
-import { LicenseDTO } from '@dvld/shared/src/dtos/license.dto';
-import { InternationalLicenseDTO } from '@dvld/shared/src/dtos/internationalLicense.dto';
+import { LicenseDTO } from '@dvld/shared';
+import { InternationalLicenseDTO } from '@dvld/shared';
 import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense';
 
 export default function ManageInternationalApplications() {

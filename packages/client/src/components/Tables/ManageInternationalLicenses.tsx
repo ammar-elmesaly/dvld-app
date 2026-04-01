@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, TableHTMLAttributes } from "react";
 import Table from "../Table/Table";
-import { InternationalLicenseDTO } from "@dvld/shared/src/dtos/internationalLicense.dto";
+import { InternationalLicenseDTO } from '@dvld/shared';
 import { RowActionDef } from "../../types/table";
 
 interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTableElement> {

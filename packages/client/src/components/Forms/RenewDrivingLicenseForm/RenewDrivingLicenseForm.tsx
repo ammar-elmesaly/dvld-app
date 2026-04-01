@@ -5,12 +5,12 @@ import { baseUrl } from '../../../api/urls';
 import { apiFetch } from '../../../api/apiFetch';
 import { getLicenseWithPersonById } from '../../../api/license/license';
 import DriverLicenseInfo from '../../Info/DriverLicenseInfo/DriverLicenseInfo';
-import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
-import { ApplicationTypeDTO, ApplicationTypeSystemName } from '@dvld/shared/src/dtos/applicationType.dto';
+import { LicensePersonDTO } from '@dvld/shared';
+import { ApplicationTypeDTO, ApplicationTypeSystemName } from '@dvld/shared';
 import { getApplicationTypeByName } from '../../../api/application/applicationType';
 import { UserSession } from '../../../types/UserSession';
 import { getCurrentUser } from '../../../api/user/user';
-import { LicenseClassDTO } from '@dvld/shared/src/dtos/licenseClass.dto';
+import { LicenseClassDTO } from '@dvld/shared';
 import { getLicenseClassByName } from '../../../api/license/licenseClass';
 export default function RenewDrivingLicenseForm() {
   const [filterValue, setFilterValue] = useState("");

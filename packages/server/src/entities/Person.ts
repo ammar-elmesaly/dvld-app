@@ -12,7 +12,7 @@ import {
 import { User } from './User';
 import { Country } from './Country';
 import { Application } from './Application';
-import { Gender } from '@dvld/shared/src/types/person';
+import { Gender } from '@dvld/shared';
 import { Driver } from './Driver';
 
 @Unique('UQ_full_name', ['first_name', 'second_name', 'third_name', 'last_name'])

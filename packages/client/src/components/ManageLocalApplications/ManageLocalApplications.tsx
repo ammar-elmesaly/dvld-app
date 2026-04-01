@@ -3,26 +3,26 @@ import styles from './ManageLocalApplications.module.css';
 import Overlay from '../Overlay/Overlay';
 import ManageApplicationsTable from '../Tables/ManageApplicationsTable';
 
-import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared/src/dtos/localDrivingLicenseApplication.dto';
+import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared';
 import { RowActionDef, ActiveRowAction, ApplicationsActionType } from '../../types/table';
 import { getAllLocalDrivingLicenseApplications } from '../../api/application/application';
 import Button from '../Button/Button';
 import Filter from '../Filter/Filter';
 import NewLocalLicenseForm from '../Forms/NewLocalLicenseForm/NewLocalLicenseForm';
-import { ApplicationStatus } from '@dvld/shared/src/types/application';
+import { ApplicationStatus } from '@dvld/shared';
 import { ApplicationBasicInfo } from '../Info/ApplicationBasicInfo/ApplicationBasicInfo';
 import { DrivingLicenseInfo } from '../Info/DrivingLicenseInfo/DrivingLicenseInfo';
 import ManageTestAppointments from '../ManageTestAppointments/ManageTestAppointments';
 import { IssueDrivingLicenseForm } from '../Forms/IssueDrivingLicenseForm/IssueDrivingLicenseForm';
 import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo';
 import { getAllLicensesWithDriverId, getLicenseWithPersonById } from '../../api/license/license';
-import { LicensePersonDTO } from '@dvld/shared/src/dtos/licensePerson.dto';
+import { LicensePersonDTO } from '@dvld/shared';
 import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo';
 import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense';
-import { LicenseDTO } from '@dvld/shared/src/dtos/license.dto';
-import { InternationalLicenseDTO } from '@dvld/shared/src/dtos/internationalLicense.dto';
+import { LicenseDTO } from '@dvld/shared';
+import { InternationalLicenseDTO } from '@dvld/shared';
 import { getAllTestTypes } from '../../api/test/testType';
-import { TestTypeDTO, TestTypeSystemName } from '@dvld/shared/src/dtos/testType.dto';
+import { TestTypeDTO, TestTypeSystemName } from '@dvld/shared';
 
 export default function ManageLocalApplications() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);

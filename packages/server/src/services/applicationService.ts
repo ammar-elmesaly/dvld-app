@@ -4,10 +4,10 @@ import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseA
 import { AppError } from "../types/errors";
 import { PersonRepo } from "../repositories/PersonRepo";
 import { ApplicationType } from "../entities/ApplicationType";
-import { ApplicationStatus } from "@dvld/shared/src/types/application";
+import { ApplicationStatus } from '@dvld/shared';
 import { EntityManager, Not } from "typeorm";
 import { Application } from "../entities/Application";
-import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { ApplicationTypeSystemName } from '@dvld/shared';
 import { getUserById } from "./userService";
 
 export function getAllApplications() {

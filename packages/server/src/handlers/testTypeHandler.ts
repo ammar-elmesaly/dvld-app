@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import * as testTypeService from '../services/testTypeService';
-import { TestTypeSystemName } from "@dvld/shared/src/dtos/testType.dto";
+import { TestTypeSystemName } from '@dvld/shared';
 
 export const getAllTestTypesHandler: RequestHandler = async (_req, res) => {
     const testType = await testTypeService.getAllTestTypes();

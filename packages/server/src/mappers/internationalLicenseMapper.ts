@@ -1,5 +1,5 @@
-import { InternationalLicenseDTO } from "@dvld/shared/src/dtos/internationalLicense.dto";
-import { InternationalLicensePersonDTO } from "@dvld/shared/src/dtos/internationalLicensePerson.dto";
+import { InternationalLicenseDTO } from '@dvld/shared';
+import { InternationalLicensePersonDTO } from '@dvld/shared';
 import { InternationalLicense } from "../entities/InternationalLicense";
 
 export function toInternationalLicenseDTO(license: InternationalLicense): InternationalLicenseDTO {

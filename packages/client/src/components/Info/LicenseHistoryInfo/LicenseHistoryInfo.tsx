@@ -1,17 +1,17 @@
-import { PersonDTO } from "@dvld/shared/src/dtos/person.dto";
+import { PersonDTO } from '@dvld/shared';
 import styles from "./LicenseHistoryInfo.module.css";
 import PersonInfo from "../PersonInfo/PersonInfo";
 import Switch from "../../Switch/Switch";
 import { useEffect, useState } from "react";
-import { LicenseDTO } from "@dvld/shared/src/dtos/license.dto";
-import { InternationalLicenseDTO } from "@dvld/shared/src/dtos/internationalLicense.dto";
+import { LicenseDTO } from '@dvld/shared';
+import { InternationalLicenseDTO } from '@dvld/shared';
 import ManageLocalLicensesTable from "../../Tables/ManageLocalLicenses";
 import ManageInternationalLicensesTable from "../../Tables/ManageInternationalLicenses";
 import { RowActionDef, ActiveRowAction, LocalLicensesActionType, InternationalLicensesActionType } from "../../../types/table";
 import Overlay from "../../Overlay/Overlay";
 import DriverLicenseInfo from "../DriverLicenseInfo/DriverLicenseInfo";
 import { getLicenseWithPersonById } from "../../../api/license/license";
-import { LicensePersonDTO } from "@dvld/shared/src/dtos/licensePerson.dto";
+import { LicensePersonDTO } from '@dvld/shared';
 import { getInternationalLicenseById } from "../../../api/license/intLicense";
 import { InternationalLicenseInfo } from "../InternationalLicenseInfo/InternationalLicenseInfo";
 

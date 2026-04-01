@@ -1,9 +1,9 @@
-import { ApplicationStatus } from "@dvld/shared/src/types/application";
+import { ApplicationStatus } from '@dvld/shared';
 import { License } from "../entities/License";
 import { AppError } from "../types/errors";
 
 import { createOrGetDriver } from "./driverService";
-import { IssueReason, ReplacementType } from "@dvld/shared/src/types/license";
+import { IssueReason, ReplacementType } from '@dvld/shared';
 import { UserRepo } from "../repositories/UserRepo";
 import { newApplication } from "./applicationService";
 import { getPersonByDriverId } from "./personService";
@@ -13,7 +13,7 @@ import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseA
 import { ApplicationRepo } from "../repositories/ApplicationRepo";
 import { TestType } from "../entities/TestType";
 import { LicenseRepo } from "../repositories/LicenseRepo";
-import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { ApplicationTypeSystemName } from '@dvld/shared';
 
 export async function issueLicenseFirstTime(
     createdByUserId: number,

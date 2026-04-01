@@ -1,4 +1,4 @@
-import { TestResult } from "@dvld/shared/src/types/test";
+import { TestResult } from '@dvld/shared';
 import { TestAppointmentRepo } from "../repositories/TestAppointmentRepo";
 import { AppError } from "../types/errors";
 import { Test } from "../entities/Test";

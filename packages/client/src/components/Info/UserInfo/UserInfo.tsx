@@ -1,4 +1,4 @@
-import { UserDTO } from "@dvld/shared/src/dtos/user.dto";
+import { UserDTO } from '@dvld/shared';
 import styles from '../../Forms/Forms.module.css';
 import { InfoRow } from '../../../helpers/info';
 

@@ -6,7 +6,7 @@ import {
     OneToMany,
 } from 'typeorm';
 import { TestAppointment } from './TestAppointment';
-import { TestTypeSystemName } from '@dvld/shared/src/dtos/testType.dto';
+import { TestTypeSystemName } from '@dvld/shared';
 
 @Entity()
 export class TestType extends BaseEntity {

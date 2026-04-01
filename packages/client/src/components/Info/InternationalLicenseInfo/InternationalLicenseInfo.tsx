@@ -1,4 +1,4 @@
-import { InternationalLicenseDTO } from "@dvld/shared/src/dtos/internationalLicense.dto";
+import { InternationalLicenseDTO } from '@dvld/shared';
 import styles from '../../Forms/Forms.module.css';
 
 interface InternationalLicenseInfoProps {

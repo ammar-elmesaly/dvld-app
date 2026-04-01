@@ -3,7 +3,7 @@ import styles from './ManageApplicationTypes.module.css';
 import Overlay from '../Overlay/Overlay';
 import ManageApplicationTypesTable from '../Tables/ManageApplicationTypesTable';
 
-import { ApplicationTypeDTO } from '@dvld/shared/src/dtos/applicationType.dto';
+import { ApplicationTypeDTO } from '@dvld/shared';
 import { RowActionDef, ActiveRowAction, ApplicationTypesActionType } from '../../types/table';
 import { getAllApplicationTypes } from '../../api/application/applicationType';
 import { EditApplicationType } from '../Edit/EditApplicationType/EditApplicationType';

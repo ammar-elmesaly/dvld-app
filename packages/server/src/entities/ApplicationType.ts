@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Application } from './Application';
 
-import { ApplicationTypeSystemName } from '@dvld/shared/src/dtos/applicationType.dto';
+import { ApplicationTypeSystemName } from '@dvld/shared';
 
 @Entity()
 export class ApplicationType extends BaseEntity {

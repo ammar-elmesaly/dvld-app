@@ -1,4 +1,4 @@
-import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { ApplicationTypeSystemName } from '@dvld/shared';
 import { body, param } from "express-validator";
 
 export const validateApplicationType = [

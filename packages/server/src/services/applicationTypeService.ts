@@ -1,4 +1,4 @@
-import { ApplicationTypeSystemName } from "@dvld/shared/src/dtos/applicationType.dto";
+import { ApplicationTypeSystemName } from '@dvld/shared';
 import { ApplicationType } from "../entities/ApplicationType";
 import { AppError } from "../types/errors";
 

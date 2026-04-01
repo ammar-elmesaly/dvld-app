@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { PersonDTO } from '@dvld/shared/src/dtos/person.dto';
-import { CountryDTO } from '@dvld/shared/src/dtos/country.dto';
+import { PersonDTO } from '@dvld/shared';
+import { CountryDTO } from '@dvld/shared';
 import { apiFetch } from '../../../api/apiFetch';
 import { getAllCountries } from '../../../api/country/country';
 import { baseUrl, uploadUrl } from '../../../api/urls';
