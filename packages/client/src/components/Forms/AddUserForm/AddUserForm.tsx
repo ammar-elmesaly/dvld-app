@@ -1,14 +1,14 @@
 import { PersonDTO } from '@dvld/shared';
-import { getPersonById, getPersonByNationalId } from '../../../api/person/person';
-import AddPersonForm from '../AddPersonForm/AddPersonForm';
-import Button from '../../Button/Button';
-import Filter from '../../Filter/Filter';
-import Overlay from '../../Overlay/Overlay';
-import PersonInformation from '../../Info/PersonInfo/PersonInfo';
+import { getPersonById, getPersonByNationalId } from '../../../api/person/person.js';
+import AddPersonForm from '../AddPersonForm/AddPersonForm.js';
+import Button from '../../Button/Button.js';
+import Filter from '../../Filter/Filter.js';
+import Overlay from '../../Overlay/Overlay.js';
+import PersonInformation from '../../Info/PersonInfo/PersonInfo.js';
 import styles from '../Forms.module.css';
 import { useState } from 'react';
-import { baseUrl } from '../../../api/urls';
-import { apiFetch } from '../../../api/apiFetch';
+import { baseUrl } from '../../../api/urls.js';
+import { apiFetch } from '../../../api/apiFetch.js';
 
 interface AddUserPops {
   handleRefresh: () => void;

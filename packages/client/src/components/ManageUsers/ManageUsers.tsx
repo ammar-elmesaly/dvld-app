@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import styles from './ManageUsers.module.css';
-import Button from '../Button/Button';
-import Filter from '../Filter/Filter';
-import Overlay from '../Overlay/Overlay';
-import AddUserForm from '../Forms/AddUserForm/AddUserForm';
-import ManageUsersTable from '../Tables/ManageUsersTable';
+import Button from '../Button/Button.js';
+import Filter from '../Filter/Filter.js';
+import Overlay from '../Overlay/Overlay.js';
+import AddUserForm from '../Forms/AddUserForm/AddUserForm.js';
+import ManageUsersTable from '../Tables/ManageUsersTable.js';
 
 import { UserDTO } from '@dvld/shared';
-import { RowActionDef, ActiveRowAction, UserActionType } from '../../types/table';
-import UserInfo from '../Info/UserInfo/UserInfo';
-import { getAllUsers } from '../../api/user/user';
-import DeleteUserForm from '../Delete/DeleteUserForm';
-import EditUser from '../Edit/EditUser/EditUser';
+import { RowActionDef, ActiveRowAction, UserActionType } from '../../types/table.js';
+import UserInfo from '../Info/UserInfo/UserInfo.js';
+import { getAllUsers } from '../../api/user/user.js';
+import DeleteUserForm from '../Delete/DeleteUserForm.js';
+import EditUser from '../Edit/EditUser/EditUser.js';
 
 export default function ManageUsers() {
   const [filterBy, setFilterBy] = useState("");

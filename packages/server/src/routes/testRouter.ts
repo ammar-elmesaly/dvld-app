@@ -1,8 +1,8 @@
 import express from 'express';
-import { requireAuth } from '../middleware/validators/auth';
-import { addNewTestHandler } from '../handlers/testHandler';
-import validate from '../middleware/validators/validate';
-import { validateNewTest } from '../middleware/validators/test';
+import { requireAuth } from '../middleware/validators/auth.js';
+import { addNewTestHandler } from '../handlers/testHandler.js';
+import validate from '../middleware/validators/validate.js';
+import { validateNewTest } from '../middleware/validators/test.js';
 
 const router = express.Router();
 

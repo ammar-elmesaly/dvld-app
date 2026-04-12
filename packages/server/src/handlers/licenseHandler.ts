@@ -1,10 +1,10 @@
 import { RequestHandler } from "express";
-import * as licenseService from "../services/licenseService";
-import * as detainService from "../services/detainLicenseService";
+import * as licenseService from '../services/licenseService.js';
+import * as detainService from '../services/detainLicenseService.js';
 
-import { toLicenseDTO, toLicenseWithPersonDTO } from "../mappers/licenseMapper";
-import { AppError } from "../types/errors";
-import { toDetainedLicenseDTO } from "../mappers/detainedLicenseMapper";
+import { toLicenseDTO, toLicenseWithPersonDTO } from '../mappers/licenseMapper.js';
+import { AppError } from '../types/errors.js';
+import { toDetainedLicenseDTO } from '../mappers/detainedLicenseMapper.js';
 
 export const issueLicenseFirstTimeHandler: RequestHandler = async (req, res) => {
     const {

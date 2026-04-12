@@ -1,7 +1,7 @@
 import styles from '../Forms.module.css';
-import Button from '../../Button/Button';
-import { baseUrl } from '../../../api/urls';
-import { apiFetch } from '../../../api/apiFetch';
+import Button from '../../Button/Button.js';
+import { baseUrl } from '../../../api/urls.js';
+import { apiFetch } from '../../../api/apiFetch.js';
 import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {

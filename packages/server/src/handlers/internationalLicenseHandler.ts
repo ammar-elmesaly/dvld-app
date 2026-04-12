@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
-import * as intLicenseService from "../services/internationalLicenseService";
-import { AppError } from "../types/errors";
-import { toInternationalLicenseDTO, toInternationalLicenseWithPersonDTO } from "../mappers/internationalLicenseMapper";
+import * as intLicenseService from '../services/internationalLicenseService.js';
+import { AppError } from '../types/errors.js';
+import { toInternationalLicenseDTO, toInternationalLicenseWithPersonDTO } from '../mappers/internationalLicenseMapper.js';
 
 export const issueNewLicenseHandler: RequestHandler = async (req, res) => {
     const {

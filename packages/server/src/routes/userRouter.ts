@@ -1,8 +1,8 @@
 import express from 'express';
-import { createNewUserHandler, deleteUserByIdHandler, editUserByIdHandler, getAllUsersHandler } from '../handlers/userHandler';
-import { requireAuth } from '../middleware/validators/auth';
-import validate from '../middleware/validators/validate';
-import { validateEditUser, validateNewUser, validateUserId } from '../middleware/validators/user';
+import { createNewUserHandler, deleteUserByIdHandler, editUserByIdHandler, getAllUsersHandler } from '../handlers/userHandler.js';
+import { requireAuth } from '../middleware/validators/auth.js';
+import validate from '../middleware/validators/validate.js';
+import { validateEditUser, validateNewUser, validateUserId } from '../middleware/validators/user.js';
 
 const router = express.Router();
 

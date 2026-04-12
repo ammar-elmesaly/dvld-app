@@ -1,4 +1,4 @@
-import { uploadUrl } from "../../../api/urls";
+import { uploadUrl } from '../../../api/urls.js';
 import { PersonDTO } from '@dvld/shared';
 import { Gender} from '@dvld/shared';
 
@@ -7,7 +7,7 @@ interface PersonInfoProps {
 }
 
 import styles from '../../Forms/Forms.module.css';
-import { InfoBox, InfoRow } from "../../../helpers/info";
+import { InfoBox, InfoRow } from '../../../helpers/info.js';
 
 export default function PersonInfo({ person }: PersonInfoProps) {
   const personToRender: PersonDTO = person ? person : {

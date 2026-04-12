@@ -1,5 +1,5 @@
 import { PersonDTO } from '@dvld/shared';
-import { Person } from '../entities/Person';
+import { Person } from '../entities/Person.js';
 
 export const toPersonDTO = (person: Person): PersonDTO => ({
     id: person.id,

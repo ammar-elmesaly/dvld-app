@@ -9,10 +9,10 @@ import {
     Index
 } from 'typeorm';
 
-import { Application } from './Application';
-import { Driver } from './Driver';
-import { User } from './User';
-import { License } from './License';
+import { Application } from './Application.js';
+import { Driver } from './Driver.js';
+import { User } from './User.js';
+import { License } from './License.js';
 
 @Entity()
 @Index("UQ_active_driver_license", ["driver"], { unique: true, where: "is_active = true" })

@@ -1,18 +1,18 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import People from './ManagePeople/ManagePeople';
-import ApplicationsDashboard from './ApplicationsDashboard/ApplicationsDashboard';
-import ManageUsers from './ManageUsers/ManageUsers';
-import LoginForm from './Forms/LoginForm/LoginForm';
-import AccountSettings from './AccountSettings/AccountSettings';
-import ManageApplicationTypes from './ManageApplicationTypes/ManageApplicationTypes';
-import ManageTestTypes from './ManageTestTypes/ManageTestTypes';
-import DrivingLicenseDashboard from './DrivingLicensesDashboard/DrivingLicenseDashboard';
-import { WithNavLayout } from './withNavLayout';
-import ManageLocalApplications from './ManageLocalApplications/ManageLocalApplications';
-import ManageInternationalApplications from './ManageInternationalApplications/ManageInternationalApplications';
-import ManageDrivers from './ManageDrivers/ManageDrivers';
-import ManageDetainedLicenses from './ManageDetainedLicenses/ManageDetainedLicenses';
+import People from './ManagePeople/ManagePeople.js';
+import ApplicationsDashboard from './ApplicationsDashboard/ApplicationsDashboard.js';
+import ManageUsers from './ManageUsers/ManageUsers.js';
+import LoginForm from './Forms/LoginForm/LoginForm.js';
+import AccountSettings from './AccountSettings/AccountSettings.js';
+import ManageApplicationTypes from './ManageApplicationTypes/ManageApplicationTypes.js';
+import ManageTestTypes from './ManageTestTypes/ManageTestTypes.js';
+import DrivingLicenseDashboard from './DrivingLicensesDashboard/DrivingLicenseDashboard.js';
+import { WithNavLayout } from './withNavLayout.js';
+import ManageLocalApplications from './ManageLocalApplications/ManageLocalApplications.js';
+import ManageInternationalApplications from './ManageInternationalApplications/ManageInternationalApplications.js';
+import ManageDrivers from './ManageDrivers/ManageDrivers.js';
+import ManageDetainedLicenses from './ManageDetainedLicenses/ManageDetainedLicenses.js';
 
 function App() {
   return (

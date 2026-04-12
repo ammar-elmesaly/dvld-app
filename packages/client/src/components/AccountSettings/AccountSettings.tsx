@@ -1,6 +1,6 @@
 import styles from './AccountSettings.module.css';
-import Button from '../Button/Button';
-import { logout } from '../../api/user/user';
+import Button from '../Button/Button.js';
+import { logout } from '../../api/user/user.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function AccountSettings() {

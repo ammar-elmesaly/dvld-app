@@ -1,4 +1,4 @@
-import { License } from "../entities/License";
+import { License } from '../entities/License.js';
 import { LicenseDTO } from '@dvld/shared';
 import { LicensePersonDTO } from '@dvld/shared';
 

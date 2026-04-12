@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import styles from './ManageApplicationTypes.module.css';
-import Overlay from '../Overlay/Overlay';
-import ManageApplicationTypesTable from '../Tables/ManageApplicationTypesTable';
+import Overlay from '../Overlay/Overlay.js';
+import ManageApplicationTypesTable from '../Tables/ManageApplicationTypesTable.js';
 
 import { ApplicationTypeDTO } from '@dvld/shared';
-import { RowActionDef, ActiveRowAction, ApplicationTypesActionType } from '../../types/table';
-import { getAllApplicationTypes } from '../../api/application/applicationType';
-import { EditApplicationType } from '../Edit/EditApplicationType/EditApplicationType';
-import Button from '../Button/Button';
+import { RowActionDef, ActiveRowAction, ApplicationTypesActionType } from '../../types/table.js';
+import { getAllApplicationTypes } from '../../api/application/applicationType.js';
+import { EditApplicationType } from '../Edit/EditApplicationType/EditApplicationType.js';
+import Button from '../Button/Button.js';
 
 export default function ManageApplicationTypes() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);

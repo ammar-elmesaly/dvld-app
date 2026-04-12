@@ -1,4 +1,4 @@
-import { AppDataSource } from "../dataSource";
-import { DetainedLicense } from "../entities/DetainedLicense";
+import { AppDataSource } from '../dataSource.js';
+import { DetainedLicense } from '../entities/DetainedLicense.js';
 
 export const DetainedLicenseRepo = AppDataSource.getRepository(DetainedLicense);

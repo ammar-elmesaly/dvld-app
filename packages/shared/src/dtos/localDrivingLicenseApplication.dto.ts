@@ -1,4 +1,4 @@
-import { ApplicationDTO } from "./application.dto";
+import { ApplicationDTO } from './application.dto.js';
 
 export interface LocalDrivingLicenseApplicationDTO extends ApplicationDTO {
     local_driving_license_application_id: number;

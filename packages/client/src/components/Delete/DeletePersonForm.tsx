@@ -1,8 +1,8 @@
 import { PersonDTO } from '@dvld/shared';
-import { apiFetch } from '../../api/apiFetch';
-import { baseUrl } from '../../api/urls';
-import Button from '../Button/Button';
-import PersonInformation from '../Info/PersonInfo/PersonInfo';
+import { apiFetch } from '../../api/apiFetch.js';
+import { baseUrl } from '../../api/urls.js';
+import Button from '../Button/Button.js';
+import PersonInformation from '../Info/PersonInfo/PersonInfo.js';
 
 interface DeletePersonFormProps {
 	person: PersonDTO;

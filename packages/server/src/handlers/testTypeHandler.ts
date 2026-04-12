@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import * as testTypeService from '../services/testTypeService';
+import * as testTypeService from '../services/testTypeService.js';
 import { TestTypeSystemName } from '@dvld/shared';
 
 export const getAllTestTypesHandler: RequestHandler = async (_req, res) => {

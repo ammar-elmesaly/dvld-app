@@ -1,6 +1,6 @@
 import express from 'express';
-import { getAllCountriesHandler } from '../handlers/countryHandler';
-import { requireAuth } from '../middleware/validators/auth';
+import { getAllCountriesHandler } from '../handlers/countryHandler.js';
+import { requireAuth } from '../middleware/validators/auth.js';
 
 const router = express.Router();
 

@@ -1,6 +1,6 @@
 import { UserDTO } from '@dvld/shared';
 import styles from '../../Forms/Forms.module.css';
-import { InfoRow } from '../../../helpers/info';
+import { InfoRow } from '../../../helpers/info.js';
 
 interface UserInfoProps {
   user: UserDTO;

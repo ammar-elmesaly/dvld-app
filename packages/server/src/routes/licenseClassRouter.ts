@@ -1,8 +1,8 @@
 import express from 'express';
-import { getAllLicenseClassesHandler, getLicenseClassByNameHandler } from '../handlers/licenseClassHandler';
-import { requireAuth } from '../middleware/validators/auth';
-import { validateLicenseClassType } from '../middleware/validators/licenseClass';
-import validate from '../middleware/validators/validate';
+import { getAllLicenseClassesHandler, getLicenseClassByNameHandler } from '../handlers/licenseClassHandler.js';
+import { requireAuth } from '../middleware/validators/auth.js';
+import { validateLicenseClassType } from '../middleware/validators/licenseClass.js';
+import validate from '../middleware/validators/validate.js';
 
 const router = express.Router();
 

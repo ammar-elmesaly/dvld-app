@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 import styles from './ManageInternationalApplications.module.css';
-import Overlay from '../Overlay/Overlay';
+import Overlay from '../Overlay/Overlay.js';
 
 import { InternationalDrivingLicenseApplicationDTO } from '@dvld/shared';
-import { RowActionDef, ActiveRowAction, InternationalApplicationsActionType } from '../../types/table';
-import { getAllInternationalDrivingLicenseApplications } from '../../api/application/application';
-import Button from '../Button/Button';
-import Filter from '../Filter/Filter';
-import IssueInternationalLicenseForm from '../Forms/IssueInternationalLicenseForm/IssueInternationalLicenseForm';
-import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo';
-import { getAllLicensesWithDriverId, getLicenseWithPersonById } from '../../api/license/license';
+import { RowActionDef, ActiveRowAction, InternationalApplicationsActionType } from '../../types/table.js';
+import { getAllInternationalDrivingLicenseApplications } from '../../api/application/application.js';
+import Button from '../Button/Button.js';
+import Filter from '../Filter/Filter.js';
+import IssueInternationalLicenseForm from '../Forms/IssueInternationalLicenseForm/IssueInternationalLicenseForm.js';
+import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo.js';
+import { getAllLicensesWithDriverId, getLicenseWithPersonById } from '../../api/license/license.js';
 import { LicensePersonDTO } from '@dvld/shared';
-import ManageInternationalApplicationsTable from '../Tables/ManageInternationalApplicationsTable';
-import PersonInfo from '../Info/PersonInfo/PersonInfo';
-import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo';
+import ManageInternationalApplicationsTable from '../Tables/ManageInternationalApplicationsTable.js';
+import PersonInfo from '../Info/PersonInfo/PersonInfo.js';
+import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo.js';
 import { LicenseDTO } from '@dvld/shared';
 import { InternationalLicenseDTO } from '@dvld/shared';
-import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense';
+import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense.js';
 
 export default function ManageInternationalApplications() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);

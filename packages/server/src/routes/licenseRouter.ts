@@ -1,8 +1,8 @@
 import express from 'express';
-import { requireAuth } from '../middleware/validators/auth';
-import { detainLicenseHandler, getAllDetainedLicensesHandler, getAllLicensesByDriverIdHandler, getDetainedLicenseWithLicenseIdHandler, getLicenseByIdHandler, issueLicenseFirstTimeHandler, releaseLicenseHandler, renewLicenseHandler, replaceLicenseHandler } from '../handlers/licenseHandler';
-import validate from '../middleware/validators/validate';
-import { validateDetainLicense, validateIssueLicenseFirstTime, validateLicenseDriverId, validateLicenseId, validateReleaseLicense, validateRenewLicense, validateReplaceLicense } from '../middleware/validators/license';
+import { requireAuth } from '../middleware/validators/auth.js';
+import { detainLicenseHandler, getAllDetainedLicensesHandler, getAllLicensesByDriverIdHandler, getDetainedLicenseWithLicenseIdHandler, getLicenseByIdHandler, issueLicenseFirstTimeHandler, releaseLicenseHandler, renewLicenseHandler, replaceLicenseHandler } from '../handlers/licenseHandler.js';
+import validate from '../middleware/validators/validate.js';
+import { validateDetainLicense, validateIssueLicenseFirstTime, validateLicenseDriverId, validateLicenseId, validateReleaseLicense, validateRenewLicense, validateReplaceLicense } from '../middleware/validators/license.js';
 const router = express.Router();
 
 // POST /license/issue

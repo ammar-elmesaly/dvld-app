@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import styles from './ManageTestTypes.module.css';
-import Overlay from '../Overlay/Overlay';
+import Overlay from '../Overlay/Overlay.js';
 
-import ManageTestTypesTable from '../Tables/ManageTestTypesTable';
+import ManageTestTypesTable from '../Tables/ManageTestTypesTable.js';
 import { TestTypeDTO } from '@dvld/shared';
-import { RowActionDef, ActiveRowAction, TestTypesActionType } from '../../types/table';
-import { getAllTestTypes } from '../../api/test/testType';
-import { EditTestType } from '../Edit/EditTestType/EditTestType';
-import Button from '../Button/Button';
+import { RowActionDef, ActiveRowAction, TestTypesActionType } from '../../types/table.js';
+import { getAllTestTypes } from '../../api/test/testType.js';
+import { EditTestType } from '../Edit/EditTestType/EditTestType.js';
+import Button from '../Button/Button.js';
 
 export default function ManageTestTypes() {
   const [ openMenuRow, setOpenMenuRow ] = useState<string | null>(null);

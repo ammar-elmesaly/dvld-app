@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import styles from './ManagePeople.module.css';
-import Button from '../Button/Button';
-import Filter from '../Filter/Filter';
-import Overlay from '../Overlay/Overlay';
-import AddPersonForm from '../Forms/AddPersonForm/AddPersonForm';
-import ManagePeopleTable from '../Tables/ManagePeopleTable';
+import Button from '../Button/Button.js';
+import Filter from '../Filter/Filter.js';
+import Overlay from '../Overlay/Overlay.js';
+import AddPersonForm from '../Forms/AddPersonForm/AddPersonForm.js';
+import ManagePeopleTable from '../Tables/ManagePeopleTable.js';
 import { PersonDTO } from '@dvld/shared';
 
-import { RowActionDef, ActiveRowAction, PeopleActionType } from '../../types/table';
-import PersonInformation from '../Info/PersonInfo/PersonInfo';
-import { getAllPersons } from '../../api/person/person';
-import EditPerson from '../Edit/EditPerson/EditPerson';
-import DeletePersonForm from '../Delete/DeletePersonForm';
-import SendEmail from '../Forms/SendEmail/SendEmail';
-import PhoneCall from '../Forms/PhoneCall/PhoneCall';
+import { RowActionDef, ActiveRowAction, PeopleActionType } from '../../types/table.js';
+import PersonInformation from '../Info/PersonInfo/PersonInfo.js';
+import { getAllPersons } from '../../api/person/person.js';
+import EditPerson from '../Edit/EditPerson/EditPerson.js';
+import DeletePersonForm from '../Delete/DeletePersonForm.js';
+import SendEmail from '../Forms/SendEmail/SendEmail.js';
+import PhoneCall from '../Forms/PhoneCall/PhoneCall.js';
 
 export default function People() {
   const [filterBy, setFilterBy] = useState("");

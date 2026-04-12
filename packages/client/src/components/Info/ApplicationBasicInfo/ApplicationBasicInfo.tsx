@@ -1,12 +1,12 @@
 import { ApplicationDTO } from '@dvld/shared';
-import { InfoRow } from "../../../helpers/info";
-import styles from "./ApplicationBasicInfo.module.css";
-import Button from "../../Button/Button";
+import { InfoRow } from '../../../helpers/info.js';
+import styles from './ApplicationBasicInfo.module.css';
+import Button from '../../Button/Button.js';
 import { useEffect, useState } from "react";
-import Overlay from "../../Overlay/Overlay";
-import PersonInfo from "../PersonInfo/PersonInfo";
+import Overlay from '../../Overlay/Overlay.js';
+import PersonInfo from '../PersonInfo/PersonInfo.js';
 import { PersonDTO } from '@dvld/shared';
-import { getPersonById } from "../../../api/person/person";
+import { getPersonById } from '../../../api/person/person.js';
 
 interface ApplicationBasicInfoProps {
   application: ApplicationDTO;

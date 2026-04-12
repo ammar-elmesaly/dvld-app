@@ -1,5 +1,5 @@
 import { QueryFailedError } from "typeorm";
-import { AppError } from "../types/errors";
+import { AppError } from '../types/errors.js';
 import { ErrorRequestHandler } from "express";
 
 export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {

@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 import styles from '../ManagePeople/ManagePeople.module.css';
-import Button from '../Button/Button';
-import Filter from '../Filter/Filter';
-import Overlay from '../Overlay/Overlay';
-import ManageDetainedLicensesTable from '../Tables/ManageDetainedLicensesTable';
+import Button from '../Button/Button.js';
+import Filter from '../Filter/Filter.js';
+import Overlay from '../Overlay/Overlay.js';
+import ManageDetainedLicensesTable from '../Tables/ManageDetainedLicensesTable.js';
 import { LicenseDTO } from '@dvld/shared';
 import { DetainedLicenseDTO } from '@dvld/shared';
 import { PersonDTO } from '@dvld/shared';
 import { LicensePersonDTO } from '@dvld/shared';
-import { RowActionDef, ActiveRowAction, DetainedLicensesActionType } from '../../types/table';
-import PersonInformation from '../Info/PersonInfo/PersonInfo';
-import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo';
-import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo';
-import DetainLicenseForm from '../Forms/DetainLicenseForm/DetainLicenseForm';
-import ReleaseLicenseForm from '../Forms/ReleaseLicenseForm/ReleaseLicenseForm';
-import { getAllDetainedLicenses, getLicenseWithPersonById, getAllLicensesWithDriverId } from '../../api/license/license';
-import { getPersonByDriverId } from '../../api/person/person';
-import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense';
+import { RowActionDef, ActiveRowAction, DetainedLicensesActionType } from '../../types/table.js';
+import PersonInformation from '../Info/PersonInfo/PersonInfo.js';
+import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo.js';
+import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo.js';
+import DetainLicenseForm from '../Forms/DetainLicenseForm/DetainLicenseForm.js';
+import ReleaseLicenseForm from '../Forms/ReleaseLicenseForm/ReleaseLicenseForm.js';
+import { getAllDetainedLicenses, getLicenseWithPersonById, getAllLicensesWithDriverId } from '../../api/license/license.js';
+import { getPersonByDriverId } from '../../api/person/person.js';
+import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense.js';
 import { InternationalLicenseDTO } from '@dvld/shared';
 
 export default function ManageDetainedLicenses() {

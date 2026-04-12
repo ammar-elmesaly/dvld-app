@@ -1,14 +1,14 @@
 import styles from './DrivingLicenseDashboard.module.css';
-import Button from '../Button/Button';
+import Button from '../Button/Button.js';
 import { useState } from 'react';
-import Overlay from '../Overlay/Overlay';
-import NewLocalLicenseForm from '../Forms/NewLocalLicenseForm/NewLocalLicenseForm';
+import Overlay from '../Overlay/Overlay.js';
+import NewLocalLicenseForm from '../Forms/NewLocalLicenseForm/NewLocalLicenseForm.js';
 import { useNavigate } from 'react-router-dom';
-import IssueInternationalLicenseForm from '../Forms/IssueInternationalLicenseForm/IssueInternationalLicenseForm';
-import RenewDrivingLicenseForm from '../Forms/RenewDrivingLicenseForm/RenewDrivingLicenseForm';
-import ReplaceLicenseForm from '../Forms/ReplaceLicenseForm/ReplaceLicenseForm';
-import DetainLicenseForm from '../Forms/DetainLicenseForm/DetainLicenseForm';
-import ReleaseLicenseForm from '../Forms/ReleaseLicenseForm/ReleaseLicenseForm';
+import IssueInternationalLicenseForm from '../Forms/IssueInternationalLicenseForm/IssueInternationalLicenseForm.js';
+import RenewDrivingLicenseForm from '../Forms/RenewDrivingLicenseForm/RenewDrivingLicenseForm.js';
+import ReplaceLicenseForm from '../Forms/ReplaceLicenseForm/ReplaceLicenseForm.js';
+import DetainLicenseForm from '../Forms/DetainLicenseForm/DetainLicenseForm.js';
+import ReleaseLicenseForm from '../Forms/ReleaseLicenseForm/ReleaseLicenseForm.js';
 
 export default function DrivingLicenseDashboard() {
   const navigate = useNavigate();

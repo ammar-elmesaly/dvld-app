@@ -1,5 +1,5 @@
 import styles from './ApplicationsDashboard.module.css';
-import Button from '../Button/Button';
+import Button from '../Button/Button.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function ApplicationsDashboard() {

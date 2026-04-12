@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import styles from './ManageTestAppointments.module.css';
-import Overlay from '../Overlay/Overlay';
+import Overlay from '../Overlay/Overlay.js';
 
-import { RowActionDef, ActiveRowAction, TestAppoitnmentsActionType } from '../../types/table';
+import { RowActionDef, ActiveRowAction, TestAppoitnmentsActionType } from '../../types/table.js';
 import { TestAppointmentDTO } from '@dvld/shared';
-import ManageTestAppointmentsTable from '../Tables/ManageAppointmentsTable';
-import { getAllTestAppointments } from '../../api/test/testAppointment';
-import Button from '../Button/Button';
-import AddTestAppointmentForm from '../Forms/AddTestAppointmentForm/AddTestAppointmentForm';
+import ManageTestAppointmentsTable from '../Tables/ManageAppointmentsTable.js';
+import { getAllTestAppointments } from '../../api/test/testAppointment.js';
+import Button from '../Button/Button.js';
+import AddTestAppointmentForm from '../Forms/AddTestAppointmentForm/AddTestAppointmentForm.js';
 import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared';
-import EditTestAppointmentForm from '../Edit/EditTestAppointmentForm/EditTestAppointmentForm';
-import TakeTestForm from '../Forms/TakeTestForm/TakeTestForm';
+import EditTestAppointmentForm from '../Edit/EditTestAppointmentForm/EditTestAppointmentForm.js';
+import TakeTestForm from '../Forms/TakeTestForm/TakeTestForm.js';
 import { TestTypeDTO } from '@dvld/shared';
 
 interface ManageTestAppointmentsProps {

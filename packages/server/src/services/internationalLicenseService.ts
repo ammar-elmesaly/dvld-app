@@ -1,12 +1,12 @@
-import { InternationalLicense } from "../entities/InternationalLicense";
-import { newApplication } from "./applicationService";
-import { getApplicationTypeByName } from "./applicationTypeService";
-import { AppError } from "../types/errors";
-import { isExpired } from "../utils/dateUtil";
-import { LicenseRepo } from "../repositories/LicenseRepo";
+import { InternationalLicense } from '../entities/InternationalLicense.js';
+import { newApplication } from './applicationService.js';
+import { getApplicationTypeByName } from './applicationTypeService.js';
+import { AppError } from '../types/errors.js';
+import { isExpired } from '../utils/dateUtil.js';
+import { LicenseRepo } from '../repositories/LicenseRepo.js';
 import { LicenseClassSystemName } from '@dvld/shared';
 import { ApplicationTypeSystemName } from '@dvld/shared';
-import { getUserById } from "./userService";
+import { getUserById } from './userService.js';
 
 export async function issueLicense(
     createdByUserId: number,

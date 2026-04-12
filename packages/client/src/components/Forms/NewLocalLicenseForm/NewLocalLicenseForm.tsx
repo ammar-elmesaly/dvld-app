@@ -1,20 +1,20 @@
 import { PersonDTO } from '@dvld/shared';
-import { getPersonById, getPersonByNationalId } from '../../../api/person/person';
-import AddPersonForm from '../AddPersonForm/AddPersonForm';
-import Button from '../../Button/Button';
-import Filter from '../../Filter/Filter';
-import Overlay from '../../Overlay/Overlay';
-import PersonInformation from '../../Info/PersonInfo/PersonInfo';
+import { getPersonById, getPersonByNationalId } from '../../../api/person/person.js';
+import AddPersonForm from '../AddPersonForm/AddPersonForm.js';
+import Button from '../../Button/Button.js';
+import Filter from '../../Filter/Filter.js';
+import Overlay from '../../Overlay/Overlay.js';
+import PersonInformation from '../../Info/PersonInfo/PersonInfo.js';
 import styles from '../Forms.module.css';
 import { useEffect, useState } from 'react';
-import { baseUrl } from '../../../api/urls';
-import { getAllApplicationTypes } from '../../../api/application/applicationType';
+import { baseUrl } from '../../../api/urls.js';
+import { getAllApplicationTypes } from '../../../api/application/applicationType.js';
 import { ApplicationTypeDTO } from '@dvld/shared';
 import { LicenseClassDTO } from '@dvld/shared';
-import { getAllLicenseClasses } from '../../../api/license/licenseClass';
-import { apiFetch } from '../../../api/apiFetch';
-import { UserSession } from '../../../types/UserSession';
-import { getCurrentUser } from '../../../api/user/user';
+import { getAllLicenseClasses } from '../../../api/license/licenseClass.js';
+import { apiFetch } from '../../../api/apiFetch.js';
+import { UserSession } from '../../../types/UserSession.js';
+import { getCurrentUser } from '../../../api/user/user.js';
 
 export default function NewLocalLicenseForm() {
   const [filterBy, setFilterBy] = useState("");

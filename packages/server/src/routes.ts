@@ -1,25 +1,25 @@
 import express from "express";
 
-import personRouter from "./routes/personRouter";
-import userRouter from "./routes/userRouter";
-import driverRouter from "./routes/driverRouter";
-import countryRouter from "./routes/countryRouter";
-import applicationTypeRouter from "./routes/applicationTypeRouter";
-import testTypeRouter from "./routes/testTypeRouter";
+import personRouter from './routes/personRouter.js';
+import userRouter from './routes/userRouter.js';
+import driverRouter from './routes/driverRouter.js';
+import countryRouter from './routes/countryRouter.js';
+import applicationTypeRouter from './routes/applicationTypeRouter.js';
+import testTypeRouter from './routes/testTypeRouter.js';
 
-import licenseClassRouter from "./routes/licenseClassRouter";
-import licenseRouter from "./routes/licenseRouter";
-import internationalLicenseRouter from "./routes/internationalLicenseRouter";
+import licenseClassRouter from './routes/licenseClassRouter.js';
+import licenseRouter from './routes/licenseRouter.js';
+import internationalLicenseRouter from './routes/internationalLicenseRouter.js';
 
-import applicationRouter from "./routes/applicationRouter";
+import applicationRouter from './routes/applicationRouter.js';
 
-import loginRouter from "./routes/loginRoute";
-import logoutRouter from "./routes/logoutRoute";
+import loginRouter from './routes/loginRoute.js';
+import logoutRouter from './routes/logoutRoute.js';
 
-import testAppointmentRouter from "./routes/testAppointmentRouter";
-import testRouter from "./routes/testRouter";
+import testAppointmentRouter from './routes/testAppointmentRouter.js';
+import testRouter from './routes/testRouter.js';
 
-import meRouter from "./routes/meRoute";
+import meRouter from './routes/meRoute.js';
 
 const router = express.Router();
 

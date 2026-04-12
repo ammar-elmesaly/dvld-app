@@ -5,8 +5,8 @@ import {
     PrimaryGeneratedColumn,
     OneToMany,
 } from 'typeorm';
-import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
-import { License } from './License';
+import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication.js';
+import { License } from './License.js';
 import { LicenseClassSystemName } from '@dvld/shared';
 
 @Entity()

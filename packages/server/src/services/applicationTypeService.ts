@@ -1,6 +1,6 @@
 import { ApplicationTypeSystemName } from '@dvld/shared';
-import { ApplicationType } from "../entities/ApplicationType";
-import { AppError } from "../types/errors";
+import { ApplicationType } from '../entities/ApplicationType.js';
+import { AppError } from '../types/errors.js';
 
 export function getAllApplicationTypes() {
     return ApplicationType.find();

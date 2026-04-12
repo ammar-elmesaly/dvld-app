@@ -1,8 +1,8 @@
 import express from 'express';
-import { requireAuth } from '../middleware/validators/auth';
-import { getAllTestAppointmentsHandler, getTrialNumberHandler, newTestAppointmentHandler, updateTestAppointmentHandler } from '../handlers/testAppointmentHandler';
-import validate from '../middleware/validators/validate';
-import { validateLdlaId, validateLocalDrivingLicenseApplicationId, validateNewTestAppointment, validateTestAppointmentId, validateTestTypeIdQuery, validateUpdateTestAppointment } from '../middleware/validators/testAppointment';
+import { requireAuth } from '../middleware/validators/auth.js';
+import { getAllTestAppointmentsHandler, getTrialNumberHandler, newTestAppointmentHandler, updateTestAppointmentHandler } from '../handlers/testAppointmentHandler.js';
+import validate from '../middleware/validators/validate.js';
+import { validateLdlaId, validateLocalDrivingLicenseApplicationId, validateNewTestAppointment, validateTestAppointmentId, validateTestTypeIdQuery, validateUpdateTestAppointment } from '../middleware/validators/testAppointment.js';
 
 const router = express.Router();
 

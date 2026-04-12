@@ -1,5 +1,5 @@
 import { TestAppointmentDTO } from '@dvld/shared';
-import { TestAppointment } from '../entities/TestAppointment';
+import { TestAppointment } from '../entities/TestAppointment.js';
 
 export const toTestAppointmentDTO = (testAppointment: TestAppointment): TestAppointmentDTO => {
     

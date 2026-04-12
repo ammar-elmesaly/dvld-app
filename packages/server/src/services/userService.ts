@@ -1,7 +1,7 @@
-import { PersonRepo } from "../repositories/PersonRepo";
-import { UserRepo } from "../repositories/UserRepo";
-import { AppError } from "../types/errors";
-import { hash } from "../utils/hashUtil";
+import { PersonRepo } from '../repositories/PersonRepo.js';
+import { UserRepo } from '../repositories/UserRepo.js';
+import { AppError } from '../types/errors.js';
+import { hash } from '../utils/hashUtil.js';
 
 export const getAllUsers = () => {
     return UserRepo.find({ relations: { person: true } });

@@ -9,15 +9,15 @@ import {
     OneToOne
 } from 'typeorm';
 
-import { Person } from './Person';
-import { ApplicationType } from './ApplicationType';
-import { User } from './User';
+import { Person } from './Person.js';
+import { ApplicationType } from './ApplicationType.js';
+import { User } from './User.js';
 import { ApplicationStatus } from '@dvld/shared';
-import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
-import { TestAppointment } from './TestAppointment';
-import { License } from './License';
-import { InternationalLicense } from './InternationalLicense';
-import { DetainedLicense } from './DetainedLicense';
+import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication.js';
+import { TestAppointment } from './TestAppointment.js';
+import { License } from './License.js';
+import { InternationalLicense } from './InternationalLicense.js';
+import { DetainedLicense } from './DetainedLicense.js';
 @Entity()
 export class Application extends BaseEntity {
     @PrimaryGeneratedColumn('increment')

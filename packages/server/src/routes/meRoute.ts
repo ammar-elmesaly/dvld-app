@@ -1,6 +1,6 @@
 import express from 'express';
-import { getCurrentUser } from '../handlers/meHandler';
-import { requireAuth } from '../middleware/validators/auth';
+import { getCurrentUser } from '../handlers/meHandler.js';
+import { requireAuth } from '../middleware/validators/auth.js';
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
-import { Driver } from "../entities/Driver";
-import { PersonRepo } from "../repositories/PersonRepo";
-import { AppError } from "../types/errors";
-import { getUserById } from "./userService";
+import { Driver } from '../entities/Driver.js';
+import { PersonRepo } from '../repositories/PersonRepo.js';
+import { AppError } from '../types/errors.js';
+import { getUserById } from './userService.js';
 
 export async function createOrGetDriver(createdByUserId: number, personId: number) {
     const user = await getUserById(createdByUserId)

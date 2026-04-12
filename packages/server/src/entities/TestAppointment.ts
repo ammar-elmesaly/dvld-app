@@ -8,11 +8,11 @@ import {
     OneToOne,
     CreateDateColumn
 } from 'typeorm';
-import { TestType } from './TestType';
-import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication';
-import { User } from './User';
-import { Application } from './Application';
-import { Test } from './Test';
+import { TestType } from './TestType.js';
+import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication.js';
+import { User } from './User.js';
+import { Application } from './Application.js';
+import { Test } from './Test.js';
 
 @Entity()
 export class TestAppointment extends BaseEntity {

@@ -1,4 +1,4 @@
-import { ApplicationStatus } from '../types/application';
+import { ApplicationStatus } from '../types/application.js';
 
 export interface ApplicationDTO {
     application_id: number;

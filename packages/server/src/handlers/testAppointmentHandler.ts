@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import * as testAppointmentService from "../services/testAppointmentService";
-import { toTestAppointmentDTO } from "../mappers/testAppointmentMapper";
+import * as testAppointmentService from '../services/testAppointmentService.js';
+import { toTestAppointmentDTO } from '../mappers/testAppointmentMapper.js';
 
 export const getAllTestAppointmentsHandler: RequestHandler = async (req, res) => {
     const { localDrivingLicenseApplicationId } = req.params;

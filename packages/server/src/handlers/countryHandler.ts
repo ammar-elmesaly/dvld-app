@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { Country } from "../entities/Country";
+import { Country } from '../entities/Country.js';
 
 export const getAllCountriesHandler: RequestHandler = async (_req, res) => {
     const countries = await Country.find();

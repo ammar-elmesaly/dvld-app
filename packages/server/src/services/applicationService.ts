@@ -1,14 +1,14 @@
-import { ApplicationRepo } from "../repositories/ApplicationRepo";
-import { LicenseClass  } from "../entities/LicenseClass";
-import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseApplication";
-import { AppError } from "../types/errors";
-import { PersonRepo } from "../repositories/PersonRepo";
-import { ApplicationType } from "../entities/ApplicationType";
+import { ApplicationRepo } from '../repositories/ApplicationRepo.js';
+import { LicenseClass  } from '../entities/LicenseClass.js';
+import { LocalDrivingLicenseApplication } from '../entities/LocalDrivingLicenseApplication.js';
+import { AppError } from '../types/errors.js';
+import { PersonRepo } from '../repositories/PersonRepo.js';
+import { ApplicationType } from '../entities/ApplicationType.js';
 import { ApplicationStatus } from '@dvld/shared';
 import { EntityManager, Not } from "typeorm";
-import { Application } from "../entities/Application";
+import { Application } from '../entities/Application.js';
 import { ApplicationTypeSystemName } from '@dvld/shared';
-import { getUserById } from "./userService";
+import { getUserById } from './userService.js';
 
 export function getAllApplications() {
     return ApplicationRepo.find();

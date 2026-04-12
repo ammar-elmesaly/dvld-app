@@ -5,7 +5,7 @@ import {
     PrimaryGeneratedColumn,
     OneToMany
 } from 'typeorm';
-import { Person } from './Person';
+import { Person } from './Person.js';
 
 @Entity()
 export class Country extends BaseEntity {

@@ -1,6 +1,6 @@
 import { body, param, query } from 'express-validator';
-import { AppError } from '../../types/errors';
-import { isValidTestAppointment } from '../../utils/dateUtil';
+import { AppError } from '../../types/errors.js';
+import { isValidTestAppointment } from '../../utils/dateUtil.js';
 
 export const validateLocalDrivingLicenseApplicationId = [
     param('localDrivingLicenseApplicationId')

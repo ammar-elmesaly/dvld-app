@@ -1,19 +1,19 @@
 import { DataSource } from "typeorm";
 
-import { Person } from "./entities/Person";
-import { User } from "./entities/User";
-import { Country } from "./entities/Country";
-import { Application } from "./entities/Application";
-import { ApplicationType } from "./entities/ApplicationType";
-import { TestType } from "./entities/TestType";
-import { LicenseClass } from "./entities/LicenseClass";
-import { LocalDrivingLicenseApplication } from "./entities/LocalDrivingLicenseApplication";
-import { TestAppointment } from "./entities/TestAppointment";
-import { Test } from "./entities/Test";
-import { Driver } from "./entities/Driver";
-import { License } from "./entities/License";
-import { InternationalLicense } from "./entities/InternationalLicense";
-import { DetainedLicense } from "./entities/DetainedLicense";
+import { Person } from './entities/Person.js';
+import { User } from './entities/User.js';
+import { Country } from './entities/Country.js';
+import { Application } from './entities/Application.js';
+import { ApplicationType } from './entities/ApplicationType.js';
+import { TestType } from './entities/TestType.js';
+import { LicenseClass } from './entities/LicenseClass.js';
+import { LocalDrivingLicenseApplication } from './entities/LocalDrivingLicenseApplication.js';
+import { TestAppointment } from './entities/TestAppointment.js';
+import { Test } from './entities/Test.js';
+import { Driver } from './entities/Driver.js';
+import { License } from './entities/License.js';
+import { InternationalLicense } from './entities/InternationalLicense.js';
+import { DetainedLicense } from './entities/DetainedLicense.js';
 
 export const AppDataSource = new DataSource({
     type: "postgres",

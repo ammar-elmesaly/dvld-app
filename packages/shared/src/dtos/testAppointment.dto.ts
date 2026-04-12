@@ -1,4 +1,4 @@
-import { TestResult } from "../types/test";
+import { TestResult } from '../types/test.js';
 
 export interface TestAppointmentDTO {
     id: number;

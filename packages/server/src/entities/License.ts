@@ -11,13 +11,13 @@ import {
     VirtualColumn
 } from 'typeorm';
 
-import { Application } from './Application';
-import { Driver } from './Driver';
-import { LicenseClass } from './LicenseClass';
-import { User } from './User';
-import { InternationalLicense } from './InternationalLicense';
+import { Application } from './Application.js';
+import { Driver } from './Driver.js';
+import { LicenseClass } from './LicenseClass.js';
+import { User } from './User.js';
+import { InternationalLicense } from './InternationalLicense.js';
 import { IssueReason } from '@dvld/shared';
-import { DetainedLicense } from './DetainedLicense';
+import { DetainedLicense } from './DetainedLicense.js';
 
 @Index(["driver", "license_class"], { unique: true, where: '"is_active" = true' })
 @Entity()

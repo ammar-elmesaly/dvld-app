@@ -1,19 +1,19 @@
 import { PersonDTO } from '@dvld/shared';
-import styles from "./LicenseHistoryInfo.module.css";
-import PersonInfo from "../PersonInfo/PersonInfo";
-import Switch from "../../Switch/Switch";
+import styles from './LicenseHistoryInfo.module.css';
+import PersonInfo from '../PersonInfo/PersonInfo.js';
+import Switch from '../../Switch/Switch.js';
 import { useEffect, useState } from "react";
 import { LicenseDTO } from '@dvld/shared';
 import { InternationalLicenseDTO } from '@dvld/shared';
-import ManageLocalLicensesTable from "../../Tables/ManageLocalLicenses";
-import ManageInternationalLicensesTable from "../../Tables/ManageInternationalLicenses";
-import { RowActionDef, ActiveRowAction, LocalLicensesActionType, InternationalLicensesActionType } from "../../../types/table";
-import Overlay from "../../Overlay/Overlay";
-import DriverLicenseInfo from "../DriverLicenseInfo/DriverLicenseInfo";
-import { getLicenseWithPersonById } from "../../../api/license/license";
+import ManageLocalLicensesTable from '../../Tables/ManageLocalLicenses.js';
+import ManageInternationalLicensesTable from '../../Tables/ManageInternationalLicenses.js';
+import { RowActionDef, ActiveRowAction, LocalLicensesActionType, InternationalLicensesActionType } from '../../../types/table.js';
+import Overlay from '../../Overlay/Overlay.js';
+import DriverLicenseInfo from '../DriverLicenseInfo/DriverLicenseInfo.js';
+import { getLicenseWithPersonById } from '../../../api/license/license.js';
 import { LicensePersonDTO } from '@dvld/shared';
-import { getInternationalLicenseById } from "../../../api/license/intLicense";
-import { InternationalLicenseInfo } from "../InternationalLicenseInfo/InternationalLicenseInfo";
+import { getInternationalLicenseById } from '../../../api/license/intLicense.js';
+import { InternationalLicenseInfo } from '../InternationalLicenseInfo/InternationalLicenseInfo.js';
 
 interface LicenseHistoryInfoProps {
   person?: PersonDTO;

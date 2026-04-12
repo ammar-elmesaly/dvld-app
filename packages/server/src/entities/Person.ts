@@ -9,11 +9,11 @@ import {
     OneToMany,
     Unique
 } from 'typeorm';
-import { User } from './User';
-import { Country } from './Country';
-import { Application } from './Application';
+import { User } from './User.js';
+import { Country } from './Country.js';
+import { Application } from './Application.js';
 import { Gender } from '@dvld/shared';
-import { Driver } from './Driver';
+import { Driver } from './Driver.js';
 
 @Unique('UQ_full_name', ['first_name', 'second_name', 'third_name', 'last_name'])
 @Entity()

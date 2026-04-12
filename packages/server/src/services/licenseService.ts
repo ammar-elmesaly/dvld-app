@@ -1,18 +1,18 @@
 import { ApplicationStatus } from '@dvld/shared';
-import { License } from "../entities/License";
-import { AppError } from "../types/errors";
+import { License } from '../entities/License.js';
+import { AppError } from '../types/errors.js';
 
-import { createOrGetDriver } from "./driverService";
+import { createOrGetDriver } from './driverService.js';
 import { IssueReason, ReplacementType } from '@dvld/shared';
-import { UserRepo } from "../repositories/UserRepo";
-import { newApplication } from "./applicationService";
-import { getPersonByDriverId } from "./personService";
+import { UserRepo } from '../repositories/UserRepo.js';
+import { newApplication } from './applicationService.js';
+import { getPersonByDriverId } from './personService.js';
 import { Not } from "typeorm";
-import { isExpired } from "../utils/dateUtil";
-import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseApplication";
-import { ApplicationRepo } from "../repositories/ApplicationRepo";
-import { TestType } from "../entities/TestType";
-import { LicenseRepo } from "../repositories/LicenseRepo";
+import { isExpired } from '../utils/dateUtil.js';
+import { LocalDrivingLicenseApplication } from '../entities/LocalDrivingLicenseApplication.js';
+import { ApplicationRepo } from '../repositories/ApplicationRepo.js';
+import { TestType } from '../entities/TestType.js';
+import { LicenseRepo } from '../repositories/LicenseRepo.js';
 import { ApplicationTypeSystemName } from '@dvld/shared';
 
 export async function issueLicenseFirstTime(

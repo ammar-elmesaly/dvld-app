@@ -1,8 +1,8 @@
-import { apiFetch } from '../../../api/apiFetch';
-import { getAllCountries } from '../../../api/country/country';
-import { baseUrl } from '../../../api/urls';
-import { toInputDate, yearsAgo } from '../../../helpers/date';
-import Button from '../../Button/Button';
+import { apiFetch } from '../../../api/apiFetch.js';
+import { getAllCountries } from '../../../api/country/country.js';
+import { baseUrl } from '../../../api/urls.js';
+import { toInputDate, yearsAgo } from '../../../helpers/date.js';
+import Button from '../../Button/Button.js';
 import styles from '../Forms.module.css';
 import { CountryDTO } from '@dvld/shared';
 

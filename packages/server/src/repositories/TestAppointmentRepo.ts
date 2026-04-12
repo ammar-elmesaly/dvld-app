@@ -1,5 +1,5 @@
-import { AppDataSource } from "../dataSource";
-import { TestAppointment } from "../entities/TestAppointment";
+import { AppDataSource } from '../dataSource.js';
+import { TestAppointment } from '../entities/TestAppointment.js';
 
 export const TestAppointmentRepo = AppDataSource.getRepository(TestAppointment).extend({
     getAllTestAppointments(ldlaId: number) {

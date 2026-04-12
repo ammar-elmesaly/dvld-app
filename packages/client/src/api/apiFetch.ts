@@ -1,4 +1,4 @@
-import { history } from "../helpers/history";
+import { history } from '../helpers/history.js';
 
 export async function apiFetch(input: RequestInfo, init?: RequestInit) {
     const res = await fetch(input, { ...init, credentials: 'include' });

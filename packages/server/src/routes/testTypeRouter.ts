@@ -1,8 +1,8 @@
 import express from 'express';
-import { editTestTypeByIdHandler, getAllTestTypesHandler, getTestTypeByIdHandler, getTestTypeByNameHandler } from '../handlers/testTypeHandler';
-import { requireAuth } from '../middleware/validators/auth';
-import validate from '../middleware/validators/validate';
-import { validateEditTestType, validateTestTypeId, validateTestTypeSystemName } from '../middleware/validators/testType';
+import { editTestTypeByIdHandler, getAllTestTypesHandler, getTestTypeByIdHandler, getTestTypeByNameHandler } from '../handlers/testTypeHandler.js';
+import { requireAuth } from '../middleware/validators/auth.js';
+import validate from '../middleware/validators/validate.js';
+import { validateEditTestType, validateTestTypeId, validateTestTypeSystemName } from '../middleware/validators/testType.js';
 
 const router = express.Router();
 

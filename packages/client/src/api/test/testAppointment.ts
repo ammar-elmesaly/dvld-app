@@ -1,5 +1,5 @@
-import { baseUrl } from "../urls";
-import { apiFetch } from "../apiFetch";
+import { baseUrl } from '../urls.js';
+import { apiFetch } from '../apiFetch.js';
 
 export async function getAllTestAppointments(ldlaId: number) {
     const res = await apiFetch(`${baseUrl}/testAppointment/${ldlaId}/all`);

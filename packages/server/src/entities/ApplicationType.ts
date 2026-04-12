@@ -5,7 +5,7 @@ import {
     PrimaryGeneratedColumn,
     OneToMany
 } from 'typeorm';
-import { Application } from './Application';
+import { Application } from './Application.js';
 
 import { ApplicationTypeSystemName } from '@dvld/shared';
 

@@ -1,5 +1,5 @@
 import { LicenseClassSystemName } from '@dvld/shared';
-import { LicenseClass } from "../entities/LicenseClass";
+import { LicenseClass } from '../entities/LicenseClass.js';
 
 export function getAllLicenseClasses() {
     return LicenseClass.find();

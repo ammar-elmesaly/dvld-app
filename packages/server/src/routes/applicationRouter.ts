@@ -1,8 +1,8 @@
 import express from 'express';
-import { getAllApplicationsHandler, getLocalDrivingLicenseApplicationsHandler, newLocalDrivingLicenseHandler, newApplicationHandler, getInternationalDrivingLicenseApplicationsHandler } from '../handlers/applicationHandler';
-import { requireAuth } from '../middleware/validators/auth';
-import validate from '../middleware/validators/validate';
-import { validateNewApplication, validateNewLocalDrivingLicenseApplication } from '../middleware/validators/application';
+import { getAllApplicationsHandler, getLocalDrivingLicenseApplicationsHandler, newLocalDrivingLicenseHandler, newApplicationHandler, getInternationalDrivingLicenseApplicationsHandler } from '../handlers/applicationHandler.js';
+import { requireAuth } from '../middleware/validators/auth.js';
+import validate from '../middleware/validators/validate.js';
+import { validateNewApplication, validateNewLocalDrivingLicenseApplication } from '../middleware/validators/application.js';
 
 const router = express.Router();
 

@@ -1,8 +1,8 @@
 import express from 'express';
-import { requireAuth } from '../middleware/validators/auth';
-import { getAllInternationalLicensesWithDriverIdHandler, getLicenseByIdHandler, issueNewLicenseHandler } from '../handlers/internationalLicenseHandler';
-import validate from '../middleware/validators/validate';
-import { validateInternationalLicenseDriverId, validateInternationalLicenseId, validateIssueInternationalLicense } from '../middleware/validators/internationalLicense';
+import { requireAuth } from '../middleware/validators/auth.js';
+import { getAllInternationalLicensesWithDriverIdHandler, getLicenseByIdHandler, issueNewLicenseHandler } from '../handlers/internationalLicenseHandler.js';
+import validate from '../middleware/validators/validate.js';
+import { validateInternationalLicenseDriverId, validateInternationalLicenseId, validateIssueInternationalLicense } from '../middleware/validators/internationalLicense.js';
 const router = express.Router();
 
 // POST /internationalLicense/issue

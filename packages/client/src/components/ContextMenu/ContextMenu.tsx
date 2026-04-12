@@ -1,7 +1,7 @@
-import { RowActionDef } from '../../types/table';
+import { RowActionDef } from '../../types/table.js';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import Button from '../Button/Button';
+import Button from '../Button/Button.js';
 import styles from './ContextMenu.module.css';
 
 interface ContextMenuProps<RowType, RowActionType> {

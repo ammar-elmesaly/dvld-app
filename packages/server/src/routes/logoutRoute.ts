@@ -1,6 +1,6 @@
 import express from 'express';
-import { logoutHandler } from '../handlers/logoutHandler';
-import { requireAuth } from '../middleware/validators/auth';
+import { logoutHandler } from '../handlers/logoutHandler.js';
+import { requireAuth } from '../middleware/validators/auth.js';
 
 const router = express.Router();
 

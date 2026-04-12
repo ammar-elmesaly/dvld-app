@@ -1,6 +1,6 @@
 import { InternationalLicenseDTO } from '@dvld/shared';
 import { InternationalLicensePersonDTO } from '@dvld/shared';
-import { InternationalLicense } from "../entities/InternationalLicense";
+import { InternationalLicense } from '../entities/InternationalLicense.js';
 
 export function toInternationalLicenseDTO(license: InternationalLicense): InternationalLicenseDTO {
     return {

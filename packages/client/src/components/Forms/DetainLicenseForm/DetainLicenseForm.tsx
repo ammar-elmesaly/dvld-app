@@ -1,13 +1,13 @@
-import Button from '../../Button/Button';
+import Button from '../../Button/Button.js';
 import styles from '../Forms.module.css';
 import { useEffect, useState } from 'react';
-import { getLicenseWithPersonById } from '../../../api/license/license';
-import DriverLicenseInfo from '../../Info/DriverLicenseInfo/DriverLicenseInfo';
+import { getLicenseWithPersonById } from '../../../api/license/license.js';
+import DriverLicenseInfo from '../../Info/DriverLicenseInfo/DriverLicenseInfo.js';
 import { LicensePersonDTO } from '@dvld/shared';
-import { apiFetch } from '../../../api/apiFetch';
-import { baseUrl } from '../../../api/urls';
-import { getCurrentUser } from '../../../api/user/user';
-import { UserSession } from '../../../types/UserSession';
+import { apiFetch } from '../../../api/apiFetch.js';
+import { baseUrl } from '../../../api/urls.js';
+import { getCurrentUser } from '../../../api/user/user.js';
+import { UserSession } from '../../../types/UserSession.js';
 
 interface DetainLicenseFormProps {
   handleRefresh?: () => void;

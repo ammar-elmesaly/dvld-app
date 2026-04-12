@@ -1,8 +1,8 @@
 import express from 'express';
-import { editApplicationTypeByIdHandler, getAllApplicationTypesHandler, getApplicationTypeByNameHandler } from '../handlers/applicationTypeHandler';
-import { validateApplicationType, validateApplicationTypeId, validateEditApplicationType } from '../middleware/validators/applicationType';
-import { requireAuth } from '../middleware/validators/auth';
-import validate from '../middleware/validators/validate';
+import { editApplicationTypeByIdHandler, getAllApplicationTypesHandler, getApplicationTypeByNameHandler } from '../handlers/applicationTypeHandler.js';
+import { validateApplicationType, validateApplicationTypeId, validateEditApplicationType } from '../middleware/validators/applicationType.js';
+import { requireAuth } from '../middleware/validators/auth.js';
+import validate from '../middleware/validators/validate.js';
 
 const router = express.Router();
 

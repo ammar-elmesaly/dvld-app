@@ -1,5 +1,5 @@
-import { AppDataSource } from "../dataSource";
-import { Application } from "../entities/Application";
+import { AppDataSource } from '../dataSource.js';
+import { Application } from '../entities/Application.js';
 
 export const ApplicationRepo = AppDataSource.getRepository(Application).extend({
     getAllLocalDrivingLicenseApplications() {

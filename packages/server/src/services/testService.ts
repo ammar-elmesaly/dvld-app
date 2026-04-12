@@ -1,8 +1,8 @@
 import { TestResult } from '@dvld/shared';
-import { TestAppointmentRepo } from "../repositories/TestAppointmentRepo";
-import { AppError } from "../types/errors";
-import { Test } from "../entities/Test";
-import { getUserById } from "./userService";
+import { TestAppointmentRepo } from '../repositories/TestAppointmentRepo.js';
+import { AppError } from '../types/errors.js';
+import { Test } from '../entities/Test.js';
+import { getUserById } from './userService.js';
 
 export async function createNewTest(
     testAppointmentId: number,

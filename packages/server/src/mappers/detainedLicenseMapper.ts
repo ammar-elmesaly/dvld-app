@@ -1,4 +1,4 @@
-import { DetainedLicense } from "../entities/DetainedLicense";
+import { DetainedLicense } from '../entities/DetainedLicense.js';
 import { DetainedLicenseDTO } from '@dvld/shared';
 
 export const toDetainedLicenseDTO = (detainedLicense: DetainedLicense): DetainedLicenseDTO => {

@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import * as applicationTypeService from "../services/applicationTypeService";
+import * as applicationTypeService from '../services/applicationTypeService.js';
 import { ApplicationTypeSystemName } from '@dvld/shared';
 
 export const getAllApplicationTypesHandler: RequestHandler = async (_req, res) => {

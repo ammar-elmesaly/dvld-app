@@ -1,6 +1,6 @@
 import { TestTypeSystemName } from '@dvld/shared';
-import { TestType } from "../entities/TestType";
-import { AppError } from "../types/errors";
+import { TestType } from '../entities/TestType.js';
+import { AppError } from '../types/errors.js';
 
 export function getAllTestTypes() {
     return TestType.find({

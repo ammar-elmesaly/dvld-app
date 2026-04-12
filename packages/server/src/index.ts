@@ -1,15 +1,14 @@
-import "reflect-metadata";
 import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
 import session from 'express-session';
-import allRouters from './routes';
-import { AppDataSource } from './dataSource';
+import allRouters from './routes.js';
+import { AppDataSource } from './dataSource.js';
 import cors from 'cors';
-import { errorHandler } from './middleware/globalErrorHandler';
+import { errorHandler } from './middleware/globalErrorHandler.js';
 import path from 'path';
-import { AppError } from './types/errors';
+import { AppError } from './types/errors.js';
 
 declare module 'express-session' {
     interface SessionData {

@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import styles from '../ManagePeople/ManagePeople.module.css';
-import Button from '../Button/Button';
-import Filter from '../Filter/Filter';
-import Overlay from '../Overlay/Overlay';
-import ManageDriversTable from '../Tables/ManageDriversTable';
+import Button from '../Button/Button.js';
+import Filter from '../Filter/Filter.js';
+import Overlay from '../Overlay/Overlay.js';
+import ManageDriversTable from '../Tables/ManageDriversTable.js';
 import { DriverDTO } from '@dvld/shared';
 import { PersonDTO } from '@dvld/shared';
 import { LicenseDTO } from '@dvld/shared';
 import { InternationalLicenseDTO } from '@dvld/shared';
 
-import { RowActionDef, ActiveRowAction, DriversActionType } from '../../types/table';
-import PersonInformation from '../Info/PersonInfo/PersonInfo';
-import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo';
-import { getAllDrivers } from '../../api/driver/driver';
-import { getPersonById } from '../../api/person/person';
-import { getAllLicensesWithDriverId } from '../../api/license/license';
-import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense';
+import { RowActionDef, ActiveRowAction, DriversActionType } from '../../types/table.js';
+import PersonInformation from '../Info/PersonInfo/PersonInfo.js';
+import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo.js';
+import { getAllDrivers } from '../../api/driver/driver.js';
+import { getPersonById } from '../../api/person/person.js';
+import { getAllLicensesWithDriverId } from '../../api/license/license.js';
+import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense.js';
 
 export default function ManageDrivers() {
   const [filterBy, setFilterBy] = useState("");

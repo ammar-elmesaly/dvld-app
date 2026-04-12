@@ -1,4 +1,4 @@
-import { uploadUrl } from "../../../api/urls";
+import { uploadUrl } from '../../../api/urls.js';
 import { PersonDTO } from '@dvld/shared';
 import { LicensePersonDTO } from '@dvld/shared';
 
@@ -7,7 +7,7 @@ interface PersonInfoProps {
 }
 
 import styles from '../../Forms/Forms.module.css';
-import { InfoRow } from "../../../helpers/info";
+import { InfoRow } from '../../../helpers/info.js';
 import { LicenseDTO } from '@dvld/shared';
 
 export default function DriverLicenseInfo({ licenseWithPerson }: PersonInfoProps) {

@@ -1,14 +1,14 @@
 import { TestResult } from '@dvld/shared';
-import { LocalDrivingLicenseApplication } from "../entities/LocalDrivingLicenseApplication";
-import { TestAppointmentRepo } from "../repositories/TestAppointmentRepo";
-import { TestType } from "../entities/TestType";
-import { AppError } from "../types/errors";
-import { newApplication } from "./applicationService";
-import { getApplicationTypeByName } from "./applicationTypeService";
-import { TestRepo } from "../repositories/TestRepo";
-import { TestAppointment } from "../entities/TestAppointment";
+import { LocalDrivingLicenseApplication } from '../entities/LocalDrivingLicenseApplication.js';
+import { TestAppointmentRepo } from '../repositories/TestAppointmentRepo.js';
+import { TestType } from '../entities/TestType.js';
+import { AppError } from '../types/errors.js';
+import { newApplication } from './applicationService.js';
+import { getApplicationTypeByName } from './applicationTypeService.js';
+import { TestRepo } from '../repositories/TestRepo.js';
+import { TestAppointment } from '../entities/TestAppointment.js';
 import { ApplicationTypeSystemName } from '@dvld/shared';
-import { getUserById } from "./userService";
+import { getUserById } from './userService.js';
 
 
 export async function getTestAppointments(localDrivingLicenseApplicationId: number) {

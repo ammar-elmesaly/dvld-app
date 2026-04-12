@@ -1,17 +1,17 @@
-import Button from '../../Button/Button';
+import Button from '../../Button/Button.js';
 import styles from '../Forms.module.css';
 import { useEffect, useState } from 'react';
-import { baseUrl } from '../../../api/urls';
-import { apiFetch } from '../../../api/apiFetch';
+import { baseUrl } from '../../../api/urls.js';
+import { apiFetch } from '../../../api/apiFetch.js';
 import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared';
-import { toInputDate } from '../../../helpers/date';
+import { toInputDate } from '../../../helpers/date.js';
 import { TestTypeDTO } from '@dvld/shared';
-import { RetakeTestInfo } from '../../Info/RetakeTestInfo/RetakeTestInfo';
+import { RetakeTestInfo } from '../../Info/RetakeTestInfo/RetakeTestInfo.js';
 import { TestAppointmentDTO } from '@dvld/shared';
-import { UserSession } from '../../../types/UserSession';
-import { getCurrentUser } from '../../../api/user/user';
+import { UserSession } from '../../../types/UserSession.js';
+import { getCurrentUser } from '../../../api/user/user.js';
 import { TestResult } from '@dvld/shared';
-import { getTrialNumber } from '../../../api/test/testAppointment';
+import { getTrialNumber } from '../../../api/test/testAppointment.js';
 
 interface TestAppointmentFormProps {
   ldla: LocalDrivingLicenseApplicationDTO;

@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
-import * as personService from "../services/personService";
-import { toPersonDTO } from "../mappers/personMapper";
-import { AppError } from "../types/errors";
+import * as personService from '../services/personService.js';
+import { toPersonDTO } from '../mappers/personMapper.js';
+import { AppError } from '../types/errors.js';
 
 export const getAllPersonsHandler: RequestHandler = async (_req, res) => {
     const persons = await personService.getAllPersons();

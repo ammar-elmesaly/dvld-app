@@ -1,7 +1,7 @@
 import { body, param } from "express-validator";
 import { Gender } from '@dvld/shared';
-import { AppError } from "../../types/errors";
-import { isValidPersonAge } from "../../utils/dateUtil";
+import { AppError } from '../../types/errors.js';
+import { isValidPersonAge } from '../../utils/dateUtil.js';
 
 // Validate personId in params
 export const validatePersonId = [

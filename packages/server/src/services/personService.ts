@@ -1,7 +1,7 @@
-import { PersonRepo } from "../repositories/PersonRepo";
+import { PersonRepo } from '../repositories/PersonRepo.js';
 import { Gender } from '@dvld/shared';
-import { CountryRepo } from "../repositories/CountryRepo";
-import { AppError } from "../types/errors";
+import { CountryRepo } from '../repositories/CountryRepo.js';
+import { AppError } from '../types/errors.js';
 
 export const getAllPersons = () => {
     return PersonRepo.find({ relations: { national_country: true } });

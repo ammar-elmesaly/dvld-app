@@ -5,7 +5,7 @@ import {
     PrimaryGeneratedColumn,
     OneToMany,
 } from 'typeorm';
-import { TestAppointment } from './TestAppointment';
+import { TestAppointment } from './TestAppointment.js';
 import { TestTypeSystemName } from '@dvld/shared';
 
 @Entity()

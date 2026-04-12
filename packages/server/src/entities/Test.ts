@@ -7,9 +7,9 @@ import {
     JoinColumn,
     ManyToOne
 } from 'typeorm';
-import { TestAppointment } from './TestAppointment';
+import { TestAppointment } from './TestAppointment.js';
 import { TestResult } from '@dvld/shared';
-import { User } from './User';
+import { User } from './User.js';
 
 @Entity()
 export class Test extends BaseEntity {

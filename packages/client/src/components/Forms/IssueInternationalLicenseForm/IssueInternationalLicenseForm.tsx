@@ -1,15 +1,15 @@
-import Button from '../../Button/Button';
+import Button from '../../Button/Button.js';
 import styles from '../Forms.module.css';
 import { useEffect, useState } from 'react';
-import { baseUrl } from '../../../api/urls';
-import { apiFetch } from '../../../api/apiFetch';
-import { getLicenseWithPersonById } from '../../../api/license/license';
-import DriverLicenseInfo from '../../Info/DriverLicenseInfo/DriverLicenseInfo';
+import { baseUrl } from '../../../api/urls.js';
+import { apiFetch } from '../../../api/apiFetch.js';
+import { getLicenseWithPersonById } from '../../../api/license/license.js';
+import DriverLicenseInfo from '../../Info/DriverLicenseInfo/DriverLicenseInfo.js';
 import { LicensePersonDTO } from '@dvld/shared';
 import { ApplicationTypeDTO } from '@dvld/shared';
-import { getApplicationTypeByName } from '../../../api/application/applicationType';
-import { UserSession } from '../../../types/UserSession';
-import { getCurrentUser } from '../../../api/user/user';
+import { getApplicationTypeByName } from '../../../api/application/applicationType.js';
+import { UserSession } from '../../../types/UserSession.js';
+import { getCurrentUser } from '../../../api/user/user.js';
 
 export default function IssueInternationalLicenseForm() {
   const [filterValue, setFilterValue] = useState("");

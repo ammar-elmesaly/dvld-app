@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import * as userService from "../services/userService";
-import { toUserDTO } from "../mappers/userMapper";
+import * as userService from '../services/userService.js';
+import { toUserDTO } from '../mappers/userMapper.js';
 
 export const getAllUsersHandler: RequestHandler = async (_req, res) => {
     const users = await userService.getAllUsers();

@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
-import * as applicationService from "../services/applicationService";
-import { toInternationalDrivingLicenseApplicationDTO, toLocalDrivingLicenseApplicationDTO } from "../mappers/drivingLicenseApplicationMapper";
-import { getApplicationTypeByName } from "../services/applicationTypeService";
+import * as applicationService from '../services/applicationService.js';
+import { toInternationalDrivingLicenseApplicationDTO, toLocalDrivingLicenseApplicationDTO } from '../mappers/drivingLicenseApplicationMapper.js';
+import { getApplicationTypeByName } from '../services/applicationTypeService.js';
 import { ApplicationTypeSystemName } from '@dvld/shared';
 
 export const getAllApplicationsHandler: RequestHandler = async (_req, res) => {

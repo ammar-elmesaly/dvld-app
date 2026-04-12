@@ -1,5 +1,5 @@
-import { InfoRow } from "../../../helpers/info"
-import styles from "./RetakeTestInfo.module.css";
+import { InfoRow } from '../../../helpers/info.js'
+import styles from './RetakeTestInfo.module.css';
 
 interface RetakeTestInfoProps {
   retakeTestFees: number | undefined;

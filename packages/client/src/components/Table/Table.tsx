@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, TableHTMLAttributes, useState } from "react";
 import styles from './Table.module.css';
-import ContextMenu from "../ContextMenu/ContextMenu";
-import { RowActionDef } from "../../types/table";
+import ContextMenu from '../ContextMenu/ContextMenu.js';
+import { RowActionDef } from '../../types/table.js';
 
 interface TableProps<RowType, RowActionType> extends TableHTMLAttributes<HTMLTableElement> {
   data: Record<string, unknown>[];

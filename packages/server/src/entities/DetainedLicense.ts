@@ -7,9 +7,9 @@ import {
     JoinColumn,
     OneToOne
 } from 'typeorm';
-import { License } from './License';
-import { User } from './User';
-import { Application } from './Application';
+import { License } from './License.js';
+import { User } from './User.js';
+import { Application } from './Application.js';
 
 @Entity()
 export class DetainedLicense extends BaseEntity {

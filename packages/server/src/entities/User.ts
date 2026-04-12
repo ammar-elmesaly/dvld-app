@@ -7,14 +7,14 @@ import {
     OneToMany,
     JoinColumn,
 } from 'typeorm';
-import { Person } from './Person';
-import { Application } from './Application';
-import { TestAppointment } from './TestAppointment';
-import { Test } from './Test';
-import { License } from './License';
-import { Driver } from './Driver';
-import { InternationalLicense } from './InternationalLicense';
-import { DetainedLicense } from './DetainedLicense';
+import { Person } from './Person.js';
+import { Application } from './Application.js';
+import { TestAppointment } from './TestAppointment.js';
+import { Test } from './Test.js';
+import { License } from './License.js';
+import { Driver } from './Driver.js';
+import { InternationalLicense } from './InternationalLicense.js';
+import { DetainedLicense } from './DetainedLicense.js';
 
 @Entity()
 export class User extends BaseEntity {

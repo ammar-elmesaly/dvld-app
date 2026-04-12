@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
-import { getUserByName } from "../services/userService";
-import { compare } from "../utils/hashUtil";
-import { AppError } from "../types/errors";
+import { getUserByName } from '../services/userService.js';
+import { compare } from '../utils/hashUtil.js';
+import { AppError } from '../types/errors.js';
 
 export const loginHandler: RequestHandler = async (req, res, next) => {
     const { username, password, rememberMe } = req.body;

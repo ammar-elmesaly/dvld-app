@@ -1,5 +1,5 @@
 import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared';
-import { Application } from '../entities/Application';
+import { Application } from '../entities/Application.js';
 import { InternationalDrivingLicenseApplicationDTO } from '@dvld/shared';
 
 export const toLocalDrivingLicenseApplicationDTO = (application: Application, retakeTestFees: number | undefined): LocalDrivingLicenseApplicationDTO => {

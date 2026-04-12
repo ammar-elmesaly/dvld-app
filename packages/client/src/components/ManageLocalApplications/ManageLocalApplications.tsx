@@ -1,27 +1,27 @@
 import { useEffect, useState } from 'react';
 import styles from './ManageLocalApplications.module.css';
-import Overlay from '../Overlay/Overlay';
-import ManageApplicationsTable from '../Tables/ManageApplicationsTable';
+import Overlay from '../Overlay/Overlay.js';
+import ManageApplicationsTable from '../Tables/ManageApplicationsTable.js';
 
 import { LocalDrivingLicenseApplicationDTO } from '@dvld/shared';
-import { RowActionDef, ActiveRowAction, ApplicationsActionType } from '../../types/table';
-import { getAllLocalDrivingLicenseApplications } from '../../api/application/application';
-import Button from '../Button/Button';
-import Filter from '../Filter/Filter';
-import NewLocalLicenseForm from '../Forms/NewLocalLicenseForm/NewLocalLicenseForm';
+import { RowActionDef, ActiveRowAction, ApplicationsActionType } from '../../types/table.js';
+import { getAllLocalDrivingLicenseApplications } from '../../api/application/application.js';
+import Button from '../Button/Button.js';
+import Filter from '../Filter/Filter.js';
+import NewLocalLicenseForm from '../Forms/NewLocalLicenseForm/NewLocalLicenseForm.js';
 import { ApplicationStatus } from '@dvld/shared';
-import { ApplicationBasicInfo } from '../Info/ApplicationBasicInfo/ApplicationBasicInfo';
-import { DrivingLicenseInfo } from '../Info/DrivingLicenseInfo/DrivingLicenseInfo';
-import ManageTestAppointments from '../ManageTestAppointments/ManageTestAppointments';
-import { IssueDrivingLicenseForm } from '../Forms/IssueDrivingLicenseForm/IssueDrivingLicenseForm';
-import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo';
-import { getAllLicensesWithDriverId, getLicenseWithPersonById } from '../../api/license/license';
+import { ApplicationBasicInfo } from '../Info/ApplicationBasicInfo/ApplicationBasicInfo.js';
+import { DrivingLicenseInfo } from '../Info/DrivingLicenseInfo/DrivingLicenseInfo.js';
+import ManageTestAppointments from '../ManageTestAppointments/ManageTestAppointments.js';
+import { IssueDrivingLicenseForm } from '../Forms/IssueDrivingLicenseForm/IssueDrivingLicenseForm.js';
+import DriverLicenseInfo from '../Info/DriverLicenseInfo/DriverLicenseInfo.js';
+import { getAllLicensesWithDriverId, getLicenseWithPersonById } from '../../api/license/license.js';
 import { LicensePersonDTO } from '@dvld/shared';
-import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo';
-import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense';
+import { LicenseHistoryInfo } from '../Info/LicenseHistoryInfo/LicenseHistoryInfo.js';
+import { getAllInternationalLicensesWithDriverId } from '../../api/license/intLicense.js';
 import { LicenseDTO } from '@dvld/shared';
 import { InternationalLicenseDTO } from '@dvld/shared';
-import { getAllTestTypes } from '../../api/test/testType';
+import { getAllTestTypes } from '../../api/test/testType.js';
 import { TestTypeDTO, TestTypeSystemName } from '@dvld/shared';
 
 export default function ManageLocalApplications() {

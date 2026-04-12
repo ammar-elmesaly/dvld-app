@@ -1,7 +1,7 @@
-import { apiFetch } from "../../../api/apiFetch";
-import { baseUrl } from "../../../api/urls";
-import { Button } from "../../Button/Button";
-import styles from "../../Forms/Forms.module.css";
+import { apiFetch } from '../../../api/apiFetch.js';
+import { baseUrl } from '../../../api/urls.js';
+import { Button } from '../../Button/Button.js';
+import styles from '../../Forms/Forms.module.css';
 import { ApplicationTypeDTO } from '@dvld/shared';
 
 interface EditApplicationTypeProps {

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "../../../api/apiFetch";
-import { baseUrl } from "../../../api/urls";
-import { getCurrentUser } from "../../../api/user/user";
-import Button from "../../Button/Button";
-import styles from "../Forms.module.css";
-import { UserSession } from "../../../types/UserSession";
+import { apiFetch } from '../../../api/apiFetch.js';
+import { baseUrl } from '../../../api/urls.js';
+import { getCurrentUser } from '../../../api/user/user.js';
+import Button from '../../Button/Button.js';
+import styles from '../Forms.module.css';
+import { UserSession } from '../../../types/UserSession.js';
 
 interface IssueDrivingLicenseProps {
   localDrivingLicenseApplicationId: number;

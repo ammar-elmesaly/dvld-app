@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import * as testService from "../services/testService";
+import * as testService from '../services/testService.js';
 
 export const addNewTestHandler: RequestHandler = async (req, res) => {
     const {

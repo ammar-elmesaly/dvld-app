@@ -8,9 +8,9 @@ import {
     OneToMany,
     VirtualColumn
 } from 'typeorm';
-import { Application } from './Application';
-import { LicenseClass } from './LicenseClass';
-import { TestAppointment } from './TestAppointment';
+import { Application } from './Application.js';
+import { LicenseClass } from './LicenseClass.js';
+import { TestAppointment } from './TestAppointment.js';
 
 @Entity()
 export class LocalDrivingLicenseApplication extends BaseEntity {

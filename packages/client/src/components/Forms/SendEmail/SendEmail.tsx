@@ -1,4 +1,4 @@
-import Button from '../../Button/Button';
+import Button from '../../Button/Button.js';
 import styles from '../Forms.module.css';
 
 interface SendEmailProps {

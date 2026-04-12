@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import { Driver } from "../entities/Driver";
-import { toDriverDTO } from "../mappers/driverMapper";
+import { Driver } from '../entities/Driver.js';
+import { toDriverDTO } from '../mappers/driverMapper.js';
 
 export const getAllDriversHandler: RequestHandler = async (_req, res) => {
     const drivers = await Driver.find({ relations: {

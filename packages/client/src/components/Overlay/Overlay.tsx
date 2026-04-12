@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { createPortal } from "react-dom";
-import styles from "./Overlay.module.css";
+import styles from './Overlay.module.css';
 
 interface OverlayProps {
     open: boolean;

@@ -1,5 +1,5 @@
-import { IssueReason } from "../types/license";
-import { LicenseClassSystemName } from "./licenseClass.dto";
+import { IssueReason } from '../types/license.js';
+import { LicenseClassSystemName } from './licenseClass.dto.js';
 
 export interface LicenseDTO {
     id: number;

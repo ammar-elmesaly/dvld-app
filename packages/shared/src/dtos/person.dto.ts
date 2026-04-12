@@ -1,4 +1,4 @@
-import { Gender } from '../types/person';
+import { Gender } from '../types/person.js';
 
 export interface PersonDTO {
     id: number;

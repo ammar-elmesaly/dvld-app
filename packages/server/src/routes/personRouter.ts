@@ -1,11 +1,11 @@
 import express from 'express';
-import { getAllPersonsHandler, createPersonHandler, getPersonByIdHandler, getPersonByNationalIdHandler, getPersonByDriverIdHandler, editPersonByIdHandler, deletePersonByIdHandler } from '../handlers/personHandler';
-import validate from "../middleware/validators/validate";
-import { validatePersonId, validateNewPerson, validatePersonNationalId, validateEditPerson, validateDriverId } from '../middleware/validators/person';
+import { getAllPersonsHandler, createPersonHandler, getPersonByIdHandler, getPersonByNationalIdHandler, getPersonByDriverIdHandler, editPersonByIdHandler, deletePersonByIdHandler } from '../handlers/personHandler.js';
+import validate from '../middleware/validators/validate.js';
+import { validatePersonId, validateNewPerson, validatePersonNationalId, validateEditPerson, validateDriverId } from '../middleware/validators/person.js';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import { requireAuth } from '../middleware/validators/auth';
+import { requireAuth } from '../middleware/validators/auth.js';
 
 const uploadPath = path.join(__dirname, '../../uploads/personalPictures');
 

@@ -1,11 +1,11 @@
 import { IsNull } from "typeorm";
-import { DetainedLicense } from "../entities/DetainedLicense";
-import { License } from "../entities/License";
-import { AppError } from "../types/errors";
-import { newApplication } from "./applicationService";
-import { DetainedLicenseRepo } from "../repositories/DetainLicenseRepo";
+import { DetainedLicense } from '../entities/DetainedLicense.js';
+import { License } from '../entities/License.js';
+import { AppError } from '../types/errors.js';
+import { newApplication } from './applicationService.js';
+import { DetainedLicenseRepo } from '../repositories/DetainLicenseRepo.js';
 import { ApplicationTypeSystemName } from '@dvld/shared';
-import { getUserById } from "./userService";
+import { getUserById } from './userService.js';
 
 export async function detainLicense(licenseId: number, createdByUserId: number, fineFees: number) {
     const [license, createdByUser] = await Promise.all([
