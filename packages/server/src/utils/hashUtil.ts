@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
 export function hash(password: string) {
-    return bcrypt.hash(password, 15);
+    return bcrypt.hash(password, 12);
 }
 
 export function compare(password: string, hash: string) {

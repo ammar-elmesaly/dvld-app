@@ -182,9 +182,8 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>, personId: number, h
     return;
   
 	const formData = new FormData(e.currentTarget);
-	formData.append('personId', personId.toString());
 
-	const res = await apiFetch(`${baseUrl}/person/edit`, {
+	const res = await apiFetch(`${baseUrl}/person/edit/${personId}`, {
 		method: 'PUT',
 		body: formData
 	});

@@ -13,16 +13,16 @@ export class TestType extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({ unique: true })
+    @Column({ type: 'smallint', unique: true })
     sequence_order: number;
 
     @Column({ type: 'enum', enum: TestTypeSystemName })
     system_name: TestTypeSystemName;
 
-    @Column()
+    @Column({ type: 'varchar' })
     type_name: string;
 
-    @Column()
+    @Column({ type: 'varchar' })
     type_description: string;
 
     @Column({ type: 'numeric' })

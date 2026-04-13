@@ -24,10 +24,10 @@ export class DetainedLicense extends BaseEntity {
     @JoinColumn({ name: 'license_id' })
     license: License;
 
-    @Column()
+    @Column({ type: 'date' })
     detain_date: Date;
 
-    @Column({ nullable: true })
+    @Column({ type: 'date', nullable: true })
     release_date: Date;
 
     @Column({ type: 'numeric' })

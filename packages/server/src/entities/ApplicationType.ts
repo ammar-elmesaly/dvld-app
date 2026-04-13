@@ -17,7 +17,7 @@ export class ApplicationType extends BaseEntity {
     @Column({ type: 'enum', enum: ApplicationTypeSystemName })
     system_name: ApplicationTypeSystemName;
 
-    @Column()
+    @Column({ type: 'varchar' })
     type_name: string;
 
     @Column({ type: 'numeric' })

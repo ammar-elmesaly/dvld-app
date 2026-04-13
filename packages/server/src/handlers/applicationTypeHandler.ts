@@ -21,8 +21,6 @@ export const editApplicationTypeByIdHandler: RequestHandler = async (req, res) =
 
     const { typeName, typeFees, defaultValidityLength } = req.body;
 
-    console.log({ applicationTypeId, typeName, typeFees, defaultValidityLength });
-
     const updateApplicationTypeId = await applicationTypeService.editApplicationTypeById(applicationTypeId as unknown as number, typeName, typeFees, defaultValidityLength);
 
     res.json(updateApplicationTypeId);

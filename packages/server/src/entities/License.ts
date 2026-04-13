@@ -61,10 +61,11 @@ export class License extends BaseEntity {
     )
     detained_licenses: DetainedLicense[];
     
-    @Column()
+    @Column({ type: 'boolean' })
     is_active: boolean;
     
     @VirtualColumn({
+        type: 'boolean',
         query: (alias) => `
             SELECT EXISTS (
                 SELECT 1 
@@ -76,13 +77,13 @@ export class License extends BaseEntity {
     })
     is_detained: boolean;
 
-    @Column()
+    @Column({ type: 'date' })
     issue_date: Date;
 
-    @Column()
+    @Column({ type: 'date' })
     expiration_date: Date;
 
-    @Column({ nullable: true })
+    @Column({ type: 'varchar', nullable: true })
     notes: string;
 
     @Column({ type: 'enum', enum: IssueReason })

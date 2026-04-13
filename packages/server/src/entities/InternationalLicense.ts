@@ -45,16 +45,16 @@ export class InternationalLicense extends BaseEntity {
     @JoinColumn({ name: 'driver_id' })
     driver: Driver;
 
-    @Column()
+    @Column({ type: 'boolean' })
     is_active: boolean;
     
-    @Column()
+    @Column({ type: 'date' })
     issue_date: Date;
 
-    @Column()
+    @Column({ type: 'date' })
     expiration_date: Date;
 
-    @Column({ nullable: true })
+    @Column({ type: 'varchar', nullable: true })
     notes: string;
 
     @Column({ type: 'numeric' })

@@ -27,7 +27,7 @@ export class Test extends BaseEntity {
     @Column({ type: 'enum', enum: TestResult })
     test_status: TestResult;
 
-    @Column({ nullable: true })
+    @Column({ type: 'varchar', nullable: true })
     notes: string;
 
     @ManyToOne(

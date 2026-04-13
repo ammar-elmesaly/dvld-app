@@ -35,10 +35,10 @@ export class TestAppointment extends BaseEntity {
     @JoinColumn({ name: 'local_driving_license_application_id' })
     local_driving_license_application: LocalDrivingLicenseApplication;
 
-    @Column()
+    @Column({ type: 'date' })
     appointment_date: Date
 
-    @CreateDateColumn()
+    @CreateDateColumn({ type: 'timestamp' })
     created_at: Date
 
     @Column({ type: 'numeric' })
@@ -52,7 +52,7 @@ export class TestAppointment extends BaseEntity {
     @JoinColumn({ name: 'created_by_user_id' })
     user: User;
 
-    @Column()
+    @Column({ type: 'boolean' })
     is_locked: boolean;
 
     @OneToOne(

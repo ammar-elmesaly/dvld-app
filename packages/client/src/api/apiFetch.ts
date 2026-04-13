@@ -1,5 +1,3 @@
-import { history } from '../helpers/history.js';
-
 export async function apiFetch(input: RequestInfo, init?: RequestInit) {
     const res = await fetch(input, { ...init, credentials: 'include' });
 
@@ -7,8 +5,7 @@ export async function apiFetch(input: RequestInfo, init?: RequestInit) {
         const data = await res.json().catch(() => ({}));
         
         if (res.status === 401) {
-            history.push('/login');
-            
+            window.location.hash = '/login';
         } else {
             alert(`Error: ${data.msg || 'Something went wrong'}`);
         }

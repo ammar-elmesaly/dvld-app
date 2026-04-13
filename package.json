@@ -6,11 +6,18 @@
     "packages/*"
   ],
   "scripts": {
+    "dev:server": "npm run start:dev -w @dvld/server",
+    "dev:client": "npm run start:dev -w @dvld/client",
+    
     "build": "tsc -b",
-    "clean": "rm -rf packages/*/dist",
-    "watch": "tsc -b -w",
-    "server": "npm run start -w @dvld/server",
-    "client": "npm run start:dev -w @dvld/client"
+    "build:client": "npm run build -w @dvld/client",
+    "build:server": "npm run build -w @dvld/server",
+    "run:server": "npm run start -w @dvld/server",
+    
+    "clean": "find . -name 'dist' -type d -exec rm -rf {} + && find . -name '*.tsbuildinfo' -type f -delete",
+
+    "dist:client": "npm run dist -w @dvld/client",
+    "lint": "npm run lint -w @dvld/client"
   },
   "devDependencies": {
     "typescript": "^5.4.0"

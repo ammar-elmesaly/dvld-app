@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import 'reflect-metadata';
 
 import express from 'express';
 import session from 'express-session';
@@ -9,6 +8,9 @@ import cors from 'cors';
 import { errorHandler } from './middleware/globalErrorHandler.js';
 import path from 'path';
 import { AppError } from './types/errors.js';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 declare module 'express-session' {
     interface SessionData {

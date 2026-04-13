@@ -77,12 +77,12 @@ export class User extends BaseEntity {
     )
     released_licenses: DetainedLicense[];
     
-    @Column({ unique: true })
+    @Column({ type: 'varchar', unique: true })
     username: string;
 
-    @Column()
+    @Column({ type: 'varchar' })
     password: string;
 
-    @Column()
+    @Column({ type: 'boolean' })
     is_active: boolean;
 }

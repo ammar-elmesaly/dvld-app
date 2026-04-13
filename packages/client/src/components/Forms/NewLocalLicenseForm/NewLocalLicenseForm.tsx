@@ -223,8 +223,6 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>, userId: number, per
     createdByUserId: userId
   }
 
-  console.log(payload)
-
   const res = await apiFetch(`${baseUrl}/application/new/local`, {
     method: 'POST',
     headers: {

@@ -35,7 +35,7 @@ export function toInternationalLicenseWithPersonDTO(license: InternationalLicens
             last_name: license.driver.person.last_name,
 
             national_id: license.driver.person.national_id,
-            date_of_birth: license.driver.person.date_of_birth.toLocaleDateString(),
+            date_of_birth: new Date(license.driver.person.date_of_birth).toLocaleDateString(),
             gender: license.driver.person.gender,
 
             address: license.driver.person.address,

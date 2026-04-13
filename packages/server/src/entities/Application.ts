@@ -83,9 +83,9 @@ export class Application extends BaseEntity {
     @Column({ type: 'numeric' })
     paid_fees: number;
 
-    @Column()
+    @Column({ type: 'date' })
     last_status_date: Date;
 
-    @CreateDateColumn()
+    @CreateDateColumn({ type: 'timestamp' })
     application_date: Date;
 }

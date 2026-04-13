@@ -8,11 +8,10 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
     if (rememberMe)
         console.log('Yes I will remember you dear :)');
-    
+
     const user = await getUserByName(username);
 
     const ok = await compare(password, user.password);
-
     if (!ok)
         throw new AppError('Invalid Credentials', 400);
     

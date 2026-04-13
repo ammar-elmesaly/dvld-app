@@ -14,13 +14,13 @@ export class LicenseClass extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column()
+    @Column({ type: 'varchar' })
     class_name: string;
 
     @Column({ type: 'enum', enum: LicenseClassSystemName })
     system_name: LicenseClassSystemName;
 
-    @Column()
+    @Column({ type: 'varchar' })
     class_description: string;
 
     @Column({ type: 'numeric' })

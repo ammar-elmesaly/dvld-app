@@ -5,7 +5,7 @@ export const toTestAppointmentDTO = (testAppointment: TestAppointment): TestAppo
     
     return {
         id: testAppointment.id,
-        appointment_date: testAppointment.appointment_date.toDateString(),
+        appointment_date: new Date(testAppointment.appointment_date).toDateString(),
         is_locked: testAppointment.is_locked,
         paid_fees: testAppointment.paid_fees,
         retake_test_fees: testAppointment.retake_test_application?.application_type.type_fees,

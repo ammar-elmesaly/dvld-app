@@ -43,7 +43,7 @@ export async function createTestAppointment(testTypeId: number, localDrivingLice
     if (!ldla) throw new AppError('Local driving license application not found', 404);
 
     const passedTestCount = ldla.passed_tests;
-    
+
     const testType = await TestType.findOneBy({ sequence_order: passedTestCount + 1 });
     if (!testType)
         throw new AppError('Test Type not found', 404);

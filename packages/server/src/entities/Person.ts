@@ -27,38 +27,38 @@ export class Person extends BaseEntity {
     )
     user: User
 
-    @Column()
+    @Column({ type: 'varchar' })
     first_name: string;
 
-    @Column()
+    @Column({ type: 'varchar' })
     second_name: string;
 
-    @Column()
+    @Column({ type: 'varchar' })
     third_name: string;
     
-    @Column()
+    @Column({ type: 'varchar' })
     last_name: string;
 
     get full_name() {
         return `${this.first_name} ${this.second_name} ${this.third_name} ${this.last_name}`;
     }
 
-    @Column({ unique: true, length: 4 })  // length 4 for development
+    @Column({ type: 'varchar', unique: true, length: 4 })  // length 4 for development
     national_id: string;
 
-    @Column()
+    @Column({ type: 'date' })
     date_of_birth: Date;
 
     @Column({ type: 'enum', enum: Gender })
     gender: Gender;
 
-    @Column()
+    @Column({ type: 'varchar' })
     address: string;
 
-    @Column({ length: 11, unique: true })
+    @Column({ type: 'varchar', length: 11, unique: true })
     phone_number: string;
 
-    @Column({ unique: true, nullable: true })
+    @Column({ type: 'varchar', unique: true, nullable: true })
     email?: string;
 
     @ManyToOne(
@@ -69,7 +69,7 @@ export class Person extends BaseEntity {
     @JoinColumn({ name: 'country_id' })
     national_country: Country;
 
-    @Column({ nullable: true })
+    @Column({ type: 'varchar', nullable: true })
     personal_photo: string;
 
     @OneToMany(

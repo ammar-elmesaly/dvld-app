@@ -38,6 +38,7 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src"],
   "references": [{ "path": "../shared" }]

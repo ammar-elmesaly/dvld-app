@@ -14,15 +14,26 @@ import { Driver } from './entities/Driver.js';
 import { License } from './entities/License.js';
 import { InternationalLicense } from './entities/InternationalLicense.js';
 import { DetainedLicense } from './entities/DetainedLicense.js';
+import { types } from 'pg';
+// import path from 'path';
+// import { fileURLToPath } from 'node:url';
+
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Postgres treats COUNT as a bigint string
+// 20 is the OID for BIGINT/COUNT in Postgres
+types.setTypeParser(20, (val) => {
+    return parseInt(val, 10);
+});
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: process.env.DB_HOST,
+    host: String(process.env.DB_HOST || 'localhost'),
     port: Number(process.env.DB_PORT) || 5432,
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    synchronize: process.env.NODE_ENV !== 'production',
+    username: String(process.env.DB_USERNAME),
+    password: String(process.env.DB_PASSWORD),
+    database: String(process.env.DB_NAME),
+    synchronize: process.env.NODE_ENV !== 'production' && process.env.DB_SYNCHRONIZE === 'true',
     entities: [
         Person,
         User,
@@ -38,5 +49,8 @@ export const AppDataSource = new DataSource({
         TestAppointment,
         Test,
         Driver
-    ]
+    ],
+    extra: {
+        authMechanism: 'scram-sha-256'
+    }
 });

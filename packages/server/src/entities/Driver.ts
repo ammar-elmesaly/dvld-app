@@ -51,8 +51,9 @@ export class Driver extends BaseEntity {
     international_license: InternationalLicense;
 
     @VirtualColumn({
+        type: 'integer',
         query: (alias) => `
-            SELECT COUNT(*)
+            SELECT COUNT(*)::integer
             FROM license
             WHERE driver_id = ${alias}.id
             AND is_active = true

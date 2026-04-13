@@ -12,7 +12,7 @@ export class Country extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({ unique: true })
+    @Column({ type: 'varchar', unique: true })
     country_name: string;
 
     @OneToMany(

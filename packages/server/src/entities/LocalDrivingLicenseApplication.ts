@@ -39,6 +39,7 @@ export class LocalDrivingLicenseApplication extends BaseEntity {
     test_appointments: TestAppointment[];
 
     @VirtualColumn({
+        type: 'integer',
         query: (alias) => `
             SELECT COUNT(DISTINCT ta.test_type_id) 
             FROM test t 
