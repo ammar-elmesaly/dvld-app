@@ -16,6 +16,7 @@ release
 .env
 .resources
 uploads/
+bin
 
 # Editor directories and files
 .vscode/*
