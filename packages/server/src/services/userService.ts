@@ -1,7 +1,7 @@
 import { PersonRepo } from '../repositories/PersonRepo.js';
 import { UserRepo } from '../repositories/UserRepo.js';
 import { AppError } from '../types/errors.js';
-import { hash } from '../utils/hashUtil.js';
+import { compare, hash } from '../utils/hashUtil.js';
 
 export const getAllUsers = () => {
     return UserRepo.find({ relations: { person: true } });
@@ -65,4 +65,23 @@ export const deleteUserById = async (userId: number, currentUserId: number) => {
     await user.remove();
 
     return id;
+}
+
+export const changePassword = async (currentUserId: number, currentPassword: string, newPassword: string, confirmPassword: string) => {
+    if (currentPassword === newPassword)
+        throw new AppError('New password has to be different from the old password', 400);
+
+    if (newPassword !== confirmPassword)
+        throw new AppError('New password and confirm password have to match', 400);
+
+    const user = await getUserById(currentUserId);
+    const isCorrectPassword = await compare(currentPassword, user.password);
+
+    if (!isCorrectPassword)
+        throw new AppError('You entered a wrong password', 400);
+
+    user.password = await hash(newPassword);
+    const updatedUser = await user.save();
+    
+    return updatedUser.id;
 }

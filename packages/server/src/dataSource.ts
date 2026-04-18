@@ -15,10 +15,6 @@ import { License } from './entities/License.js';
 import { InternationalLicense } from './entities/InternationalLicense.js';
 import { DetainedLicense } from './entities/DetainedLicense.js';
 import { types } from 'pg';
-// import path from 'path';
-// import { fileURLToPath } from 'node:url';
-
-// const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Postgres treats COUNT as a bigint string
 // 20 is the OID for BIGINT/COUNT in Postgres

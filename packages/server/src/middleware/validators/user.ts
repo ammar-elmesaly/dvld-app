@@ -31,3 +31,18 @@ export const validateEditUser = [
         .exists().withMessage('isActive is required')
         .isBoolean().withMessage('isActive must be boolean')
 ];
+
+export const validateChangeUserPassword = [
+    body('currentPassword')
+        .exists().withMessage('Current password is required')
+        .isString().withMessage('Current password must be a string'),
+
+    body('newPassword')
+        .exists().withMessage('New password is required')
+        .isString().withMessage('New password must be a string')
+        .isLength({ min: 3, max: 255 }).withMessage('New password must be between 3 and 255 characters'),
+
+    body('confirmPassword')
+        .exists().withMessage('Confirm password is required')
+        .isString().withMessage('Confirm password must be a string')
+]

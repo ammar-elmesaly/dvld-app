@@ -35,3 +35,12 @@ export const deleteUserByIdHandler: RequestHandler = async (req, res) => {
 
     res.json(deletedUserId);
 }
+
+export const changePasswordHandler: RequestHandler = async (req, res) => {
+    const currentUserId = req.session.userId;
+
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+    const updatedUserId = await userService.changePassword(currentUserId as number, currentPassword, newPassword, confirmPassword);
+
+    res.json(updatedUserId);
+}
