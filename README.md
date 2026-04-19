@@ -50,6 +50,18 @@ Run this command in the top-level:
 npm ci
 ```
 
+## Import Backup Database
+
+From the repository root, create the database (if missing), then import `backup.sql`:
+
+```bash
+npm run db:create
+```
+
+```bash
+psql -d dvld -f backup.sql
+```
+
 ## Development
 
 From the repository root, you can use the top-level workspace scripts:
@@ -100,6 +112,52 @@ npm run dist:client
 ```
 
 The client build also runs `electron-builder` to package the desktop app (using `npm run dist:client`).
+
+## Docker
+
+### Running with Docker Compose
+
+The project includes a multi-stage Dockerfile and docker-compose configuration for containerized deployment.
+
+**Prerequisites:**
+
+- Docker
+- Docker Compose
+
+**Start the application:**
+
+```bash
+docker compose up
+```
+
+This will:
+
+- Build the application image
+- Start a PostgreSQL database container
+- Import backup.sql into the PostgresSQL container (populate the db)
+- Start the DVLD server container
+- Expose the server on `http://localhost:3000`
+
+**Environment variables (docker-compose.yml):**
+
+Default PostgreSQL credentials:
+
+- `POSTGRES_USER=myuser`
+- `POSTGRES_PASSWORD=mypassword`
+- `POSTGRES_DB=dvld_db`
+
+You can override these in the `docker-compose.yml` file or use a `.env` file, make sure you match the `.env.docker` with it:
+
+```bash
+POSTGRES_USER=your_user
+POSTGRES_PASSWORD=your_password
+```
+
+**Stop the application:**
+
+```bash
+docker compose down
+```
 
 ## Top-Level Scripts (Root package.json)
 

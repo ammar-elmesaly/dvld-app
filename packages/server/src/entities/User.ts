@@ -7,14 +7,14 @@ import {
     OneToMany,
     JoinColumn,
 } from 'typeorm';
-import { Person } from './Person.js';
-import { Application } from './Application.js';
-import { TestAppointment } from './TestAppointment.js';
-import { Test } from './Test.js';
-import { License } from './License.js';
-import { Driver } from './Driver.js';
-import { InternationalLicense } from './InternationalLicense.js';
-import { DetainedLicense } from './DetainedLicense.js';
+import type { Person } from './Person.js';
+import type { Application } from './Application.js';
+import type { TestAppointment } from './TestAppointment.js';
+import type { Test } from './Test.js';
+import type { License } from './License.js';
+import type { Driver } from './Driver.js';
+import type { InternationalLicense } from './InternationalLicense.js';
+import type { DetainedLicense } from './DetainedLicense.js';
 
 @Entity()
 export class User extends BaseEntity {
@@ -22,58 +22,58 @@ export class User extends BaseEntity {
     id: number;
 
     @OneToOne(
-        () => Person,
-        person => person.user,
+        'Person',
+        (person: Person) => person.user,
         { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'person_id' })
     person: Person;
     
     @OneToMany(
-        () => Application,
-        application => application.created_by_user
+        'Application',
+        (application: Application) => application.created_by_user
     )
     applications: Application[]
     
     @OneToMany(
-        () => TestAppointment,
-        test_appointment => test_appointment.user
+        'TestAppointment',
+        (test_appointment: TestAppointment) => test_appointment.user
     )
     test_appointments: TestAppointment[]
 
     @OneToMany(
-        () => Test,
-        test => test.user
+        'Test',
+        (test: Test) => test.user
     )
     tests: Test[];
 
     @OneToMany(
-        () => License,
-        license => license.user
+        'License',
+        (license: License) => license.user
     )
     licenses: License[];
 
     @OneToMany(
-        () => InternationalLicense,
-        intLicense => intLicense.user
+        'InternationalLicense',
+        (intLicense: InternationalLicense) => intLicense.user
     )
     internationalLicenses: InternationalLicense[];
     
     @OneToMany(
-        () => Driver,
-        driver => driver.user
+        'Driver',
+        (driver: Driver) => driver.user
     )
     drivers: Driver[];
 
     @OneToMany(
-        () => DetainedLicense,
-        detained_license => detained_license.created_by_user
+        'DetainedLicense',
+        (detained_license: DetainedLicense) => detained_license.created_by_user
     )
     detained_licenses: DetainedLicense[];
 
     @OneToMany(
-        () => DetainedLicense,
-        detained_license => detained_license.released_by_user
+        'DetainedLicense',
+        (detained_license: DetainedLicense) => detained_license.released_by_user
     )
     released_licenses: DetainedLicense[];
     

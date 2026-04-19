@@ -7,9 +7,9 @@ import {
     JoinColumn,
     OneToOne
 } from 'typeorm';
-import { License } from './License.js';
-import { User } from './User.js';
-import { Application } from './Application.js';
+import type { License } from './License.js';
+import type { User } from './User.js';
+import type { Application } from './Application.js';
 
 @Entity()
 export class DetainedLicense extends BaseEntity {
@@ -17,8 +17,8 @@ export class DetainedLicense extends BaseEntity {
     id: number;
 
     @ManyToOne(
-        () => License,
-        license => license.detained_licenses,  // one license can be detained multiple times,
+        'License',
+        (license: License) => license.detained_licenses,  // one license can be detained multiple times,
         { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'license_id' })
@@ -34,24 +34,24 @@ export class DetainedLicense extends BaseEntity {
     fine_fees: number;
 
     @ManyToOne(
-        () => User,
-        user => user.detained_licenses,
+        'User',
+        (user: User) => user.detained_licenses,
         { nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id' })
     created_by_user: User;
 
     @ManyToOne(
-        () => User,
-        user => user.released_licenses,
+        'User',
+        (user: User) => user.released_licenses,
         { nullable: true }
     )
     @JoinColumn({ name: 'released_by_user_id' })
     released_by_user: User;
 
     @OneToOne(
-        () => Application,
-        application => application.detained_license,
+        'Application',
+        (application: Application) => application.detained_license,
         { nullable: true }
     )
     @JoinColumn({ name: 'release_application_id' })

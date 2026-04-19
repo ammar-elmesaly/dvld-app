@@ -5,7 +5,7 @@ import {
     PrimaryGeneratedColumn,
     OneToMany
 } from 'typeorm';
-import { Application } from './Application.js';
+import type { Application } from './Application.js';
 
 import { ApplicationTypeSystemName } from '@dvld/shared';
 
@@ -27,8 +27,8 @@ export class ApplicationType extends BaseEntity {
     default_validity_length: number;
 
     @OneToMany(
-        () => Application,
-        application => application.application_type
+        'Application',
+        (application: Application) => application.application_type
     )
     applications: Application[]
 }

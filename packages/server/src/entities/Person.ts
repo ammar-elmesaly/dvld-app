@@ -9,11 +9,11 @@ import {
     OneToMany,
     Unique
 } from 'typeorm';
-import { User } from './User.js';
-import { Country } from './Country.js';
-import { Application } from './Application.js';
+import type { User } from './User.js';
+import type { Country } from './Country.js';
+import type { Application } from './Application.js';
 import { Gender } from '@dvld/shared';
-import { Driver } from './Driver.js';
+import type { Driver } from './Driver.js';
 
 @Unique('UQ_full_name', ['first_name', 'second_name', 'third_name', 'last_name'])
 @Entity()
@@ -22,8 +22,8 @@ export class Person extends BaseEntity {
     id: number;
 
     @OneToOne(
-        () => User,
-        user => user.person
+        'User',
+        (user: User) => user.person
     )
     user: User
 
@@ -62,8 +62,8 @@ export class Person extends BaseEntity {
     email?: string;
 
     @ManyToOne(
-        () => Country,
-        country => country.persons,
+        'Country',
+        (country: Country) => country.persons,
         { onDelete: 'RESTRICT', nullable: false }
     )
     @JoinColumn({ name: 'country_id' })
@@ -73,14 +73,14 @@ export class Person extends BaseEntity {
     personal_photo: string;
 
     @OneToMany(
-        () => Application,
-        application => application.person
+        'Application',
+        (application: Application) => application.person
     )
     applications: Application[];
 
     @OneToOne(
-        () => Driver,
-        driver => driver.person
+        'Driver',
+        (driver: Driver) => driver.person
     )
     driver: Driver;
 }

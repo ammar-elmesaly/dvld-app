@@ -8,11 +8,11 @@ import {
     OneToOne,
     CreateDateColumn
 } from 'typeorm';
-import { TestType } from './TestType.js';
-import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication.js';
-import { User } from './User.js';
-import { Application } from './Application.js';
-import { Test } from './Test.js';
+import type { TestType } from './TestType.js';
+import type { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication.js';
+import type { User } from './User.js';
+import type { Application } from './Application.js';
+import type { Test } from './Test.js';
 
 @Entity()
 export class TestAppointment extends BaseEntity {
@@ -20,16 +20,16 @@ export class TestAppointment extends BaseEntity {
     id: number;
 
     @ManyToOne(
-        () => TestType,
-        test_type => test_type.test_appointments,
+        'TestType',
+        (test_type: TestType) => test_type.test_appointments,
         { onDelete: 'RESTRICT', nullable: false }
     )
     @JoinColumn({ name: 'test_type_id' })
     test_type: TestType;
 
     @ManyToOne(
-        () => LocalDrivingLicenseApplication,
-        ldla => ldla.test_appointments,
+        'LocalDrivingLicenseApplication',
+        (ldla: LocalDrivingLicenseApplication) => ldla.test_appointments,
         { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'local_driving_license_application_id' })
@@ -45,8 +45,8 @@ export class TestAppointment extends BaseEntity {
     paid_fees: number;
 
     @ManyToOne(
-        () => User,
-        user => user.test_appointments,
+        'User',
+        (user: User) => user.test_appointments,
         { nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id' })
@@ -56,16 +56,16 @@ export class TestAppointment extends BaseEntity {
     is_locked: boolean;
 
     @OneToOne(
-        () => Application,
-        application => application.test_appointment,
+        'Application',
+        (application: Application) => application.test_appointment,
         { nullable: true, onDelete: 'CASCADE' }
     )
     @JoinColumn({ name: 'retake_test_application_id' })
     retake_test_application?: Application;
     
     @OneToOne(
-        () => Test,
-        test => test.test_appointment,
+        'Test',
+        (test: Test) => test.test_appointment,
     )
     test: Test;
 }

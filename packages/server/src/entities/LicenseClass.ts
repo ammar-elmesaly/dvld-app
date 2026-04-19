@@ -5,8 +5,8 @@ import {
     PrimaryGeneratedColumn,
     OneToMany,
 } from 'typeorm';
-import { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication.js';
-import { License } from './License.js';
+import type { LocalDrivingLicenseApplication } from './LocalDrivingLicenseApplication.js';
+import type { License } from './License.js';
 import { LicenseClassSystemName } from '@dvld/shared';
 
 @Entity()
@@ -33,14 +33,14 @@ export class LicenseClass extends BaseEntity {
     default_validity_length: number;
 
     @OneToMany(
-        () => LocalDrivingLicenseApplication,
-        local_driving_license_application => local_driving_license_application.license_class,
+        'LocalDrivingLicenseApplication',
+        (local_driving_license_application: LocalDrivingLicenseApplication) => local_driving_license_application.license_class,
     )
     local_driving_license_application: LocalDrivingLicenseApplication;
 
     @OneToMany(
-        () => License,
-        license => license.license_class
+        'License',
+        (license: License) => license.license_class
     )
     licenses: License[];
 }

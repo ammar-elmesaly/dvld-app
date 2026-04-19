@@ -5,7 +5,7 @@ import {
     PrimaryGeneratedColumn,
     OneToMany
 } from 'typeorm';
-import { Person } from './Person.js';
+import type { Person } from './Person.js';
 
 @Entity()
 export class Country extends BaseEntity {
@@ -16,8 +16,8 @@ export class Country extends BaseEntity {
     country_name: string;
 
     @OneToMany(
-        () => Person,
-        person => person.national_country
+        'Person',
+        (person: Person) => person.national_country
     )
     persons: Person[]
 }

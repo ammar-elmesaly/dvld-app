@@ -7,9 +7,9 @@ import {
     JoinColumn,
     ManyToOne
 } from 'typeorm';
-import { TestAppointment } from './TestAppointment.js';
+import type { TestAppointment } from './TestAppointment.js';
 import { TestResult } from '@dvld/shared';
-import { User } from './User.js';
+import type { User } from './User.js';
 
 @Entity()
 export class Test extends BaseEntity {
@@ -17,8 +17,8 @@ export class Test extends BaseEntity {
     id: number;
 
     @OneToOne(
-        () => TestAppointment,
-        test_appointment => test_appointment.test,
+        'TestAppointment',
+        (test_appointment: TestAppointment) => test_appointment.test,
         { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: "test_appointment_id" })
@@ -31,8 +31,8 @@ export class Test extends BaseEntity {
     notes: string;
 
     @ManyToOne(
-        () => User,
-        user => user.tests,
+        'User',
+        (user: User) => user.tests,
         { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id' })

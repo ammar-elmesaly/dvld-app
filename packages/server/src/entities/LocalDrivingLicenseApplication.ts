@@ -8,9 +8,9 @@ import {
     OneToMany,
     VirtualColumn
 } from 'typeorm';
-import { Application } from './Application.js';
-import { LicenseClass } from './LicenseClass.js';
-import { TestAppointment } from './TestAppointment.js';
+import type { Application } from './Application.js';
+import type { LicenseClass } from './LicenseClass.js';
+import type { TestAppointment } from './TestAppointment.js';
 
 @Entity()
 export class LocalDrivingLicenseApplication extends BaseEntity {
@@ -18,23 +18,23 @@ export class LocalDrivingLicenseApplication extends BaseEntity {
     id: number;
 
     @OneToOne(
-        () => Application,
-        application => application.local_driving_license_application,
+        'Application',
+        (application: Application) => application.local_driving_license_application,
         { onDelete: 'CASCADE', nullable: false }        
     )
     @JoinColumn({ name: 'application_id' })
     application: Application;
 
     @ManyToOne(
-        () => LicenseClass,
-        license_class => license_class.local_driving_license_application,
+        'LicenseClass',
+        (license_class: LicenseClass) => license_class.local_driving_license_application,
         { onDelete: 'RESTRICT' }
     )
     license_class: LicenseClass;
 
     @OneToMany(
-        () => TestAppointment,
-        test_appointment => test_appointment.local_driving_license_application
+        'TestAppointment',
+        (test_appointment: TestAppointment) => test_appointment.local_driving_license_application
     )
     test_appointments: TestAppointment[];
 

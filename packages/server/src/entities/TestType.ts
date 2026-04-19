@@ -5,7 +5,7 @@ import {
     PrimaryGeneratedColumn,
     OneToMany,
 } from 'typeorm';
-import { TestAppointment } from './TestAppointment.js';
+import type { TestAppointment } from './TestAppointment.js';
 import { TestTypeSystemName } from '@dvld/shared';
 
 @Entity()
@@ -29,8 +29,8 @@ export class TestType extends BaseEntity {
     type_fees: number;
 
     @OneToMany(
-        () => TestAppointment,
-        test_appointment => test_appointment.test_type
+        'TestAppointment',
+        (test_appointment: TestAppointment) => test_appointment.test_type
     )
     test_appointments: TestAppointment[]
 }

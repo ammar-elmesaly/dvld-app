@@ -9,10 +9,10 @@ import {
     Index
 } from 'typeorm';
 
-import { Application } from './Application.js';
-import { Driver } from './Driver.js';
-import { User } from './User.js';
-import { License } from './License.js';
+import type { Application } from './Application.js';
+import type { Driver } from './Driver.js';
+import type { User } from './User.js';
+import type { License } from './License.js';
 
 @Entity()
 @Index("UQ_active_driver_license", ["driver"], { unique: true, where: "is_active = true" })
@@ -21,16 +21,16 @@ export class InternationalLicense extends BaseEntity {
     id: number;
 
     @OneToOne(
-        () => License,
-        license => license.international_license,
+        'License',
+        (license: License) => license.international_license,
         { nullable: false }
     )
     @JoinColumn({ name: 'local_license_id'})
     local_license: License;
 
     @OneToOne(
-        () => Application,
-        application => application.international_license,
+        'Application',
+        (application: Application) => application.international_license,
         { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'application_id' })
@@ -38,8 +38,8 @@ export class InternationalLicense extends BaseEntity {
 
 
     @OneToOne(
-        () => Driver,
-        driver => driver.international_license,
+        'Driver',
+        (driver: Driver) => driver.international_license,
         { onDelete: 'CASCADE', nullable: false }
     )
     @JoinColumn({ name: 'driver_id' })
@@ -61,8 +61,8 @@ export class InternationalLicense extends BaseEntity {
     paid_fees: number;
 
     @ManyToOne(
-        () => User,
-        user => user.internationalLicenses,
+        'User',
+        (user: User) => user.internationalLicenses,
         { nullable: false }
     )
     @JoinColumn({ name: 'created_by_user_id'})

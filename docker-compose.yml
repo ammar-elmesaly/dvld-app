@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:17
+    container_name: dvld_db
+    environment:
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=dvld_db
+      - POSTGRES_INITDB_ARGS="--auth-host=scram-sha-256"
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser -d dvld_db"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+
+  server:
+    build: .
+    container_name: dvld_server
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
