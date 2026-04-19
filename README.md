@@ -34,6 +34,7 @@ DB_PORT=5432
 DB_USERNAME=your_db_user
 DB_PASSWORD=your_db_password
 DB_NAME=dvld
+PORT=3000
 SESSION_SECRET=your_session_secret
 NODE_ENV='development' | 'production'
 CORS_ORIGIN='http://localhost:5173'
@@ -58,6 +59,15 @@ npm install
 
 ## Development
 
+From the repository root, you can use the top-level workspace scripts:
+
+```bash
+npm run dev:server
+npm run dev:client
+```
+
+Equivalent package-level commands:
+
 Start the server (API):
 
 ```bash
@@ -79,38 +89,38 @@ Default ports:
 
 ## Build
 
-Build the shared package first, then server and client:
+From the repository root:
 
 ```bash
-cd packages/shared
 npm run build
+```
 
-cd ../server
-npm run build
+This runs `build:shared` and then compiles the referenced TypeScript projects.
 
-cd ../client
-npm run build
+Other top-level build scripts:
+
+```bash
+npm run build:shared
+npm run build:server
+npm run build:client
+npm run dist:client
 ```
 
 The client build also runs `electron-builder` to package the desktop app.
 
-## Useful Scripts
+## Top-Level Scripts (Root package.json)
 
-### Client (`packages/client`)
-
-- `npm run start:dev` — Vite dev server (Electron renderer)
-- `npm run build` — Build + package Electron app
-- `npm run preview` — Preview Vite build
-
-### Server (`packages/server`)
-
-- `npm run start:dev` — Nodemon + TS
-- `npm run build` — Compile TypeScript
-- `npm run start` — Run compiled server
-
-### Shared (`packages/shared`)
-
-- `npm run build` — Compile TypeScript DTOs/types
+- `npm run dev:server` - Run server in development mode (`@dvld/server`)
+- `npm run dev:client` - Run client in development mode (`@dvld/client`)
+- `npm run build` - Build shared package, then run TypeScript project build
+- `npm run build:shared` - Build `@dvld/shared`
+- `npm run build:client` - Build `@dvld/client`
+- `npm run build:server` - Build `@dvld/server`
+- `npm run run:server` - Run server in production mode (`@dvld/server`)
+- `npm run dist:client` - Create client distribution package (`@dvld/client`)
+- `npm run clean` - Clean TypeScript build outputs (`tsc -b --clean`)
+- `npm run db:create` - Create PostgreSQL `dvld` database if it does not exist
+- `npm run lint` - Run client lint checks (`@dvld/client`)
 
 ## API Routing (Server)
 
