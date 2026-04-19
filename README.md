@@ -44,17 +44,10 @@ The server uses `typeorm` with `synchronize: true` (in development mode), so it 
 
 ## Install Dependencies
 
-Run these in each package:
+Run this command in the top-level:
 
 ```bash
-cd packages/shared
-npm install
-
-cd ../server
-npm install
-
-cd ../client
-npm install
+npm ci
 ```
 
 ## Development
@@ -106,7 +99,7 @@ npm run build:client
 npm run dist:client
 ```
 
-The client build also runs `electron-builder` to package the desktop app.
+The client build also runs `electron-builder` to package the desktop app (using `npm run dist:client`).
 
 ## Top-Level Scripts (Root package.json)
 
